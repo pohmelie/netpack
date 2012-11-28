@@ -168,7 +168,8 @@ class Connection():
         real[s] = tuple(map(self.dropfilter, self.i[s].add(eth)))
         self.o[s].update(self.i[s].seq, tcp.header.ack)
         for i in (s, d):
-            retpack[i] = retpack[i] + tuple(map(self.o[s if i == d else d].add, real[i] + fake[i]))
+            f = tuple(map(lambda x: self.make(x, i == Connection.CLIENT), fake[i]))
+            retpack[i] = retpack[i] + tuple(map(self.o[s if i == d else d].add, real[i] + f))
 
         if tcp.header.flags.rst:
             return Connection.RESET, tuple(retpack)

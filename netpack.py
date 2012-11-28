@@ -105,7 +105,7 @@ class Netpack():
                             break
                 except:
                     pass
-            return True, ((), ())
+            return True, ((), (b"",))
         else:
             return False, ((), ())
 

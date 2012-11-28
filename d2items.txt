@@ -1,0 +1,654 @@
+Cap|cap|Helm|Normal
+Skull Cap|skp|Helm|Normal
+Helm|hlm|Helm|Normal
+Full Helm|fhl|Helm|Normal
+Great Helm|ghm|Helm|Normal
+Crown|crn|Helm|Normal
+Mask|msk|Helm|Normal
+Quilted Armor|qui|Armor|Normal
+Leather Armor|lea|Armor|Normal
+Hard Leather Armor|hla|Armor|Normal
+Studded Leather|stu|Armor|Normal
+Ring Mail|rng|Armor|Normal
+Scale Mail|scl|Armor|Normal
+Chain Mail|chn|Armor|Normal
+Breast Plate|brs|Armor|Normal
+Splint Mail|spl|Armor|Normal
+Plate Mail|plt|Armor|Normal
+Field Plate|fld|Armor|Normal
+Gothic Plate|gth|Armor|Normal
+Full Plate Mail|ful|Armor|Normal
+Ancient Armor|aar|Armor|Normal
+Light Plate|ltp|Armor|Normal
+Buckler|buc|Shield|Normal
+Small Shield|sml|Shield|Normal
+Large Shield|lrg|Shield|Normal
+Kite Shield|kit|Shield|Normal
+Tower Shield|tow|Shield|Normal
+Gothic Shield|gts|Shield|Normal
+Leather Gloves|lgl|Gloves|Normal
+Heavy Gloves|vgl|Gloves|Normal
+Chain Gloves|mgl|Gloves|Normal
+Light Gauntlets|tgl|Gloves|Normal
+Gauntlets|hgl|Gloves|Normal
+Boots|lbt|Boots|Normal
+Heavy Boots|vbt|Boots|Normal
+Chain Boots|mbt|Boots|Normal
+Light Plated Boots|tbt|Boots|Normal
+Greaves|hbt|Boots|Normal
+Sash|lbl|Belt|Normal
+Light Belt|vbl|Belt|Normal
+Belt|mbl|Belt|Normal
+Heavy Belt|tbl|Belt|Normal
+Plated Belt|hbl|Belt|Normal
+Bone Helm|bhm|Helm|Normal
+Bone Shield|bsh|Shield|Normal
+Spiked Shield|spk|Shield|Normal
+War Hat|xap|Helm|Exceptional
+Sallet|xkp|Helm|Exceptional
+Casque|xlm|Helm|Exceptional
+Basinet|xhl|Helm|Exceptional
+Winged Helm|xhm|Helm|Exceptional
+Grand Crown|xrn|Helm|Exceptional
+Death Mask|xsk|Helm|Exceptional
+Ghost Armor|xui|Armor|Exceptional
+Serpentskin Armor|xea|Armor|Exceptional
+Demonhide Armor|xla|Armor|Exceptional
+Trellised Armor|xtu|Armor|Exceptional
+Linked Mail|xng|Armor|Exceptional
+Tigulated Mail|xcl|Armor|Exceptional
+Mesh Armor|xhn|Armor|Exceptional
+Cuirass|xrs|Armor|Exceptional
+Russet Armor|xpl|Armor|Exceptional
+Templar Coat|xlt|Armor|Exceptional
+Sharktooth Armor|xld|Armor|Exceptional
+Embossed Plate|xth|Armor|Exceptional
+Chaos Armor|xul|Armor|Exceptional
+Ornate Plate|xar|Armor|Exceptional
+Mage Plate|xtp|Armor|Exceptional
+Defender|xuc|Shield|Exceptional
+Round Shield|xml|Shield|Exceptional
+Scutum|xrg|Shield|Exceptional
+Dragon Shield|xit|Shield|Exceptional
+Pavise|xow|Shield|Exceptional
+Ancient Shield|xts|Shield|Exceptional
+Demonhide Gloves|xlg|Gloves|Exceptional
+Sharkskin Gloves|xvg|Gloves|Exceptional
+Heavy Bracers|xmg|Gloves|Exceptional
+Battle Gauntlets|xtg|Gloves|Exceptional
+War Gauntlets|xhg|Gloves|Exceptional
+Demonhide Boots|xlb|Boots|Exceptional
+Sharkskin Boots|xvb|Boots|Exceptional
+Mesh Boots|xmb|Boots|Exceptional
+Battle Boots|xtb|Boots|Exceptional
+War Boots|xhb|Boots|Exceptional
+Demonhide Sash|zlb|Belt|Exceptional
+Sharkskin Belt|zvb|Belt|Exceptional
+Mesh Belt|zmb|Belt|Exceptional
+Battle Belt|ztb|Belt|Exceptional
+War Belt|zhb|Belt|Exceptional
+Grim Helm|xh9|Helm|Exceptional
+Grim Shield|xsh|Shield|Exceptional
+Barbed Shield|xpk|Shield|Exceptional
+Wolf Head|dr1|Druid Pelt|Normal
+Hawk Helm|dr2|Druid Pelt|Normal
+Antlers|dr3|Druid Pelt|Normal
+Falcon Mask|dr4|Druid Pelt|Normal
+Spirit Mask|dr5|Druid Pelt|Normal
+Jawbone Cap|ba1|Barbarian Helm|Normal
+Fanged Helm|ba2|Barbarian Helm|Normal
+Horned Helm|ba3|Barbarian Helm|Normal
+Assault Helmet|ba4|Barbarian Helm|Normal
+Avenger Guard|ba5|Barbarian Helm|Normal
+Targe|pa1|Paladin Shield|Normal
+Rondache|pa2|Paladin Shield|Normal
+Heraldic Shield|pa3|Paladin Shield|Normal
+Aerin Shield|pa4|Paladin Shield|Normal
+Crown Shield|pa5|Paladin Shield|Normal
+Preserved Head|ne1|Necromancer Shrunken Head|Normal
+Zombie Head|ne2|Necromancer Shrunken Head|Normal
+Unraveller Head|ne3|Necromancer Shrunken Head|Normal
+Gargoyle Head|ne4|Necromancer Shrunken Head|Normal
+Demon Head|ne5|Necromancer Shrunken Head|Normal
+Circlet|ci0|Circlet|Normal
+Coronet|ci1|Circlet|Normal
+Tiara|ci2|Circlet|Exceptional
+Diadem|ci3|Circlet|Elite
+Shako|uap|Helm|Elite
+Hydraskull|ukp|Helm|Elite
+Armet|ulm|Helm|Elite
+Giant Conch|uhl|Helm|Elite
+Spired Helm|uhm|Helm|Elite
+Corona|urn|Helm|Elite
+Demonhead|usk|Helm|Elite
+Dusk Shroud|uui|Armor|Elite
+Wyrmhide|uea|Armor|Elite
+Scarab Husk|ula|Armor|Elite
+Wire Fleece|utu|Armor|Elite
+Diamond Mail|ung|Armor|Elite
+Loricated Mail|ucl|Armor|Elite
+Boneweave|uhn|Armor|Elite
+Great Hauberk|urs|Armor|Elite
+Balrog Skin|upl|Armor|Elite
+Hellforge Plate|ult|Armor|Elite
+Kraken Shell|uld|Armor|Elite
+Lacquered Plate|uth|Armor|Elite
+Shadow Plate|uul|Armor|Elite
+Sacred Armor|uar|Armor|Elite
+Archon Plate|utp|Armor|Elite
+Heater|uuc|Shield|Elite
+Luna|uml|Shield|Elite
+Hyperion|urg|Shield|Elite
+Monarch|uit|Shield|Elite
+Aegis|uow|Shield|Elite
+Ward|uts|Shield|Elite
+Bramble Mitts|ulg|Gloves|Elite
+Vampirebone Gloves|uvg|Gloves|Elite
+Vambraces|umg|Gloves|Elite
+Crusader Gauntlets|utg|Gloves|Elite
+Ogre Gauntlets|uhg|Gloves|Elite
+Wyrmhide Boots|ulb|Boots|Elite
+Scarabshell Boots|uvb|Boots|Elite
+Boneweave Boots|umb|Boots|Elite
+Mirrored Boots|utb|Boots|Elite
+Myrmidon Greaves|uhb|Boots|Elite
+Spiderweb Sash|ulc|Belt|Elite
+Vampirefang Belt|uvc|Belt|Elite
+Mithril Coil|umc|Belt|Elite
+Troll Belt|utc|Belt|Elite
+Colossus Girdle|uhc|Belt|Elite
+Bone Visage|uh9|Helm|Elite
+Troll Nest|ush|Shield|Elite
+Blade Barrier|upk|Shield|Elite
+Alpha Helm|dr6|Druid Pelt|Exceptional
+Griffon Headdress|dr7|Druid Pelt|Exceptional
+Hunter's Guise|dr8|Druid Pelt|Exceptional
+Sacred Feathers|dr9|Druid Pelt|Exceptional
+Totemic Mask|dra|Druid Pelt|Exceptional
+Jawbone Visor|ba6|Barbarian Helm|Exceptional
+Lion Helm|ba7|Barbarian Helm|Exceptional
+Rage Mask|ba8|Barbarian Helm|Exceptional
+Savage Helmet|ba9|Barbarian Helm|Exceptional
+Slayer Guard|baa|Barbarian Helm|Exceptional
+Akaran Targe|pa6|Paladin Shield|Exceptional
+Akaran Rondache|pa7|Paladin Shield|Exceptional
+Protector Shield|pa8|Paladin Shield|Exceptional
+Gilded Shield|pa9|Paladin Shield|Exceptional
+Royal Shield|paa|Paladin Shield|Exceptional
+Mummified Trophy|ne6|Necromancer Shrunken Head|Exceptional
+Fetish Trophy|ne7|Necromancer Shrunken Head|Exceptional
+Sexton Trophy|ne8|Necromancer Shrunken Head|Exceptional
+Cantor Trophy|ne9|Necromancer Shrunken Head|Exceptional
+Hierophant Trophy|nea|Necromancer Shrunken Head|Exceptional
+Blood Spirit|drb|Druid Pelt|Elite
+Sun Spirit|drc|Druid Pelt|Elite
+Earth Spirit|drd|Druid Pelt|Elite
+Sky Spirit|dre|Druid Pelt|Elite
+Dream Spirit|drf|Druid Pelt|Elite
+Carnage Helm|bab|Barbarian Helm|Elite
+Fury Visor|bac|Barbarian Helm|Elite
+Destroyer Helm|bad|Barbarian Helm|Elite
+Conqueror Crown|bae|Barbarian Helm|Elite
+Guardian Crown|baf|Barbarian Helm|Elite
+Sacred Targe|pab|Paladin Shield|Elite
+Sacred Rondache|pac|Paladin Shield|Elite
+Kurast Shield|pad|Paladin Shield|Elite
+Zakarum Shield|pae|Paladin Shield|Elite
+Vortex Shield|paf|Paladin Shield|Elite
+Minion Skull|neb|Necromancer Shrunken Head|Elite
+Hellspawn Skull|neg|Necromancer Shrunken Head|Elite
+Overseer Skull|ned|Necromancer Shrunken Head|Elite
+Succubus Skull|nee|Necromancer Shrunken Head|Elite
+Bloodlord Skull|nef|Necromancer Shrunken Head|Elite
+Elixir|elx|Elixir|
+hpo|hpo|Health Potion|
+mpo|mpo|Mana Potion|
+hpf|hpf|Health Potion|
+mpf|mpf|Mana Potion|
+Stamina Potion|vps|Stamina Potion|
+Antidote Potion|yps|Antidote Potion|
+Rejuvenation Potion|rvs|Rejuvenation Potion|
+Full Rejuvenation Potion|rvl|Rejuvenation Potion|
+Thawing Potion|wms|Thawing Potion|
+Tome of Town Portal|tbk|Tome|
+Tome of Identify|ibk|Tome|
+Amulet|amu|Amulet|
+Top of the Horadric Staff|vip|Amulet|
+Ring|rin|Ring|
+Gold|gld|Gold|
+Scroll of Inifuss|bks|Quest Item|
+Key to the Cairn Stones|bkd|Quest Item|
+Arrows|aqv|Arrows|
+Torch|tch|Torch|
+Bolts|cqv|Bolts|
+Scroll of Town Portal|tsc|Scroll|
+Scroll of Identify|isc|Scroll|
+Heart|hrt|Body Part|
+Brain|brz|Body Part|
+Jawbone|jaw|Body Part|
+Eye|eyz|Body Part|
+Horn|hrn|Body Part|
+Tail|tal|Body Part|
+Flag|flg|Body Part|
+Fang|fng|Body Part|
+Quill|qll|Body Part|
+Soul|sol|Body Part|
+Scalp|scz|Body Part|
+Spleen|spe|Body Part|
+Key|key|Key|
+The Black Tower Key|luv|Key|
+Potion of Life|xyz|Quest Item|
+A Jade Figurine|j34|Quest Item|
+The Golden Bird|g34|Quest Item|
+Lam Esen's Tome|bbb|Quest Item|
+Horadric Cube|box|Quest Item|
+Horadric Scroll|tr1|Quest Item|
+Mephisto's Soulstone|mss|Quest Item|
+Book of Skill|ass|Quest Item|
+Khalim's Eye|qey|Quest Item|
+Khalim's Heart|qhr|Quest Item|
+Khalim's Brain|qbr|Quest Item|
+Ear|ear|Ear|
+Chipped Amethyst|gcv|Gem|
+Flawed Amethyst|gfv|Gem|
+Amethyst|gsv|Gem|
+Flawless Amethyst|gzv|Gem|
+Perfect Amethyst|gpv|Gem|
+Chipped Topaz|gcy|Gem|
+Flawed Topaz|gfy|Gem|
+Topaz|gsy|Gem|
+Flawless Topaz|gly|Gem|
+Perfect Topaz|gpy|Gem|
+Chipped Sapphire|gcb|Gem|
+Flawed Sapphire|gfb|Gem|
+Sapphire|gsb|Gem|
+Flawless Sapphire|glb|Gem|
+Perfect Sapphire|gpb|Gem|
+Chipped Emerald|gcg|Gem|
+Flawed Emerald|gfg|Gem|
+Emerald|gsg|Gem|
+Flawless Emerald|glg|Gem|
+Perfect Emerald|gpg|Gem|
+Chipped Ruby|gcr|Gem|
+Flawed Ruby|gfr|Gem|
+Ruby|gsr|Gem|
+Flawless Ruby|glr|Gem|
+Perfect Ruby|gpr|Gem|
+Chipped Diamond|gcw|Gem|
+Flawed Diamond|gfw|Gem|
+Diamond|gsw|Gem|
+Flawless Diamond|glw|Gem|
+Perfect Diamond|gpw|Gem|
+Minor Healing Potion|hp1|Health Potion|
+Light Healing Potion|hp2|Health Potion|
+Healing Potion|hp3|Health Potion|
+Greater Healing Potion|hp4|Health Potion|
+Super Healing Potion|hp5|Health Potion|
+Minor Mana Potion|mp1|Mana Potion|
+Light Mana Potion|mp2|Mana Potion|
+Mana Potion|mp3|Mana Potion|
+Greater Mana Potion|mp4|Mana Potion|
+Super Mana Potion|mp5|Mana Potion|
+Chipped Skull|skc|Gem|
+Flawed Skull|skf|Gem|
+Skull|sku|Gem|
+Flawless Skull|skl|Gem|
+Perfect Skull|skz|Gem|
+Herb|hrb|Herb|
+Small Charm|cm1|Small Charm|
+Large Charm|cm2|Large Charm|
+Grand Charm|cm3|Grand Charm|
+rps|rps|Health Potion|
+rpl|rpl|Health Potion|
+bps|bps|Mana Potion|
+bpl|bpl|Mana Potion|
+El Rune|r01|Rune|
+Eld Rune|r02|Rune|
+Tir Rune|r03|Rune|
+Nef Rune|r04|Rune|
+Eth Rune|r05|Rune|
+Ith Rune|r06|Rune|
+Tal Rune|r07|Rune|
+Ral Rune|r08|Rune|
+Ort Rune|r09|Rune|
+Thul Rune|r10|Rune|
+Amn Rune|r11|Rune|
+Sol Rune|r12|Rune|
+Shael Rune|r13|Rune|
+Dol Rune|r14|Rune|
+Hel Rune|r15|Rune|
+Io Rune|r16|Rune|
+Lum Rune|r17|Rune|
+Ko Rune|r18|Rune|
+Fal Rune|r19|Rune|
+Lem Rune|r20|Rune|
+Pul Rune|r21|Rune|
+Um Rune|r22|Rune|
+Mal Rune|r23|Rune|
+Ist Rune|r24|Rune|
+Gul Rune|r25|Rune|
+Vex Rune|r26|Rune|
+Ohm Rune|r27|Rune|
+Lo Rune|r28|Rune|
+Sur Rune|r29|Rune|
+Ber Rune|r30|Rune|
+Jah Rune|r31|Rune|
+Cham Rune|r32|Rune|
+Zod Rune|r33|Rune|
+Jewel|jew|Jewel|
+Malah's Potion|ice|Quest Item|
+Scroll of Knowledge|0sc|Scroll|
+Scroll of Resistance|tr2|Quest Item|
+Key of Terror|pk1|Quest Item|
+Key of Hate|pk2|Quest Item|
+Key of Destruction|pk3|Quest Item|
+Diablo's Horn|dhn|Quest Item|
+Baal's Eye|bey|Quest Item|
+Mephisto's Brain|mbr|Quest Item|
+Standard of Heroes|std|Quest Item|
+Hand Axe|hax|Axe|Normal
+Axe|axe|Axe|Normal
+Double Axe|2ax|Axe|Normal
+Military Pick|mpi|Axe|Normal
+War Axe|wax|Axe|Normal
+Large Axe|lax|Axe|Normal
+Broad Axe|bax|Axe|Normal
+Battle Axe|btx|Axe|Normal
+Great Axe|gax|Axe|Normal
+Giant Axe|gix|Axe|Normal
+Wand|wnd|Wand|Normal
+Yew Wand|ywn|Wand|Normal
+Bone Wand|bwn|Wand|Normal
+Grim Wand|gwn|Wand|Normal
+Club|clb|Club|Normal
+Scepter|scp|Scepter|Normal
+Grand Scepter|gsc|Scepter|Normal
+War Scepter|wsp|Scepter|Normal
+Spiked Club|spc|Club|Normal
+Mace|mac|Mace|Normal
+Morning Star|mst|Mace|Normal
+Flail|fla|Mace|Normal
+War Hammer|whm|Hammer|Normal
+Maul|mau|Hammer|Normal
+Great Maul|gma|Hammer|Normal
+Short Sword|ssd|Sword|Normal
+Scimitar|scm|Sword|Normal
+Sabre|sbr|Sword|Normal
+Falchion|flc|Sword|Normal
+Crystal Sword|crs|Sword|Normal
+Broad Sword|bsd|Sword|Normal
+Long Sword|lsd|Sword|Normal
+War Sword|wsd|Sword|Normal
+Two-Handed Sword|2hs|Sword|Normal
+Claymore|clm|Sword|Normal
+Giant Sword|gis|Sword|Normal
+Bastard Sword|bsw|Sword|Normal
+Flamberge|flb|Sword|Normal
+Great Sword|gsd|Sword|Normal
+Dagger|dgr|Dagger|Normal
+Dirk|dir|Dagger|Normal
+Kris|kri|Dagger|Normal
+Blade|bld|Dagger|Normal
+Throwing Knife|tkf|Throwing Knife|Normal
+Throwing Axe|tax|Throwing Axe|Normal
+Balanced Knife|bkf|Throwing Knife|Normal
+Balanced Axe|bal|Throwing Axe|Normal
+Javelin|jav|Javelin|Normal
+Pilum|pil|Javelin|Normal
+Short Spear|ssp|Javelin|Normal
+Glaive|glv|Javelin|Normal
+Throwing Spear|tsp|Javelin|Normal
+Spear|spr|Spear|Normal
+Trident|tri|Spear|Normal
+Brandistock|brn|Spear|Normal
+Spetum|spt|Spear|Normal
+Pike|pik|Spear|Normal
+Bardiche|bar|Polearm|Normal
+Voulge|vou|Polearm|Normal
+Scythe|scy|Polearm|Normal
+Poleaxe|pax|Polearm|Normal
+Halberd|hal|Polearm|Normal
+War Scythe|wsc|Polearm|Normal
+Short Staff|sst|Staff|Normal
+Long Staff|lst|Staff|Normal
+Gnarled Staff|cst|Staff|Normal
+Battle Staff|bst|Staff|Normal
+War Staff|wst|Staff|Normal
+Short Bow|sbw|Bow|Normal
+Hunter's Bow|hbw|Bow|Normal
+Long Bow|lbw|Bow|Normal
+Composite Bow|cbw|Bow|Normal
+Short Battle Bow|sbb|Bow|Normal
+Long Battle Bow|lbb|Bow|Normal
+Short War Bow|swb|Bow|Normal
+Long War Bow|lwb|Bow|Normal
+Light Crossbow|lxb|Crossbow|Normal
+Crossbow|mxb|Crossbow|Normal
+Heavy Crossbow|hxb|Crossbow|Normal
+Repeating Crossbow|rxb|Crossbow|Normal
+Rancid Gas Potion|gps|Throwing Potion|
+Oil Potion|ops|Throwing Potion|
+Choking Gas Potion|gpm|Throwing Potion|
+Exploding Potion|opm|Throwing Potion|
+Strangling Gas Potion|gpl|Throwing Potion|
+Fulminating Potion|opl|Throwing Potion|
+Decoy Gidbinn|d33|Dagger|Normal
+The Gidbinn|g33|Dagger|Normal
+Wirt's Leg|leg|Club|Normal
+Horadric Malus|hdm|Hammer|Normal
+Hell Forge Hammer|hfh|Hammer|Normal
+Horadric Staff|hst|Staff|Normal
+Shaft of the Horadric Staff|msf|Staff|Normal
+Hatchet|9ha|Axe|Exceptional
+Cleaver|9ax|Axe|Exceptional
+Twin Axe|92a|Axe|Exceptional
+Crowbill|9mp|Axe|Exceptional
+Naga|9wa|Axe|Exceptional
+Military Axe|9la|Axe|Exceptional
+Bearded Axe|9ba|Axe|Exceptional
+Tabar|9bt|Axe|Exceptional
+Gothic Axe|9ga|Axe|Exceptional
+Ancient Axe|9gi|Axe|Exceptional
+Burnt Wand|9wn|Wand|Exceptional
+Petrified Wand|9yw|Wand|Exceptional
+Tomb Wand|9bw|Wand|Exceptional
+Grave Wand|9gw|Wand|Exceptional
+Cudgel|9cl|Club|Exceptional
+Rune Scepter|9sc|Scepter|Exceptional
+Holy Water Sprinkler|9qs|Scepter|Exceptional
+Divine Scepter|9ws|Scepter|Exceptional
+Barbed Club|9sp|Club|Exceptional
+Flanged Mace|9ma|Mace|Exceptional
+Jagged Star|9mt|Mace|Exceptional
+Knout|9fl|Mace|Exceptional
+Battle Hammer|9wh|Hammer|Exceptional
+War Club|9m9|Hammer|Exceptional
+Martel de Fer|9gm|Hammer|Exceptional
+Gladius|9ss|Sword|Exceptional
+Cutlass|9sm|Sword|Exceptional
+Shamshir|9sb|Sword|Exceptional
+Tulwar|9fc|Sword|Exceptional
+Dimensional Blade|9cr|Sword|Exceptional
+Battle Sword|9bs|Sword|Exceptional
+Rune Sword|9ls|Sword|Exceptional
+Ancient Sword|9wd|Sword|Exceptional
+Espandon|92h|Sword|Exceptional
+Dacian Falx|9cm|Sword|Exceptional
+Tusk Sword|9gs|Sword|Exceptional
+Gothic Sword|9b9|Sword|Exceptional
+Zweihander|9fb|Sword|Exceptional
+Executioner Sword|9gd|Sword|Exceptional
+Poignard|9dg|Dagger|Exceptional
+Rondel|9di|Dagger|Exceptional
+Cinquedeas|9kr|Dagger|Exceptional
+Stiletto|9bl|Dagger|Exceptional
+Battle Dart|9tk|Throwing Knife|Exceptional
+Francisca|9ta|Throwing Axe|Exceptional
+War Dart|9bk|Throwing Knife|Exceptional
+Hurlbat|9b8|Throwing Axe|Exceptional
+War Javelin|9ja|Javelin|Exceptional
+Great Pilum|9pi|Javelin|Exceptional
+Simbilan|9s9|Javelin|Exceptional
+Spiculum|9gl|Javelin|Exceptional
+Harpoon|9ts|Javelin|Exceptional
+War Spear|9sr|Spear|Exceptional
+Fuscina|9tr|Spear|Exceptional
+War Fork|9br|Spear|Exceptional
+Yari|9st|Spear|Exceptional
+Lance|9p9|Spear|Exceptional
+Lochaber Axe|9b7|Polearm|Exceptional
+Bill|9vo|Polearm|Exceptional
+Battle Scythe|9s8|Polearm|Exceptional
+Partizan|9pa|Polearm|Exceptional
+Bec-de-Corbin|9h9|Polearm|Exceptional
+Grim Scythe|9wc|Polearm|Exceptional
+Jo Staff|8ss|Staff|Exceptional
+Quarterstaff|8ls|Staff|Exceptional
+Cedar Staff|8cs|Staff|Exceptional
+Gothic Staff|8bs|Staff|Exceptional
+Rune Staff|8ws|Staff|Exceptional
+Edge Bow|8sb|Bow|Exceptional
+Razor Bow|8hb|Bow|Exceptional
+Cedar Bow|8lb|Bow|Exceptional
+Double Bow|8cb|Bow|Exceptional
+Short Siege Bow|8s8|Bow|Exceptional
+Large Siege Bow|8l8|Bow|Exceptional
+Rune Bow|8sw|Bow|Exceptional
+Gothic Bow|8lw|Bow|Exceptional
+Arbalest|8lx|Crossbow|Exceptional
+Siege Crossbow|8mx|Crossbow|Exceptional
+Ballista|8hx|Crossbow|Exceptional
+Chu-Ko-Nu|8rx|Crossbow|Exceptional
+Khalim's Flail|qf1|Mace|Normal
+Khalim's Will|qf2|Mace|Normal
+Katar|ktr|Assassin Katar|Normal
+Wrist Blade|wrb|Assassin Katar|Normal
+Hatchet Hands|axf|Assassin Katar|Normal
+Cestus|ces|Assassin Katar|Normal
+Claws|clw|Assassin Katar|Normal
+Blade Talons|btl|Assassin Katar|Normal
+Scissors Katar|skr|Assassin Katar|Normal
+Quhab|9ar|Assassin Katar|Exceptional
+Wrist Spike|9wb|Assassin Katar|Exceptional
+Fascia|9xf|Assassin Katar|Exceptional
+Hand Scythe|9cs|Assassin Katar|Exceptional
+Greater Claws|9lw|Assassin Katar|Exceptional
+Greater Talons|9tw|Assassin Katar|Exceptional
+Scissors Quhab|9qr|Assassin Katar|Exceptional
+Suwayyah|7ar|Assassin Katar|Elite
+Wrist Sword|7wb|Assassin Katar|Elite
+War Fist|7xf|Assassin Katar|Elite
+Battle Cestus|7cs|Assassin Katar|Elite
+Feral Claws|7lw|Assassin Katar|Elite
+Runic Talons|7tw|Assassin Katar|Elite
+Scissors Suwayyah|7qr|Assassin Katar|Elite
+Tomahawk|7ha|Axe|Elite
+Small Crescent|7ax|Axe|Elite
+Ettin Axe|72a|Axe|Elite
+War Spike|7mp|Axe|Elite
+Berserker Axe|7wa|Axe|Elite
+Feral Axe|7la|Axe|Elite
+Silver-edged Axe|7ba|Axe|Elite
+Decapitator|7bt|Axe|Elite
+Champion Axe|7ga|Axe|Elite
+Glorious Axe|7gi|Axe|Elite
+Polished Wand|7wn|Wand|Elite
+Ghost Wand|7yw|Wand|Elite
+Lich Wand|7bw|Wand|Elite
+Unearthed Wand|7gw|Wand|Elite
+Truncheon|7cl|Club|Elite
+Mighty Scepter|7sc|Scepter|Elite
+Seraph Rod|7qs|Scepter|Elite
+Caduceus|7ws|Scepter|Elite
+Tyrant Club|7sp|Club|Elite
+Reinforced Mace|7ma|Mace|Elite
+Devil Star|7mt|Mace|Elite
+Scourge|7fl|Mace|Elite
+Legendary Mallet|7wh|Hammer|Elite
+Ogre Maul|7m7|Hammer|Elite
+Thunder Maul|7gm|Hammer|Elite
+Falcata|7ss|Sword|Elite
+Ataghan|7sm|Sword|Elite
+Elegant Blade|7sb|Sword|Elite
+Hydra Edge|7fc|Sword|Elite
+Phase Blade|7cr|Sword|Elite
+Conquest Sword|7bs|Sword|Elite
+Cryptic Sword|7ls|Sword|Elite
+Mythical Sword|7wd|Sword|Elite
+Legend Sword|72h|Sword|Elite
+Highland Blade|7cm|Sword|Elite
+Balrog Blade|7gs|Sword|Elite
+Champion Sword|7b7|Sword|Elite
+Colossus Sword|7fb|Sword|Elite
+Colossus Blade|7gd|Sword|Elite
+Bone Knife|7dg|Dagger|Elite
+Mithril Point|7di|Dagger|Elite
+Fanged Knife|7kr|Dagger|Elite
+Legend Spike|7bl|Dagger|Elite
+Flying Knife|7tk|Throwing Knife|Elite
+Flying Axe|7ta|Throwing Axe|Elite
+Winged Knife|7bk|Throwing Knife|Elite
+Winged Axe|7b8|Throwing Axe|Elite
+Hyperion Javelin|7ja|Javelin|Elite
+Stygian Pilum|7pi|Javelin|Elite
+Balrog Spear|7s7|Javelin|Elite
+Ghost Glaive|7gl|Javelin|Elite
+Winged Harpoon|7ts|Javelin|Elite
+Hyperion Spear|7sr|Spear|Elite
+Stygian Pike|7tr|Spear|Elite
+Mancatcher|7br|Spear|Elite
+Ghost Spear|7st|Spear|Elite
+War Pike|7p7|Spear|Elite
+Ogre Axe|7o7|Polearm|Elite
+Colossus Voulge|7vo|Polearm|Elite
+Thresher|7s8|Polearm|Elite
+Cryptic Axe|7pa|Polearm|Elite
+Great Poleaxe|7h7|Polearm|Elite
+Giant Thresher|7wc|Polearm|Elite
+Walking Stick|6ss|Staff|Elite
+Stalagmite|6ls|Staff|Elite
+Elder Staff|6cs|Staff|Elite
+Shillelagh|6bs|Staff|Elite
+Archon Staff|6ws|Staff|Elite
+Spider Bow|6sb|Bow|Elite
+Blade Bow|6hb|Bow|Elite
+Shadow Bow|6lb|Bow|Elite
+Great Bow|6cb|Bow|Elite
+Diamond Bow|6s7|Bow|Elite
+Crusader Bow|6l7|Bow|Elite
+Ward Bow|6sw|Bow|Elite
+Hydra Bow|6lw|Bow|Elite
+Pellet Bow|6lx|Crossbow|Elite
+Gorgon Crossbow|6mx|Crossbow|Elite
+Colossus Crossbow|6hx|Crossbow|Elite
+Demon Crossbow|6rx|Crossbow|Elite
+Eagle Orb|ob1|Sorceress Orb|Normal
+Sacred Globe|ob2|Sorceress Orb|Normal
+Smoked Sphere|ob3|Sorceress Orb|Normal
+Clasped Orb|ob4|Sorceress Orb|Normal
+Jared's Stone|ob5|Sorceress Orb|Normal
+Stag Bow|am1|Amazon Bow|Normal
+Reflex Bow|am2|Amazon Bow|Normal
+Maiden Spear|am3|Amazon Spear|Normal
+Maiden Pike|am4|Amazon Spear|Normal
+Maiden Javelin|am5|Amazon Javelin|Normal
+Glowing Orb|ob6|Sorceress Orb|Exceptional
+Crystalline Globe|ob7|Sorceress Orb|Exceptional
+Cloudy Sphere|ob8|Sorceress Orb|Exceptional
+Sparkling Ball|ob9|Sorceress Orb|Exceptional
+Swirling Crystal|oba|Sorceress Orb|Exceptional
+Ashwood Bow|am6|Amazon Bow|Exceptional
+Ceremonial Bow|am7|Amazon Bow|Exceptional
+Ceremonial Spear|am8|Amazon Spear|Exceptional
+Ceremonial Pike|am9|Amazon Spear|Exceptional
+Ceremonial Javelin|ama|Amazon Javelin|Exceptional
+Heavenly Stone|obb|Sorceress Orb|Elite
+Eldritch Orb|obc|Sorceress Orb|Elite
+Demon Heart|obd|Sorceress Orb|Elite
+Vortex Orb|obe|Sorceress Orb|Elite
+Dimensional Shard|obf|Sorceress Orb|Elite
+Matriarchal Bow|amb|Amazon Bow|Elite
+Grand Matron Bow|amc|Amazon Bow|Elite
+Matriarchal Spear|amd|Amazon Spear|Elite
+Matriarchal Pike|ame|Amazon Spear|Elite
+Matriarchal Javelin|amf|Amazon Javelin|Elite

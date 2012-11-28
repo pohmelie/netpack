@@ -1,0 +1,35 @@
+assign player 0x59 char name here on conneciton
+reassign player 0x15 coord on teleport here
+
+LK size:
+    width (x) = 337
+    height (y) = 272
+
+vision radius = 89 (90 i think)
+horizontal teleport = 25
+vertical teleport = 35
+diagonal teleport = ~30
+
+tile = (100 - 119 / 3)
+
+
+[4800, 2211]
+Fire at [4856, 2211]
+
+[4800, 2161]
+Fire at [4856, 2211]
+
+[4856, 2160]
+Fire at [4856, 2211]
+
+[4914, 2160]
+Fire at [4856, 2211]
+
+[4918, 2209]
+Fire at [4856, 2211]
+
+[4855, 2277]
+Fire at [4856, 2211]
+
+[4802, 2279]
+Fire at [4856, 2211]

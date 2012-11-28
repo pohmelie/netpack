@@ -1,0 +1,144 @@
+0x00|01|Game Loading
+0x01|08|Game Flags|B2H2Bx|Difficulty|?|Hardcore|Expansion|Ladder
+0x02|01|Load Successful
+0x03|12|Load Act|BIHI|Act|Map ID|Area Id|?
+0x04|01|Load Complete
+0x05|01|Unload Complete
+0x06|01|Game Exit Sucessful
+0x07|06|Map Reveal|2HB|Tile X|Tile Y|Area Id
+0x08|06|Map Hide|2HB|Tile X|Tile Y|Area Id
+0x09|11|Assign Lvl Warp (Door)|BI2HB|Unit Type|Unit Id|x|y|Warp Id
+0x0a|06|Remove Object|BI|Unit Type|Unit Id
+0x0b|06|Game Handshake|BI|Unit Type|Unit Id
+0x0c|09|NPC Hit|BIHB|Unit Type|Unit Id|Animation Id|Life
+0x0d|13|Player Stop|BIB2H2B|Unit Type|Unit Id|?|Unit X|Unit Y|?|Life
+0x0e|12|Object State|BI2BI|Unit Type|Unit Id|?|Can Change Back|Unit State
+0x0f|16|Player Move|BIB2HB2H|Unit Type|Unit Id|(0x01 = Walk or 0x23 = Run or 0x20 = Knockback)|Target X|Target Y|Current X|Current Y
+0x10|16|Player To Target|BIBI2H|Unit Type|Unit Id|(0x02 = Walk or 0x24 = Run)|Target Type|Target Id|Current X|Current Y
+0x11|08|Report Kill|BIH|Unit Type|Unit Id|?
+0x12|26|Unknown 0x12
+0x13|14|Unknown 0x13
+0x14|18|Unknown 0x14
+0x15|11|Reassign Player|BI2HB|Unit Type|Unit Id|x|y|(0x01 = True or 0x00 = False)
+0x18|15|Unknown 0x18
+0x19|02|Gold to Inv.|B|Amount
+0x1a|02|Add Exp. b|B|Amount
+0x1b|03|Add Exp. w|H|Amount
+0x1c|05|Add Exp. dw|I|Amount
+0x1d|03|Base Attribute b|BB|Attribute|Amount
+0x1e|04|Base Attribute w|BH|Attribute|Amount
+0x1f|06|Base Attribute dw|BI|Attribute|Amount
+0x20|10|Attribute Update|IBI|Unit Id|Attribute|Amount
+0x21|12|Update Item Oskill|HIH3B|?|Unit Id|Skill|Base Level|Bonus Amount|?
+0x22|12|Update Item Skill|HIHBH|?|Unit Id|Skill|Amount|?
+0x23|13|Set Skill|BIBH4x|Unit Type|Unit Id|(0x00  = Right or Byte 0x01 = Left)|Skill
+0x24|90|Unknown 0x24
+0x25|90|Unknown 0x25
+0x26|*|Chat/overhead
+0x27|40|NPC Info|BI34s|Unit Type|Unit Id|?
+0x28|103|Quest Info 0x28
+0x29|97|Game Quest Info 0x29
+0x2a|15|NPC Transaction|2B3I|Trade Type|(Result? - 0x00 =  Purchased or 0x01 = Sold or 0x0c = Insuffecient Gold)|?|Merchandise Id|Gold in Inventory
+0x2c|08|Play Sound|BIH|Unit Type|Unit Id|Sound
+0x3e|34|Update Item Stats
+0x3f|08|Use Stackable Item
+0x40|13|Unknown 0x40
+0x42|06|Clear Cursor|BI|Unit Type|Player Id
+0x45|13|Unknown 0x45
+0x47|11|Relator 1|H2I|Param 1|Unit Id|Param 2
+0x48|11|Relator 2|H2I|Param 1|Unit Id|Param 2
+0x4c|16|Unit Skill on Target|BIH2BI2x|Unit Type|Unit Id|Skill|?|?|Target Id
+0x4d|17|Unit Cast Skill|B2IB2H2x|Unit Type|Unit Id|Skill|?|x|y
+0x4e|07|Merc For Hire|HI|Merc Id|?
+0x4f|01|Start Merc List
+0x50|15|Unknown 0x50
+0x51|14|Assign Object|BI3H2B|Object Type|Object Id|Object Code|x|y|State|Interaction Type
+0x52|42|Quest Log Info
+0x53|10|Player Slot Refresh|IBI|Slot #|(? 0x00 or 0x80)|Tickcount
+0x54|10|Unknown 0x54
+0x55|03|Unknown 0x55
+0x58|14|Unknown 0x58
+0x59|26|Assign Player|IB16s2H|Unit Id|Char Type|Char Name|x|y
+0x5a|40|Event Messages|2BIB16s16s|Message Type|Color|Param1|Param2|Name1|Name2
+0x5b|36|Player In Game|HIB16s2H8x|Packet Length|Player Id|Char Type|Char Name|Char Lvl|Party Id
+0x5c|05|Player Left Game|I|Player Id
+0x5d|06|Quest Item State|BI|? id|? state
+0x5e|38|Unknown 0x5e
+0x5f|05|Unknown 0x5f
+0x60|07|Townportal State|2BI|State|Area Id|Unit Id
+0x61|02|Unknown 0x61
+0x62|07|Unknown 0x62
+0x63|21|Waypoint Menu
+0x65|07|Player Kill Count|IH|Player Id|Count
+0x66|07|Unknown 0x66
+0x67|16|NPC Move|IB3HBHB|Unit Id|(0x01 = Walk or 0x17 = Run)|x|y|?|?
+0x68|21|NPC Move to Target|IB2HBIHBHB|Unit Id|(0x00 = Walk or 0x18 = Run)|x|y|Target Unit Type|Target Id|?|?|?|?
+0x69|12|NPC State|IB2H2B|Unit Id|State|x|y|Unit Life|?
+0x6a|12|Unknown 0x6a
+0x6b|16|NPC Action|IB6x2H|Unit Id|Action|x|y
+0x6c|16|NPC Attack|IHIB2H|Unit Id|Attack Type|Target Id|Target Type|x|y
+0x6d|10|NPC Stop|I2HB|Unit Id|x|y|Unit Life
+0x6e|01|Unknown 0x6e
+0x6f|01|Unknown 0x6f
+0x70|01|Unknown 0x70
+0x71|01|Unknown 0x71
+0x72|01|Unknown 0x72
+0x73|32|Unknown 0x73
+0x74|10|Player Corpse Assign|B2I|(Assign 0x00 = False or 0x01 True)|Owner Id|Corpse Id
+0x75|13|Player Party Info|I4H|Unit Id|Party Id|Char Level|Relationship|In Your Party
+0x76|06|Overhead Canceled|BI|00|Unit Id
+0x77|02|Button Action|B|Action
+0x78|21|Trade Accepted|16sI|Char Name|Unit Id
+0x79|06|Gold in Trade|BI|Gold Owner|Amount
+0x7a|13|Pet Action|BH2I|(0x00 = Unsummoned/Lost Sight or 0x01 = Summoned/Assign)|Skill|Pet Type
+0x7b|08|Assign Skill Hotkey|3B4x|Slot|Skill|(0x00 = Right or 0x80 = Left)
+0x7c|06|Use Scroll|BI|Type|Item Id
+0x7d|18|Set item state 0x7d
+0x7e|05|Unknown 0x7e
+0x7f|10|Ally Party Info|BHIH|Unit Type|Unit Life|Unit Id|Unit Area Id
+0x81|20|Assign Merc|BH4I|?|Merc Kind|Owner Id|?|?
+0x82|29|Portal Ownership|I16s2I|Owner Id|Owner Name|Local Id|Remote Id
+0x89|02|Special Quest Event|B|Event Id
+0x8a|06|NPC Wants to Interact|BI|Unit Type|Unit Id
+0x8b|06|Player Relationship|IB|Unit Id|(0x00 = No Party or 0x01 = In Party or 0x02 = Wants to Party)
+0x8c|11|Relationship Update|2IH|Player 1 Id|Player 2 Id|Relation State
+0x8d|07|Assign Player To Party|IH|Player Id|Party Id
+0x8e|10|Corpse Assign|B2I|(0x00 = Unassign or 0x01 = Assign)|Owner Id|Corpse Id
+0x8f|33|Pong|
+0x90|13|Party Automap Info|3I|Player Id|Player X|Player Y
+0x91|26|Unknown 0x91
+0x92|06|Unknown 0x92
+0x93|08|Unknown 0x93
+0x94|*|Base Skill Levels
+0x95|13|Life and Mana Update|6H|Unit Life|Unit Mana|Unit Stamina|X|Y|?
+0x96|09|Walk Verify|4H|Stamina|x|y|State
+0x97|01|Weapon Switch
+0x98|07|Unknown 0x98
+0x99|16|Skill Triggered 0x99
+0x9a|17|Unknown 0x9a
+0x9b|07|Unknown 0x9b
+0x9c|*|Item Action (world)
+0x9d|*|Item Action (owned)
+0x9e|07|Merc Attribute b|BIB|Attribute|Merc Id|Amount
+0x9f|08|Merc Attribute w|BIH|Attribute|Merc Id|Amount
+0xa0|10|Merc Attribute dw|B2I|Attribute|Merc Id|Amount
+0xa1|07|Merc Add Exp. b 0xa1
+0xa2|08|Merc Add Exp. w 0xa2
+0xa3|24|Unknown 0xa3
+0xa4|03|Unknown 0xa4
+0xa5|08|Unknown 0xa5
+0xa7|07|Delayed State|BIB|Unit Type|Unit Id|State
+0xa8|*|Set State
+0xa9|07|End State|BIB|Unit Type|Unit Id|State
+0xaa|*|Add Unit
+0xab|07|NPC Heal|BIB|Unit Type|Unit Id|Unit Life
+0xac|*|Assign NPC
+0xad|09|Unknown 0xad
+0xaf|02|Connection Info|B|ProtocolVer
+0xb0|01|Game Connection Terminated
+0xb1|53|Unknown 0xb1
+0xb3|05|Unknown 0xb3
+0xc1|01|Unknown 0xc1
+0xca|25|Unknown 0xca
+0xcb|23|Player/Monster/Monster Body Appear(?)|4IH|?|?|Id|Tile X|Tile Y|?
+0xcc|15|Player/Monster/Monster New Position(?)|3IH|Id|Tile X|Tile Y|?
