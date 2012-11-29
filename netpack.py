@@ -5,13 +5,15 @@ from connection import *
 from logic import *
 from time import time
 from functools import partial
+from d2crypt import decrypt, encrypt
+from plugin import *
 
 
 class Netpack():
     def __init__(self, server_ips, adapter_id=None):
         self.server_ips = server_ips
-        self.logics = ()
         self.connections = ()
+        self.plug = plugin.PluginManager()
 
         self.ndisapi = windll.ndisapi
         self.kernel32 = windll.kernel32
@@ -92,7 +94,7 @@ class Netpack():
     def defaultlogic(self, con, data, s, d):
         if s == Connection.CLIENT and Logic.iscommand(data):
             command = Logic.getcommand(data).lower()
-            if command == "\\init":
+            if command.startswith == "\\init":
                 logic = Logic()
                 con.callback = logic.callback
                 self.logics = self.logics + (logic,)
@@ -149,6 +151,6 @@ class Netpack():
 
 if __name__ == "__main__":
     ips = tuple(map(lambda x: x.strip(), open("ip.txt")))
-    with Netpack(ips, 2) as npack:
+    with Netpack(ips, 3) as npack:
         print("netpack 2012.11.27\n\ntype '\init' in game for more information\nuse ctrl-c to exit\n")
         npack.mainloop()
