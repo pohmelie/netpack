@@ -35,7 +35,7 @@ class PacketFunc():
                     ret.append(s)
                     s = str()
                 else:
-                    ret.append(pp_packet(packet[index:index + counter]))
+                    ret.append(packet[index:index + counter])
                     index += counter
                     s, counter = str(), 0
             elif ch.lower() == "x":

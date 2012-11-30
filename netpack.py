@@ -2,7 +2,6 @@ from ctypes import *
 from winpkbind import *
 from ipstack import ip_stack
 from connection import *
-from logic import *
 from time import time
 from functools import partial
 from d2crypt import decrypt, encrypt
@@ -13,7 +12,7 @@ class Netpack():
     def __init__(self, server_ips, adapter_id=None):
         self.server_ips = server_ips
         self.connections = ()
-        self.plug = plugin.PluginManager()
+        self.plug = PluginManager()
 
         self.ndisapi = windll.ndisapi
         self.kernel32 = windll.kernel32
@@ -91,26 +90,6 @@ class Netpack():
             r = ip_stack.build(eth)
             self.send(self.make_request(r, PACKET_FLAG_ON_RECEIVE))
 
-    def defaultlogic(self, con, data, s, d):
-        if s == Connection.CLIENT and Logic.iscommand(data):
-            command = Logic.getcommand(data).lower()
-            if command.startswith == "\\init":
-                logic = Logic()
-                con.callback = logic.callback
-                self.logics = self.logics + (logic,)
-            elif command.startswith("\\bot"):
-                try:
-                    w, n = tuple(command.split())
-                    for logic in self.logics:
-                        if logic.lid == int(n) - 1:
-                            con.callback = logic.callback
-                            break
-                except:
-                    pass
-            return True, ((), (b"",))
-        else:
-            return False, ((), ())
-
     def mainloop(self):
         while True:
             self.kernel32.WaitForSingleObject(self.hEvent, 100)
@@ -134,8 +113,7 @@ class Netpack():
                                 break
                         if active_con == None and not tcp.header.flags.rst:
                             active_con = Connection(eth, self.server_ips)
-                            deflog = partial(self.defaultlogic, active_con)
-                            active_con.callback = deflog
+                            active_con.callback = partial(self.plug.callback, active_con)
                             self.connections = self.connections + (active_con,)
                             retcode, packs = active_con.update(eth)
 
@@ -151,6 +129,6 @@ class Netpack():
 
 if __name__ == "__main__":
     ips = tuple(map(lambda x: x.strip(), open("ip.txt")))
-    with Netpack(ips, 3) as npack:
+    with Netpack(ips, 2) as npack:
         print("netpack 2012.11.27\n\ntype '\init' in game for more information\nuse ctrl-c to exit\n")
         npack.mainloop()
