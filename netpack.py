@@ -1,18 +1,22 @@
 from ctypes import *
 from winpkbind import *
 from ipstack import ip_stack
-from connection import *
-from time import time
-from functools import partial
-from d2crypt import decrypt, encrypt
-from plugin import *
+from multiprocessing import Process, Queue
+from connection import connection_manager
+import atexit
 
 
 class Netpack():
     def __init__(self, server_ips, adapter_id=None):
         self.server_ips = server_ips
-        self.connections = ()
-        self.plug = PluginManager()
+        raw_ips = lambda ip: bytes(map(int, ip.split(".")))
+        self.server_ips_raw = tuple(map(raw_ips, server_ips))
+
+        self.qi = Queue()
+        self.qo = Queue()
+        self.subproc = Process(target=connection_manager, args=(self.qi, self.qo, self.server_ips))
+        self.subproc.daemon = True
+        self.subproc.start()
 
         self.ndisapi = windll.ndisapi
         self.kernel32 = windll.kernel32
@@ -47,6 +51,7 @@ class Netpack():
     def __exit__(self, t, value, traceback):
         self.release()
 
+    @atexit.register
     def release(self):
         self.mode.dwFlags = 0
         self.ndisapi.SetPacketEvent(self.hnd, self.mode.hAdapterHandle, None)
@@ -72,9 +77,8 @@ class Netpack():
         return t[12:14] == b"\x08\x00" and t[14 + 9] == 6
 
     def checkforips(self, t):
-        eth = ip_stack.parse(t)
-        ip, tcp, data = unstack(eth)
-        return ip.header.destination in self.server_ips or ip.header.source in self.server_ips
+        s, d = t[14 + 12:14 + 16], t[14 + 16:14 + 20]
+        return s in self.server_ips_raw or d in self.server_ips_raw
 
     def send(self, request):
         if request.EthPacket.Buffer.contents.m_dwDeviceFlags == PACKET_FLAG_ON_SEND:
@@ -82,49 +86,28 @@ class Netpack():
         else:
             self.ndisapi.SendPacketToMstcp(self.hnd, byref(request))
 
-    def sendpacks(self, packs):
-        for eth, flag in zip(packs, (PACKET_FLAG_ON_SEND, PACKET_FLAG_ON_RECEIVE)):
-            self.send(self.make_request(ip_stack.build(eth), flag))
+    def sendpack(self, eth):
+        ip = eth.next
+        if ip.header.source in self.server_ips:
+            flag = PACKET_FLAG_ON_RECEIVE
+        else:
+            flag = PACKET_FLAG_ON_SEND
+        self.send(self.make_request(ip_stack.build(eth), flag))
 
     def mainloop(self):
         while True:
-            self.kernel32.WaitForSingleObject(self.hEvent, 100)
-            x = c_ulong()
-            self.ndisapi.GetAdapterPacketQueueSize(self.hnd, self.mode.hAdapterHandle, byref(x))
-            if x.value == 0:
-                for con in self.connections:
-                    packs = (con.o[Connection.SERVER].resend(), con.o[Connection.CLIENT].resend())
-                    self.sendpacks(packs)
-            else:
-                while self.ndisapi.ReadPacket(self.hnd, byref(self.request)):
-                    d = bytes(self.packetbuffer.m_IBuffer[:self.packetbuffer.m_Length])
-                    if self.checkfortcp(d) and self.checkforips(d):
-                        eth = ip_stack.parse(d)
-                        ip, tcp, data = unstack(eth)
-                        active_con = None
-                        for con in self.connections:
-                            if con.passes(eth):
-                                retcode, packs = con.update(eth)
-                                active_con = con
-                                break
-                        if active_con == None and not tcp.header.flags.rst:
-                            active_con = Connection(eth, self.server_ips)
-                            active_con.callback = partial(self.plug.callback, active_con)
-                            self.connections = self.connections + (active_con,)
-                            retcode, packs = active_con.update(eth)
-
-                        if active_con:
-                            if retcode == Connection.TIMEOUT or retcode == Connection.RESET:
-                                self.connections = tuple(filter(
-                                    lambda x: x is not active_con,
-                                    self.connections))
-                            self.sendpacks(packs)
-                    else:
-                        self.send(self.request)
+            self.kernel32.WaitForSingleObject(self.hEvent, 10)
+            while self.ndisapi.ReadPacket(self.hnd, byref(self.request)):
+                d = bytes(self.packetbuffer.m_IBuffer[:self.packetbuffer.m_Length])
+                if self.checkfortcp(d) and self.checkforips(d):
+                    self.qi.put_nowait(ip_stack.parse(d))
+                else:
+                    self.send(self.request)
+            while not self.qo.empty():
+                self.sendpack(self.qo.get())
             self.kernel32.ResetEvent(self.hEvent)
 
+
 if __name__ == "__main__":
-    ips = tuple(map(lambda x: x.strip(), open("ip.txt")))
-    with Netpack(ips, 2) as npack:
-        print("netpack 2012.11.27\n\ntype '\init' in game for more information\nuse ctrl-c to exit\n")
-        npack.mainloop()
+    print("netpack 2012.11.27\n\ntype '\\help' in game for more information\n")
+    Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), 3).mainloop()
