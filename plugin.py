@@ -1,7 +1,6 @@
 import imp
 import os
 from functools import partial
-from connection import *
 from d2packet import PacketSplitter
 from d2crypt import decrypt, encrypt
 from itertools import chain
@@ -14,6 +13,7 @@ class LogicElement():
         self.logic = logic
 
 class PluginManager():
+    CLIENT, SERVER = tuple(range(2))
     def __init__(self):
         self.plugins = ()
         self.logics = {}
@@ -43,74 +43,66 @@ class PluginManager():
     def check_for_charname(self, packs):
         for pack in packs:
             if pack[0] == 0x59: #assign player
-                p = self.ps.funcs[Connection.SERVER][pack[0]].unpack(pack)
+                p = self.ps.funcs[PluginManager.SERVER][pack[0]].unpack(pack)
                 if p["x"] == 0 and p["y"] == 0:
                     return "".join(map(chr, filter(bool, p["Char Name"])))
 
     def pluglogic(self, con, packs):
         drop = False
-        ret = tuple(filter(lambda x: not iscommand(x), packs))
-        for pack in filter(iscommand, packs):
+        for pack in filter(PluginManager.iscommand, packs):
             drop = True
-            com = getcommand(data).lower()
-            if com.startswith("\\init"):
+            com = PluginManager.getcommand(pack).lower()
+            if com.startswith("\\help"):
                 pass #window naming and plug list
             else:
                 com = com.split()
+                logger.debug(com)
                 com, params = com[0], tuple(com[1:])
                 for plug in self.plugins:
+                    logger.debug(plug.name)
                     if "\\" + plug.name == com:
                         for le in self.logics.values():
                             if le.con == con:
-                                le.logic = plug()
+                                le.logic = plug(*params)
                                 break
                         break
-        return drop, (ret, ())
+        if drop:
+            ret = tuple(filter(lambda x: not PluginManager.iscommand(x), packs))
+        else:
+            ret = ()
+        return drop, (ret, (b"",))
 
-    def idle(self, con):
+    def idle(self):
         pass
+        #for le in self.logics.values():
+        #    stop, fake = le.logic.idle()
 
     def callback(self, con, data, s, d):
         drop, fake = False, ((), ())
-        if s == Connection.SERVER:
+        if s == PluginManager.SERVER:
             try:
                 data = decrypt(data)
             except:
                 pass
         packs = self.ps.split(data, s)
-        if s == Connection.SERVER:
+        if s == PluginManager.SERVER:
             cname = self.check_for_charname(packs)
             if cname:
                 self.logics[cname] = self.logics.get(cname, LogicElement(cname))
                 self.logics[cname].con = con
         for le in self.logics.values():
             if le.con == con and le.logic:
-                stop, drop, fake = le.logic.callback(packs)
+                stop, drop, fake = le.logic.callback(packs, s, d)
                 if stop:
                     le.logic = None
                 break
         else:
-            if s == Connection.CLIENT:
+            if s == PluginManager.CLIENT:
                 drop, fake = self.pluglogic(con, packs)
+
+        self.logics = dict(filter(lambda x: x[1].logic != None, self.logics.items()))
         return drop, self.encryptp(fake)
 
-'''
-def defaultlogic(self, con, data, s, d):
-        if s == Connection.CLIENT and Logic.iscommand(data):
-            command = Logic.getcommand(data).lower()
-            if command.startswith == "\\init":
-                logic = Logic()
-                con.callback = logic.callback
-                self.logics = self.logics + (logic,)
-            elif command.startswith("\\bot"):
-                try:
-                    w, n = tuple(command.split())
-                    for logic in self.logics:
-                        if logic.lid == int(n) - 1:
-                            con.callback = logic.callback
-                            break
-                except:
-                    pass
-            return True, ((), (b"",))
-        else:
-            return False, ((), ())'''
+import multiprocessing, logging
+logger = multiprocessing.log_to_stderr()
+logger.setLevel(multiprocessing.SUBDEBUG)

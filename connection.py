@@ -2,6 +2,10 @@ from construct.lib.container import Container
 from checksum import *
 from time import *
 from copy import deepcopy
+from itertools import chain
+from functools import partial
+from recipe import *
+from plugin import *
 
 
 unstack = lambda eth: (eth.next, eth.next.next, eth.next.next.next)
@@ -200,6 +204,29 @@ class Connection():
 
         recalculatechecksums(ip)
         return deepcopy(_eth)
+
+def connection_manager(qi, qo, server_ips):
+    connections = ()
+    pm = PluginManager()
+    while True:
+        while qi.empty():
+            pm.idle()
+            sleep(0.01)
+        eth = qi.get()
+        ip, tcp, data = unstack(eth)
+        for con in connections:
+            if con.passes(eth):
+                curcon = con
+                break
+        else:
+            curcon = Connection(eth, server_ips)
+            curcon.callback = partial(pm.callback, curcon)
+            connections = connections + (curcon,)
+
+        rcode, packs = curcon.update(eth)
+        if rcode != Connection.STABLE:
+            connections = tuple(filter(lambda x: x is not curcon, connections))
+        apply(qo.put_nowait, chain.from_iterable(packs))
 
 _eth = Container(**{
         'header': Container(**{
