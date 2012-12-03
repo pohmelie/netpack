@@ -83,12 +83,8 @@ class Netpack():
             self.ndisapi.SendPacketToMstcp(self.hnd, byref(request))
 
     def sendpacks(self, packs):
-        for eth in packs[0]:
-            r = ip_stack.build(eth)
-            self.send(self.make_request(r, PACKET_FLAG_ON_SEND))
-        for eth in packs[1]:
-            r = ip_stack.build(eth)
-            self.send(self.make_request(r, PACKET_FLAG_ON_RECEIVE))
+        for eth, flag in zip(packs, (PACKET_FLAG_ON_SEND, PACKET_FLAG_ON_RECEIVE)):
+            self.send(self.make_request(ip_stack.build(eth), flag))
 
     def mainloop(self):
         while True:
