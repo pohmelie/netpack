@@ -1,11 +1,12 @@
 from construct.lib.container import Container
-from checksum import *
 from time import *
 from copy import deepcopy
-from itertools import chain
-from functools import partial
+from multiprocessing import Process, Queue
+
+from checksum import *
 from recipe import *
 from plugin import *
+from d2packet import PacketSplitter
 
 
 unstack = lambda eth: (eth.next, eth.next.next, eth.next.next.next)
@@ -108,15 +109,15 @@ class ConnectionInputQueue():
             self.p[tcp.header.seq] = deepcopy(eth)
             return ()
 
-
 class Connection():
     CLIENT, SERVER = tuple(range(2))
     TIMEOUT, STABLE, RESET = tuple(range(3))
-    def __init__(self, eth, server_ips, callback=None):
+    def __init__(self, eth, server_ips):
         self.i = (ConnectionInputQueue(), ConnectionInputQueue())
         self.o = (ConnectionOutputQueue(), ConnectionOutputQueue())
-        self.callback = callback
-        self.drop = (set(), set())
+        self.qi = Queue()
+        self.qo = Queue()
+        self.state = Connection.STABLE
 
         ip, tcp, data = unstack(eth)
         if ip.header.source in server_ips:
@@ -140,45 +141,33 @@ class Connection():
         port = (tcp.header.source, tcp.header.destination)
         return port in (self.port, self.port[::-1]) and ip in (self.ip, self.ip[::-1])
 
-    def dropfilter(self, eth):
-        _, tcp, data = unstack(eth)
-        s, d = self.direction(eth)
-        if tcp.header.seq in self.drop[s] and len(data) != 0:
-            self.drop[s].remove(tcp.header.seq)
-            eth = self.make(b"", s == Connection.CLIENT)
-        return eth
+    def idle(self):
+        ret = ()
+        while not self.qo.empty():
+            data, s , d = self.qo.get()
+            ret = ret + (self.o[d].add(self.make(data, s == Connection.CLIENT)),)
+        rss, rsc = self.o[Connection.SERVER].resend(), self.o[Connection.CLIENT].resend()
+        if rsc == None or rss == None:
+            self.state = Connection.TIMEOUT
+        return self.state, ret + (rss or ()) + (rsc or ())
 
     def update(self, eth):
         ip, tcp, data = unstack(eth)
         s, d = self.direction(eth)
-        retpack = [self.o[Connection.SERVER].resend(), self.o[Connection.CLIENT].resend()]
-
-        if retpack[s] == None or retpack[d] == None:
-            return Connection.TIMEOUT, retpack
 
         checksum = tcp.header.checksum
         recalculatechecksums(ip)
         if checksum != tcp.header.checksum:
-            return Connection.STABLE, retpack
-
-        if self.callback and len(data) != 0:
-            drop, fake = self.callback(data, s, d)
-            if drop:
-                self.drop[s].add(tcp.header.seq)
-        else:
-            fake = ((), ())
-
-        real = [(), ()]
-        real[s] = tuple(map(self.dropfilter, self.i[s].add(eth)))
-        self.o[s].update(self.i[s].seq, tcp.header.ack)
-        for i in (s, d):
-            f = tuple(map(lambda x: self.make(x, i == Connection.CLIENT), fake[i]))
-            retpack[i] = retpack[i] + tuple(map(self.o[s if i == d else d].add, real[i] + f))
+            return
 
         if tcp.header.flags.rst:
-            return Connection.RESET, tuple(retpack)
-        else:
-            return Connection.STABLE, tuple(retpack)
+            self.state = Connection.RESET
+
+        eths = self.i[s].add(eth)
+        self.o[s].update(self.i[s].seq, tcp.header.ack)
+        self.qo.put_nowait((b"", d, s))
+        for _, _, dat in map(unstack, eths):
+            self.qi.put_nowait((dat, s, d, self.qi, self.qo))
 
     def make(self, data, c2s):
         if c2s:
@@ -207,26 +196,32 @@ class Connection():
 
 def connection_manager(qi, qo, server_ips):
     connections = ()
-    pm = PluginManager()
+    plugs_procs = {}
+    plugs = get_plugins()
+    splitter = PacketSplitter()
     while True:
         while qi.empty():
-            pm.idle()
+            remcon = ()
+            for con in connections:
+                rcode, packs = con.idle()
+                if rcode != Connection.STABLE:
+                    remcon = remcon + con
+                apply(qo.put_nowait, packs)
+            connections = tuple(filter(lambda x: x not in remcon, connections))
             sleep(0.01)
+
         eth = qi.get()
-        ip, tcp, data = unstack(eth)
         for con in connections:
             if con.passes(eth):
                 curcon = con
                 break
         else:
             curcon = Connection(eth, server_ips)
-            curcon.callback = partial(pm.callback, curcon)
+            fun = defaultpluginloop(curcon.qi, curcon.qo)
+            Process(target=fun).start()
             connections = connections + (curcon,)
 
-        rcode, packs = curcon.update(eth)
-        if rcode != Connection.STABLE:
-            connections = tuple(filter(lambda x: x is not curcon, connections))
-        apply(qo.put_nowait, chain.from_iterable(packs))
+        curcon.update(eth)
 
 _eth = Container(**{
         'header': Container(**{
@@ -278,3 +273,7 @@ _eth = Container(**{
                             'fin': False}),
                         'options': b''}),
                         'next': b''})})})
+
+import multiprocessing, logging
+logger = multiprocessing.log_to_stderr()
+logger.setLevel(multiprocessing.SUBDEBUG)

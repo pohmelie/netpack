@@ -14,9 +14,7 @@ class Netpack():
 
         self.qi = Queue()
         self.qo = Queue()
-        self.subproc = Process(target=connection_manager, args=(self.qi, self.qo, self.server_ips))
-        self.subproc.daemon = True
-        self.subproc.start()
+        Process(target=connection_manager, args=(self.qi, self.qo, self.server_ips)).start()
 
         self.ndisapi = windll.ndisapi
         self.kernel32 = windll.kernel32
@@ -37,6 +35,8 @@ class Netpack():
         self.hEvent = self.kernel32.CreateEventW(None, True, False, None)
         self.ndisapi.SetPacketEvent(self.hnd, self.mode.hAdapterHandle, self.hEvent)
 
+        atexit.register(self.release)
+
         self.request = ETH_REQUEST()
         self.packetbuffer= INTERMEDIATE_BUFFER()
 
@@ -45,13 +45,7 @@ class Netpack():
 
         self.ndisapi.SetAdapterMode(self.hnd, byref(self.mode))
 
-    def __enter__(self):
-        return self
 
-    def __exit__(self, t, value, traceback):
-        self.release()
-
-    @atexit.register
     def release(self):
         self.mode.dwFlags = 0
         self.ndisapi.SetPacketEvent(self.hnd, self.mode.hAdapterHandle, None)
@@ -107,7 +101,6 @@ class Netpack():
                 self.sendpack(self.qo.get())
             self.kernel32.ResetEvent(self.hEvent)
 
-
 if __name__ == "__main__":
     print("netpack 2012.11.27\n\ntype '\\help' in game for more information\n")
-    Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), 3).mainloop()
+    Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), 2).mainloop()
