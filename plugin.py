@@ -3,47 +3,42 @@ import os
 from d2crypt import decrypt, encrypt
 
 
-def get_plugins():
-    plugins = ()
-    plugdir = ".\\plugins"
-    for fname in os.listdir(plugdir):
-        if os.path.isfile(plugdir + "\\" + fname):
-            mname, ext = os.path.splitext(fname)
-            if ext == ".py":
-                file, pathname, desc = imp.find_module(mname, [plugdir])
-                m = imp.load_module(mname, file, pathname, desc)
-                if "netpack_plugin" in dir(m):
-                    plugins = plugins + (m.Logic,)
-    return plugins
-
-class LogicElement():
-    def __init__(self, name=None, con=None, logic=None):
-        self.name = name
-        self.con = con
-        self.logic = logic
-
 iscommand = lambda data: data[0] == 0x15 and str(data[3:4], "ascii") == "\\"
 getcommand = lambda data: str(data[3: -3], "ascii")
 
+class PluginManager():
+    def __init__(self):
+        self.plugins = ()
+        plugdir = ".\\plugins"
+        for fname in os.listdir(plugdir):
+            if os.path.isfile(plugdir + "\\" + fname):
+                mname, ext = os.path.splitext(fname)
+                if ext == ".py":
+                    file, pathname, desc = imp.find_module(mname, [plugdir])
+                    m = imp.load_module(mname, file, pathname, desc)
+                    if "netpack_plugin" in dir(m):
+                        self.plugins = self.plugins + (m.Logic,)
+
+    def check_for_charname(self, packs):
+        for pack in packs:
+            if pack[0] == 0x59: #assign player
+                p = self.ps.funcs[PluginManager.SERVER][pack[0]].unpack(pack)
+                if p["x"] == 0 and p["y"] == 0:
+                    return "".join(map(chr, filter(bool, p["Char Name"])))
+
+
+
 def defaultpluginloop(qi, qo):
-    def clojure():
-        while True:
-            data, _, _, _, _ = qi.get()
-            logger.debug(data)
-            qo.put_nowait(data)
-    return clojure
+    while True:
+        data, s, d = qi.get()
+        #logger.warning("==========================> defaultpluginloop " + repr(data))
+        qo.put_nowait((data, s, d))
 
 def pluginloop(qi, qo, plugins, splitter):
     while True:
         data, s, d, qi, qo = qi.get()
         qo.put_nowait(data)
 
-def check_for_charname(packs):
-    for pack in packs:
-        if pack[0] == 0x59: #assign player
-            p = self.ps.funcs[PluginManager.SERVER][pack[0]].unpack(pack)
-            if p["x"] == 0 and p["y"] == 0:
-                return "".join(map(chr, filter(bool, p["Char Name"])))
 
 def pluglogic(self, con, packs):
     drop = False
@@ -54,7 +49,7 @@ def pluglogic(self, con, packs):
             pass #window naming and plug list
         else:
             com = com.split()
-            logger.debug(com)
+            #logger.debug(com)
             com, params = com[0], tuple(com[1:])
             for plug in self.plugins:
                 logger.debug(plug.name)
@@ -100,3 +95,7 @@ def callback(self, con, data, s, d):
 
     self.logics = dict(filter(lambda x: x[1].logic != None, self.logics.items()))
     return drop, self.encryptp(fake)
+
+#import multiprocessing, logging
+#logger = multiprocessing.log_to_stderr()
+#logger.setLevel(logging.WARNING)

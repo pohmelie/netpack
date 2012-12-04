@@ -1,9 +1,9 @@
 from ctypes import *
 from winpkbind import *
 from ipstack import ip_stack
-from multiprocessing import Process, Queue
-from connection import connection_manager
-import atexit
+from multiprocessing import Queue
+from connectionmanager import ConnectionManager
+from atexit import register
 
 
 class Netpack():
@@ -14,7 +14,7 @@ class Netpack():
 
         self.qi = Queue()
         self.qo = Queue()
-        Process(target=connection_manager, args=(self.qi, self.qo, self.server_ips)).start()
+        ConnectionManager(self.qi, self.qo, server_ips).start()
 
         self.ndisapi = windll.ndisapi
         self.kernel32 = windll.kernel32
@@ -35,16 +35,13 @@ class Netpack():
         self.hEvent = self.kernel32.CreateEventW(None, True, False, None)
         self.ndisapi.SetPacketEvent(self.hnd, self.mode.hAdapterHandle, self.hEvent)
 
-        atexit.register(self.release)
-
         self.request = ETH_REQUEST()
         self.packetbuffer= INTERMEDIATE_BUFFER()
-
         self.request.EthPacket.Buffer = pointer(self.packetbuffer)
         self.request.hAdapterHandle = self.mode.hAdapterHandle
 
         self.ndisapi.SetAdapterMode(self.hnd, byref(self.mode))
-
+        register(self.release)
 
     def release(self):
         self.mode.dwFlags = 0

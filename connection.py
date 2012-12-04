@@ -111,13 +111,13 @@ class ConnectionInputQueue():
 
 class Connection():
     CLIENT, SERVER = tuple(range(2))
-    TIMEOUT, STABLE, RESET = tuple(range(3))
-    def __init__(self, eth, server_ips):
+    TIMEOUT, STABLE, RESET, WAIT = tuple(range(4))
+    def __init__(self, eth, server_ips, qi=None, qo=None):
         self.i = (ConnectionInputQueue(), ConnectionInputQueue())
         self.o = (ConnectionOutputQueue(), ConnectionOutputQueue())
-        self.qi = Queue()
-        self.qo = Queue()
-        self.state = Connection.STABLE
+        self.qi = qi or Queue()
+        self.qo = qo or Queue()
+        self.state = Connection.WAIT
 
         ip, tcp, data = unstack(eth)
         if ip.header.source in server_ips:
@@ -145,10 +145,13 @@ class Connection():
         ret = ()
         while not self.qo.empty():
             data, s , d = self.qo.get()
+            logger.warning("{:.2f} connection.idle #1 ".format(time() % 60) + repr((data, s, d)))
             ret = ret + (self.o[d].add(self.make(data, s == Connection.CLIENT)),)
         rss, rsc = self.o[Connection.SERVER].resend(), self.o[Connection.CLIENT].resend()
         if rsc == None or rss == None:
+            logger.warning("Connection.TIMEOUT")
             self.state = Connection.TIMEOUT
+        logger.warning("{:.2f} connection.idle #2 ".format(time() % 60) + repr(ret + (rss or ()) + (rsc or ())))
         return self.state, ret + (rss or ()) + (rsc or ())
 
     def update(self, eth):
@@ -163,11 +166,23 @@ class Connection():
         if tcp.header.flags.rst:
             self.state = Connection.RESET
 
-        eths = self.i[s].add(eth)
-        self.o[s].update(self.i[s].seq, tcp.header.ack)
-        self.qo.put_nowait((b"", d, s))
-        for _, _, dat in map(unstack, eths):
-            self.qi.put_nowait((dat, s, d, self.qi, self.qo))
+        #logger.warning("{:.2f} update, ready = {}".format(time() % 60, self.state))
+
+        if self.state != Connection.WAIT:
+            eths = self.i[s].add(eth)
+            self.o[s].update(self.i[s].seq, tcp.header.ack)
+            self.qo.put_nowait((b"", d, s))
+            self.qo.put_nowait((b"", s, d))
+            for _, _, dat in map(unstack, eths):
+                if len(dat) != 0:
+                    #logger("{:.2f} update, put = {}".format(time() % 60, dat))
+                    self.qi.put_nowait((dat, s, d))
+        else:
+            self.i[s].add(eth)
+            self.o[s].update(self.i[s].seq, tcp.header.ack)
+            self.o[d].add(eth)
+            if self.i[s].seq and self.i[d].seq:
+                self.state = Connection.STABLE
 
     def make(self, data, c2s):
         if c2s:
@@ -199,29 +214,40 @@ def connection_manager(qi, qo, server_ips):
     plugs_procs = {}
     plugs = get_plugins()
     splitter = PacketSplitter()
-    while True:
-        while qi.empty():
-            remcon = ()
-            for con in connections:
+
+    def idle(qi, qo, connections):
+        remcon = ()
+        for con in connections:
+            if con.state == Connection.STABLE:
                 rcode, packs = con.idle()
                 if rcode != Connection.STABLE:
-                    remcon = remcon + con
+                    #logger.warning("{:.2f} idle not stable... removing".format(time() % 60))
+                    remcon = remcon + (con,)
+                #logger("{:.2f} idle packs = {}".format(time() % 60, packs))
                 apply(qo.put_nowait, packs)
-            connections = tuple(filter(lambda x: x not in remcon, connections))
+        return remcon
+
+    while True:
+        while qi.empty():
+            remcon = idle(qi, qo, connections)
             sleep(0.01)
 
         eth = qi.get()
+        #logger.warning("{:.2f} connection_manager ".format(time() % 60) + repr(eth))
         for con in connections:
             if con.passes(eth):
                 curcon = con
                 break
         else:
+            #logger.warning("{:.2f} connection_manager [new connection]".format(time() % 60))
             curcon = Connection(eth, server_ips)
-            fun = defaultpluginloop(curcon.qi, curcon.qo)
-            Process(target=fun).start()
+            Process(target=defaultpluginloop, args=(curcon.qi, curcon.qo)).start()
             connections = connections + (curcon,)
 
         curcon.update(eth)
+        if curcon.state != Connection.STABLE:
+            qo.put_nowait(eth)
+        remcon = idle(qi, qo, connections)
 
 _eth = Container(**{
         'header': Container(**{
@@ -273,7 +299,3 @@ _eth = Container(**{
                             'fin': False}),
                         'options': b''}),
                         'next': b''})})})
-
-import multiprocessing, logging
-logger = multiprocessing.log_to_stderr()
-logger.setLevel(multiprocessing.SUBDEBUG)
