@@ -1,12 +1,16 @@
 from construct.lib.container import Container
 from time import *
 from copy import deepcopy
-from multiprocessing import Process, Queue
+from multiprocessing import Queue
 
 from checksum import *
 from recipe import *
 from plugin import *
 
+'''from multiprocessing import log_to_stderr
+import logging
+logger = log_to_stderr()
+logger.setLevel(logging.WARNING)'''
 
 unstack = lambda eth: (eth.next, eth.next.next, eth.next.next.next)
 _add = lambda x, y: (x + y) % (1 << 32)
@@ -144,13 +148,12 @@ class Connection():
         ret = ()
         while not self.qo.empty():
             data, s , d = self.qo.get()
-            #logger.warning("{:.2f} connection.idle #1 ".format(time() % 60) + repr((data, s, d)))
             ret = ret + (self.o[d].add(self.make(data, s == Connection.CLIENT)),)
+
         rss, rsc = self.o[Connection.SERVER].resend(), self.o[Connection.CLIENT].resend()
-        if rsc == None or rss == None:
-            #logger.warning("Connection.TIMEOUT")
+        if (rsc == None or rss == None) and self.state != Connection.RESET:
             self.state = Connection.TIMEOUT
-        logger.warning("{:.2f} connection.idle #2 ".format(time() % 60) + repr(ret + (rss or ()) + (rsc or ())))
+
         return ret + (rss or ()) + (rsc or ())
 
     def update(self, eth):
@@ -164,8 +167,7 @@ class Connection():
 
         if tcp.header.flags.rst:
             self.state = Connection.RESET
-
-        #logger.warning("{:.2f} update, ready = {}".format(time() % 60, self.state))
+            return
 
         if self.state != Connection.WAIT:
             eths = self.i[s].add(eth)
@@ -174,7 +176,6 @@ class Connection():
             self.qo.put((b"", s, d))
             for _, _, dat in map(unstack, eths):
                 if len(dat) != 0:
-                    #logger.warning("{:.2f} update, put = {}".format(time() % 60, dat))
                     self.qi.put((dat, s, d))
         else:
             self.i[s].add(eth)

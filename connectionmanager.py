@@ -1,59 +1,102 @@
-from multiprocessing import Process, Queue, log_to_stderr
-import logging
+from time import time, sleep
+from multiprocessing import Process, Queue
+
 from plugin import PluginManager
-from connection import Connection
+from connection import Connection, unstack
 from recipe import *
 
+from multiprocessing import log_to_stderr, SUBDEBUG
+import logging
 logger = log_to_stderr()
 logger.setLevel(logging.WARNING)
+#logger.setLevel(SUBDEBUG)
 
+class DefaultQueueControl(Process):
+    def __init__(self, qi, qo):
+        Process.__init__(self)
+        self.qi = qi
+        self.qo = qo
+
+    def run(self):
+        while True:
+            self.qo.put(self.qi.get())
 
 class LogicElement():
-    def __init__(self, name=None, con=None, logic=None):
+    def __init__(self, name, con, logic, qi, qo):
         self.name = name
         self.con = con
         self.logic = logic
+        self.qi = qi
+        self.qo = qo
 
     def smth(self, val):
         return name == val or con == val or logic == val
 
+    def __repr__(self):
+        pps = "LogicElement(name = {}, con = {}, logic = {}, qi = {}, qo = {}"
+        return pps.format(self.name, self.con, self.logic, self.qi, self.qo)
+
 class ConnectionManager(Process):
     def __init__(self, qi, qo, server_ips):
         Process.__init__(self)
-
         self.qi = qi
         self.qo = qo
         self.server_ips = server_ips
-
         self.logics = ()
+        self.remcon = ()
 
-    @staticmethod
-    def default_queue_control(qi, qo):
-        while True:
-            qo.put(qi.get())
+    def filter_logics(self):
+        remlog = ()
+        t = time()
+        for log in self.logics:
+            if log.con.state in (Connection.TIMEOUT, Connection.RESET):
+                self.remcon = self.remcon + ((log.con, t),)
+                if log.name:
+                    log.con = None
+                else:
+                    log.logic.terminate()
+                    remlog = remlog + (log,)
+        self.logics = tuple(filter(lambda x: x not in remlog, self.logics))
+        self.remcon = tuple(filter(lambda x: t - x[1] < 10, self.remcon))
+
+    def idle(self):
+        while self.qi.empty():
+            self.filter_logics()
+            for log in self.logics:
+                if log.con:
+                    apply(self.qo.put, log.con.idle())
+            sleep(0.01)
+        self.filter_logics()
+
+    def get_logic(self, eth):
+        for log in self.logics:
+            if log.con.passes(eth):
+                return log
+        if not any(map(lambda x: x[0].passes(eth), self.remcon)):
+            con = Connection(eth, self.server_ips)
+            proc = DefaultQueueControl(con.qi, con.qo)
+            proc.start()
+            log = LogicElement(None, con, proc, con.qi, con.qo)
+            self.logics = self.logics + (log,)
+            return log
+
+    def con_logic(self, curlog, eth):
+        if curlog.con.state in (Connection.STABLE, Connection.WAIT):
+            if curlog.con.state == Connection.WAIT:
+                self.qo.put(eth)
+            curlog.con.update(eth)
+            apply(self.qo.put, curlog.con.idle())
 
     def run(self):
         self.plugman = PluginManager()
         while True:
-            #idle
-            while self.qi.empty():
-                for log in self.logics:
-                    apply(self.qo.put, log.con.idle())
-                    if log.con.state == Connection.TIMEOUT:
-                        pass
-                        #delete connection and 'None' it in logics
-            #active
+            #logger.warning(self.logics)
+
+            self.idle()
             eth = self.qi.get()
-            for log in self.logics:
-                if log.con.passes(eth):
-                    curcon = log.con
-                    break
-            else:
-                curcon = Connection(eth, server_ips)
-                proc = Process(
-                    target=ConnectionManager.default_queue_control,
-                    args=(curcon.qi, curcon.qo))
-                log = LogicElement(None, curcon, proc)
-                connections = connections + curcon
-            self.qo.put(self.qi.get())
+            curlog = self.get_logic(eth)
+            if curlog:
+                self.con_logic(curlog, eth)
+
+            #check for charname, commands, etc.
 

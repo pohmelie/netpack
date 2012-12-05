@@ -2,6 +2,11 @@ import imp
 import os
 from d2crypt import decrypt, encrypt
 
+'''from multiprocessing import log_to_stderr, SUBDEBUG
+import logging
+logger = log_to_stderr()
+#logger.setLevel(logging.WARNING)
+logger.setLevel(SUBDEBUG)'''
 
 iscommand = lambda data: data[0] == 0x15 and str(data[3:4], "ascii") == "\\"
 getcommand = lambda data: str(data[3: -3], "ascii")
@@ -95,7 +100,3 @@ def callback(self, con, data, s, d):
 
     self.logics = dict(filter(lambda x: x[1].logic != None, self.logics.items()))
     return drop, self.encryptp(fake)
-
-#import multiprocessing, logging
-#logger = multiprocessing.log_to_stderr()
-#logger.setLevel(logging.WARNING)
