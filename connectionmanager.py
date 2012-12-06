@@ -30,7 +30,7 @@ class LogicElement():
         self.qo = qo
 
     def smth(self, val):
-        return name == val or con == val or logic == val
+        return val in (self.name, self.con, self.logic, self.qi, self.qo)
 
     def __repr__(self):
         pps = "LogicElement(name = {}, con = {}, logic = {}, qi = {}, qo = {}"
@@ -42,22 +42,22 @@ class ConnectionManager(Process):
         self.qi = qi
         self.qo = qo
         self.server_ips = server_ips
-        self.logics = ()
-        self.remcon = ()
+        self.logics = set()
+        self.remcon = set()
 
     def filter_logics(self):
-        remlog = ()
+        remlog = set()
         t = time()
         for log in self.logics:
             if log.con.state in (Connection.TIMEOUT, Connection.RESET):
-                self.remcon = self.remcon + ((log.con, t),)
+                self.remcon.add((log.con, t))
                 if log.name:
                     log.con = None
                 else:
                     log.logic.terminate()
-                    remlog = remlog + (log,)
-        self.logics = tuple(filter(lambda x: x not in remlog, self.logics))
-        self.remcon = tuple(filter(lambda x: t - x[1] < 10, self.remcon))
+                    remlog.add(log)
+        self.logics = self.logics - remlog
+        self.remcon = set(tuple(filter(lambda x: t - x[1] < 10, self.remcon)))
 
     def idle(self):
         while self.qi.empty():
@@ -77,7 +77,7 @@ class ConnectionManager(Process):
             proc = DefaultQueueControl(con.qi, con.qo)
             proc.start()
             log = LogicElement(None, con, proc, con.qi, con.qo)
-            self.logics = self.logics + (log,)
+            self.logics.add(log)
             return log
 
     def con_logic(self, curlog, eth):
@@ -90,13 +90,9 @@ class ConnectionManager(Process):
     def run(self):
         self.plugman = PluginManager()
         while True:
-            #logger.warning(self.logics)
-
             self.idle()
             eth = self.qi.get()
             curlog = self.get_logic(eth)
+            #check for charname, commands, etc.
             if curlog:
                 self.con_logic(curlog, eth)
-
-            #check for charname, commands, etc.
-
