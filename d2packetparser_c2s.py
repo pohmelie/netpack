@@ -470,7 +470,7 @@ c2s_packets = Struct("c2s packets",
             },
             default = Struct(None,
                 Pointer(lambda ctx: ctx.start_fun, HexDumpAdapter(GreedyRange(ULInt8("data")))),
-                HexDumpAdapter(GreedyRange(ULInt8(None)))
+                GreedyRange(ULInt8(None))
             )
         )
     )
