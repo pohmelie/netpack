@@ -22,14 +22,14 @@ chat = Struct(None,
         normal = 0x01,
         whisper = 0x02
     ),
-    Padding(1),
+    Const(ULInt8(None), 0),
     Embed(Switch(None, lambda ctx: ctx.mode, {
-                "overhead":Struct(None, CString("message"), Padding(2)),
-                "normal":Struct(None, CString("message"), Padding(2)),
+                "overhead":Struct(None, CString("message"), Const(ULInt16(None), 0)),
+                "normal":Struct(None, CString("message"), Const(ULInt16(None), 0)),
                 "whisper":Struct(None,
                     CString("message"),
                     CString("char_name"),
-                    Padding(1)
+                    Const(ULInt8(None), 0)
                 )
             }
         )
@@ -52,7 +52,7 @@ body_location = Enum(ULInt16("body_location"),
 equip_swap = Struct(None,
     sid("object_id"),
     body_location,
-    Padding(2)
+    Const(ULInt16(None), 0)
 )
 
 npc_buy_sell_repair = Struct(None,
@@ -72,7 +72,28 @@ class GoldAdapter32(Adapter):
 def Gold32(name):
     return GoldAdapter32(ULInt32(name))
 
-c2s_packets = Struct("c2s packets",
+speech_id = Enum(ULInt16("speech_id"),
+    help_help_me = 0x0019,
+    follow_me_come_on = 0x001a,
+    this_is_yours_this_is_for_you = 0x001b,
+    thanks_thank_you = 0x001c,
+    ahh_oops_forgive_me = 0x001d,
+    bye_good_bye = 0x001e,
+    die_time_to_die = 0x001f,
+    run_run_away = 0x0020
+)
+
+char_type = Enum(ULInt8("char_type"),
+    amazon = 0x00,
+    sorceress = 0x01,
+    necromancer = 0x02,
+    paladin = 0x03,
+    barbarian = 0x04,
+    druid = 0x05,
+    assassin = 0x06
+)
+
+c2s_packets = Struct(None,
     Anchor("start_fun"),
     Enum(UBInt8("fun"),
         walk = 0x01,
@@ -176,14 +197,14 @@ c2s_packets = Struct("c2s packets",
                 "left_skill_on_location_repeat":position,
                 "left_skill_on_object_repeat":action_to_a_object,
                 "shift_left_skill_on_object_repeat":action_to_a_object,
-                "unknown_0b":Pass,
+                "unknown_0b":Struct(None, Pass),
                 "right_skill_on_location":position,
                 "right_skill_on_object":action_to_a_object,
                 "shift_right_skill_on_object":action_to_a_object,
                 "right_skill_on_location_repeat":position,
                 "right_skill_on_object_repeat":action_to_a_object,
                 "shift_right_skill_on_object_repeat":action_to_a_object,
-                "unknown_12":Pass,
+                "unknown_12":Struct(None, Pass),
                 "interact_with_object":action_to_a_object,
                 "send_overhead_chat":chat,
                 "send_normal_chat":chat,
@@ -271,20 +292,9 @@ c2s_packets = Struct("c2s packets",
                 ),
                 "highlight_a_door":Struct(None, sid("object_id")),
                 "activate_scroll_of_inifuss":Struct(None, sid("object_id")),
-                "send_char_speech":Struct(None,
-                    Enum(ULInt16("speech_id"),
-                        help_help_me = 0x0019,
-                        follow_me_come_on = 0x001a,
-                        this_is_yours_this_is_for_you = 0x001b,
-                        thanks_thank_you = 0x001c,
-                        ahh_oops_forgive_me = 0x001d,
-                        bye_good_bye = 0x001e,
-                        die_time_to_die = 0x001f,
-                        run_run_away = 0x0020
-                    )
-                ),
-                "request_quest_log":Pass,
-                "resurrect":Pass,
+                "send_char_speech":Struct(None, speech_id),
+                "request_quest_log":Struct(None, Pass),
+                "resurrect":Struct(None, Pass),
                 "staff_in_orifice":Struct(None,
                     ULInt32("orifice_entity_kind"),
                     sid("orifice_id"),
@@ -302,7 +312,7 @@ c2s_packets = Struct("c2s packets",
                     ULInt32("x"),
                     ULInt32("y")
                 ),
-                "turns_off_busy_state":Pass,
+                "turns_off_busy_state":Struct(None, Pass),
                 "waypoint_interaction":Struct(None,
                     sid("waypoint_id"),
                     Enum(sid("area_id"),
@@ -385,10 +395,10 @@ c2s_packets = Struct("c2s packets",
                         left = 0x80
                     ),
                     ULInt16("hotkey"),
-                    Padding(4)
+                    Const(ULInt32(None), 0xffffffff)
                 ),
-                "turn_stamina_on":Pass,
-                "turn_stamina_off":Pass,
+                "turn_stamina_on":Struct(None, Pass),
+                "turn_stamina_off":Struct(None, Pass),
                 "quest_complete":Struct(None, ULInt16("quest_id")),
                 "register_town_folk_interaction":Struct(None,
                     sid("request_id"),
@@ -431,7 +441,7 @@ c2s_packets = Struct("c2s packets",
                     ULInt16("x"),
                     ULInt16("y")
                 ),
-                "swap_weapons":Pass,
+                "swap_weapons":Struct(None, Pass),
                 "merc_item_action":Struct(None,
                     Enum(ULInt16("action"),
                         put = 0x00,
@@ -446,22 +456,17 @@ c2s_packets = Struct("c2s packets",
                 "send_logon_info":Struct(None,
                     ULInt32("d2gs_hash"),
                     ULInt16("d2gs_token"),
-                    Enum(ULInt8("char_type"),
-                        amazon = 0x00,
-                        sorceress = 0x01,
-                        necromancer = 0x02,
-                        paladin = 0x03,
-                        barbarian = 0x04,
-                        druid = 0x05,
-                        assassin = 0x06
-                    ),
+                    char_type,
                     ULInt32("version"),
-                    Padding(9),
+                    Const(ULInt32(None), 0xED5DCC50),
+                    Const(ULInt32(None), 0x91A519B6),
+                    Const(ULInt8(None), 0),
                     CString("char_name"),
-                    Padding(lambda ctx: 15 - len(ctx.char_name))
+                    #Padding(lambda ctx: 15 - len(ctx.char_name))
+                    Bytes("_unused", lambda ctx: 15 - len(ctx.char_name))
                 ),
-                "exit_game":Pass,
-                "enter_game":Pass,
+                "exit_game":Struct(None, Pass),
+                "enter_game":Struct(None, Pass),
                 "ping":Struct(None,
                     ULInt32("tickcount"),
                     ULInt32("delay"),
@@ -470,7 +475,7 @@ c2s_packets = Struct("c2s packets",
             },
             default = Struct(None,
                 Pointer(lambda ctx: ctx.start_fun, HexDumpAdapter(GreedyRange(ULInt8("data")))),
-                HexDumpAdapter(GreedyRange(ULInt8(None)))
+                GreedyRange(ULInt8(None))
             )
         )
     )
@@ -486,6 +491,10 @@ if __name__ == "__main__":
 \x00\x00\x50\xCC\x5D\xED\xB6\x19\xA5\x91\x00\x72\x74\x74\x74\x68\x65\x61\x68\
 \x65\x61\x68\x65\x61\x68\x72\x00\x68\xe9\xeb\x17\x20\x95\x02\x01\x65\x00\x00\
 \x00\x50\xcc\x5d\xed\xb6\x19\xa5\x91\x00\x62\x72\x6f\x6f\x6d\x72\x69\x64\x65\
-\x72\x00\x4b\x00\x00\x00\x00\xff\xfe\xfd\xff\xfe\xfd\xff\xfe\xfd\xff\xfe\xfd'''
-    x = GreedyRange(c2s_packets).parse(data)
-    print(x)
+\x72\x00\x4b\x00\x00\x00\x00\x68\x93\xe5\x6c\x62\xa2\x03\x00\x65\x00\x00\x00\
+\x50\xcc\x5d\xed\xb6\x19\xa5\x91\x00\x70\x6d\x61\x61\x00\x36\x7e\x3a\x18\xae\
+\x6f\x4b\x00\x00\x00\x00\x68\xcc\xd5\xbd\x66\xe7\x03\x00\x0d\x00\x00\x00\x50\
+\xcc\x5d\xed\xb6\x19\xa5\x91\x00\x70\x6d\x61\x61\x00\x36\x7e\x6a\x39\xaf\x6f\
+\x4b\x00\x00\x00\x00\xff\xfe\xfd\xff\xfe\xfd\xff\xfe\xfd\xff\xfe\xfd'''
+    c2s = OptionalGreedyRange(c2s_packets)
+    print(c2s.parse(data))
