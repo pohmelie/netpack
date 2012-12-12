@@ -5,10 +5,10 @@ from plugin import PluginManager
 from connection import Connection, unstack
 from recipe import *
 
-from multiprocessing import log_to_stderr, SUBDEBUG
+'''from multiprocessing import log_to_stderr, SUBDEBUG
 import logging
 logger = log_to_stderr()
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.WARNING)'''
 #logger.setLevel(SUBDEBUG)
 
 class DefaultQueueControl(Process):

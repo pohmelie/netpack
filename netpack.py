@@ -5,6 +5,7 @@ from multiprocessing import Queue
 from connectionmanager import ConnectionManager
 from atexit import register
 
+from d2packetparser import tmp
 
 class Netpack():
     def __init__(self, server_ips, adapter_id=None):
@@ -14,7 +15,7 @@ class Netpack():
 
         self.qi = Queue()
         self.qo = Queue()
-        ConnectionManager(self.qi, self.qo, server_ips).start()
+        #ConnectionManager(self.qi, self.qo, server_ips).start()
 
         self.ndisapi = windll.ndisapi
         self.kernel32 = windll.kernel32
@@ -91,9 +92,12 @@ class Netpack():
             while self.ndisapi.ReadPacket(self.hnd, byref(self.request)):
                 d = bytes(self.packetbuffer.m_IBuffer[:self.packetbuffer.m_Length])
                 if self.checkfortcp(d) and self.checkforips(d):
-                    self.qi.put_nowait(ip_stack.parse(d))
-                else:
-                    self.send(self.request)
+                    tmp(ip_stack.parse(d), self.server_ips)
+                    #self.qi.put_nowait(ip_stack.parse(d))
+                #else:
+                #    self.send(self.request)
+                self.send(self.request)
+
             while not self.qo.empty():
                 self.sendpack(self.qo.get())
             self.kernel32.ResetEvent(self.hEvent)

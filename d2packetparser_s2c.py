@@ -3,16 +3,18 @@ from d2packetparser_c2s import sid, speech_id, char_type
 
 
 def xy16(pre=""):
+    pre = pre and pre + "_"
     return Embed(Struct(None,
-            ULInt16("_".join((pre, "x"))),
-            ULInt16("_".join((pre, "y")))
+            ULInt16(pre + "x"),
+            ULInt16(pre + "y")
         )
     )
 
 def etype_eid(pre=""):
+    pre = pre and pre + "_"
     return Embed(Struct(None,
-            ULInt8("_".join((pre, "entity_type"))),
-            sid("_".join((pre, "entity_id")))
+            ULInt8(pre + "entity_type"),
+            sid(pre + "entity_id")
         )
     )
 
@@ -21,9 +23,7 @@ map_add_rem = Struct(None,
     ULInt8("area_id")
 )
 
-attr_code = Enum(ULInt8("attr_code"),
-    _default_ = "unknown"
-)
+attr_code = ULInt8("attr_code") #need research for life, mana, etc.
 
 s2c_packets = Struct(None,
     Anchor("start_fun"),
@@ -119,6 +119,12 @@ s2c_packets = Struct(None,
         compression = 0xaf,
         timeout = 0xb0,
         timeout_full = 0xb4,
+
+        #unknown, but length
+        unknown_0x91 = 0x91,
+        unknown_0xcb = 0xcb,
+        unknown_0xcc = 0xcc,
+
         _default_ = "unknown"
     ),
     Embed(Switch(None, lambda ctx: ctx.fun, {
@@ -188,33 +194,20 @@ s2c_packets = Struct(None,
                 ),
                 "entity_move":Struct(None,
                     etype_eid(),
-                    Enum(ULInt8("movement_type"),
-                        knocked_back = 0x20,
-                        run = 0x17,
-                        walk = 0x01,
-                        _default_ = "another"
-                    ),
+                    ULInt8("movement_type"),
                     xy16("going_to"),
                     ULInt8("knockback"),
                     xy16("going_from")
                 ),
                 "entity_to_entity":Struct(None,
                     etype_eid(),
-                    Enum(ULInt8("movement_type"),
-                        run = 0x18,
-                        walk = 0x00,
-                        _default_ = "another"
-                    ),
+                    ULInt8("movement_type"),
                     etype_eid("going_to"),
                     xy16()
                 ),
                 "report_kill":Struct(None,
                     etype_eid(),
-                    Enum(ULInt16("killed_by"),
-                        player = 0x98,
-                        merc = 0x97,
-                        _default_ = "another"
-                    )
+                    ULInt16("killed_by")
                 ),
                 "reassign":Struct(None,
                     etype_eid(),
@@ -300,7 +293,7 @@ s2c_packets = Struct(None,
                     ULInt16("skill"),
                     ULInt8("skill_level"),
                     etype_eid("defender"),
-                    Const(ULInt8(None), 0x00)
+                    Const(ULInt16(None), 0x00)
                 ),
                 "entity_attack_location":Struct(None,
                     etype_eid(),
@@ -314,10 +307,7 @@ s2c_packets = Struct(None,
                     etype_eid(),
                     ULInt16("entity_class_code"),
                     xy16(),
-                    Enum(ULInt8("state"),
-                        changeable = 0x00,
-                        not_changeable = 0x02
-                    ),
+                    ULInt8("state"),
                     Enum(ULInt8("interaction"),
                         general_chests = 0x00,
                         refreshing_shrine = 0x01,
@@ -369,8 +359,7 @@ s2c_packets = Struct(None,
                         teaming = 0x02,
                         friendly = 0x04,
                         nasty = 0x08,
-                        remove = 0x09,
-                        _default_ = "another"
+                        remove = 0x09
                     ),
                     sid("some_number_or_id"),
                     ULInt8("entity_type"),
@@ -412,22 +401,14 @@ s2c_packets = Struct(None,
                 ),
                 "npc_move":Struct(None,
                     sid("npc_id"),
-                    Enum(ULInt8("movement_type"),
-                        walk = 0x01,
-                        knockback = 0x14,
-                        run = 0x17
-                    ),
+                    ULInt8("movement_type"),
                     xy16(),
                     Const(ULInt16(None), 0x01),
                     ULInt32("flag")
                 ),
                 "npc_to_target":Struct(None,
                     sid("npc_id"),
-                    Enum(ULInt8("movement_type"),
-                        walk = 0x01,
-                        knockback = 0x14,
-                        run = 0x17
-                    ),
+                    ULInt8("movement_type"),
                     xy16(),
                     etype_eid("target"),
                     Const(ULInt16(None), 0x01),
@@ -443,8 +424,7 @@ s2c_packets = Struct(None,
                 "npc_action":Struct(None,
                     sid("npc_id"),
                     ULInt8("action_type"),
-                    Const(ULInt32(None), 0),
-                    Const(ULInt32(None), 0),
+                    Const(Bytes(None, 6), b"\x00\x00\x00\x00\x00\x00"),
                     xy16()
                 ),
                 "npc_attack":Struct(None,
@@ -466,18 +446,7 @@ s2c_packets = Struct(None,
                     Flag("in_your_party")
                 ),
                 "overhead_clear":Struct(None, etype_eid()),
-                "trade":Struct(None,
-                    Enum(ULInt8("request_id"),
-                        player_wants_to_trade = 0x01,
-                        player_pressed_accept = 0x05,
-                        accept_cant_be_clicked = 0x06,
-                        not_enough_space_to_accept = 0x09,
-                        player_canceled_trade = 0x0c,
-                        you_have_accepted_items = 0x0d,
-                        accept_has_been_disabled = 0x0e,
-                        accept_has_been_reenabled = 0x0f
-                    )
-                ),
+                "trade":Struct(None, ULInt8("button_action")),
                 "who_trade":Struct(None,
                     CString("char_name"),
                     #Padding(lambda ctx: 15 - len(ctx.char_name))
@@ -542,7 +511,7 @@ s2c_packets = Struct(None,
                     sid("player_id"),
                     sid("corpse_id")
                 ),
-                "pong":Struct(None, Bytes("server_response", 8)),
+                "pong":Struct(None, Bytes("server_response", 32)),
                 "party_pulse":Struct(None,
                     sid("player_id"),
                     ULInt32("mini_map_x"),
@@ -605,13 +574,13 @@ s2c_packets = Struct(None,
                     etype_eid(),
                     ULInt8("length_of_packet"),
                     ULInt8("effect_aura_code"),
-                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 8)
+                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 7)
                 ),
                 "aura_rem":Struct(None, etype_eid(), ULInt8("aura_effect_code")),
                 "entity_info_add":Struct(None,
                     etype_eid(),
                     ULInt8("length_of_packet"),
-                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 7)
+                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 6)
                 ),
                 "entity_heal":Struct(None, etype_eid(), ULInt8("life_percent")),
                 "npc_assign":Struct(None,
@@ -620,7 +589,7 @@ s2c_packets = Struct(None,
                     xy16(),
                     ULInt8("life_percent"),
                     ULInt8("length_of_packet"),
-                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 14)
+                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 12)
                 ),
                 "warden":Struct(None,
                     ULInt8("length_of_packet"),
@@ -656,7 +625,12 @@ s2c_packets = Struct(None,
                         failed_to_join = 0x19,
                         unable_to_enter_the_game = 0x1a
                     )
-                )
+                ),
+
+                #unknown, but length
+                "unknown_0x91":Struct(None, Bytes("data", 26 - 1)),
+                "unknown_0xcb":Struct(None, Bytes("data", 23 - 1)),
+                "unknown_0xcc":Struct(None, Bytes("data", 15 - 1)),
             },
             default = Struct(None,
                 Pointer(lambda ctx: ctx.start_fun, HexDumpAdapter(GreedyRange(ULInt8("data")))),
