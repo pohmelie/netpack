@@ -29,13 +29,21 @@ def tmp(eth, ips):
         print("\nError when parsing:")
         print(data)
 
+    pphex = lambda data: " ".join(map("{:0>2x}".format, data))
+    #print(pphex(data))
+
+
     if d2_packet_parser[s].build(x) != data or x[-1].fun == "unknown":
         print("=====================================================================")
         if s == Connection.SERVER:
             print("[{:.3f}] s -> c:".format(time() % 60))
         else:
             print("[{:.3f}] c -> s:".format(time() % 60))
-        pphex = lambda data: " ".join(map(hex, data))
         print(pphex(data))
         print(pphex(d2_packet_parser[s].build(x)))
         print(x)
+    elif s == Connection.SERVER:
+        for p in x:
+            if p.fun in ("world_item_action", "owner_item_action"):
+                print("\n\nitem packet:")
+                print(p)

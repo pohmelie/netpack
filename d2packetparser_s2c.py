@@ -132,8 +132,8 @@ s2c_packets = Struct(None,
         timeout_full = 0xb4,
 
         #item actions
-        owner_item_action = 0x9c,
-        world_item_action = 0x9d,
+        world_item_action = 0x9c,
+        owner_item_action = 0x9d,
 
         #unknown, but length
         unknown_0x50 = 0x50,
@@ -516,7 +516,7 @@ s2c_packets = Struct(None,
                     ULInt16("area_id")
                 ),
                 "merc_owner":Struct(None,
-                    Const(ULInt16(None), 0x0752),
+                    Const(ULInt16(None), 0x5207),
                     etype_eid(),
                     sid("merc_id"),
                     ULInt32("unknown1"),
@@ -671,13 +671,14 @@ s2c_packets = Struct(None,
                 ),
 
                 #item actions
-                "owner_item_action":Struct(None,
-                    d2item_header,
-                    Bytes("next", lambda ctx: ctx.length_of_packet - 1 - 7)
-                ),
                 "world_item_action":Struct(None,
                     d2item_header,
                     Bytes("next", lambda ctx: ctx.length_of_packet - 1 - 7)
+                ),
+                "owner_item_action":Struct(None,
+                    d2item_header,
+                    etype_eid("owner"),
+                    Bytes("next", lambda ctx: ctx.length_of_packet - 1 - 12)
                 ),
 
                 #unknown, but length
@@ -715,5 +716,12 @@ if __name__ == "__main__":
 \x01\x00\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x94\x08\x03\x00\x00\x00\x00\
 \x00\x01\x02\x00\x01\x01\x00\x01\xd9\x00\x01\xda\x00\x01\xdb\x00\x01\xdc\x00\
 \x01\x03\x00\x01'''
+
+    z = lambda x: bytes().fromhex(x.replace(" ", ""))
+    data = z("c1 26 04 00 02 00 00 00 00 01 00 5b 73 79 73 5d 00 57 65 6c 63 6f 6d 65 20 74 6f 20 50 6c 61 79 47 72 6f 75 6e 64 2e 72 75 20 44 69 61 62 6c 6f 20 49 49 20 73 65 72 76 65 72 2e 00 59 01 00 00 00 01 62 72 6f 6f 6d 72 69 64 65 72 00 00 00 00 00 00 00 00 00 00 aa 00 01 00 00 00 0c 69 59 f9 ff 1f 76 00 01 00 00 00 94 13 01 00 00 00 00 00 01 02 00 01 01 00 01 d9 00 01 da 00 01 db 00 01 dc 00 01 03 00 01 25 00 01 27 00 14 28 00 01 2a 00 01 2b 00 01 2c 00 01 2d 00 14 36 00 01 37 00 0c 3b 00 14 41 00 14 22 00 98 01 00 00 00 da 00 14 44 00 22 00 98 01 00 00 00 dc 00 0f 44 00 27 01 01 00 00 00 01 00 03 0c 7c 0d 88 b8 d7 03 f4 bd a4 02 0f 00 00 00 9e d5 f6 6f f4 bd a4 02 a4 02 00 00 00 15 98 0c 23 00 01 00 00 00 00 2b 00 ff ff ff ff 5e 01 00 01 01 00 00 00 01 00 01 00 00 00 00 01 01 01 00 00 00 00 00 00 00 01 00 00 00 01 01 01 01 01 01 00 00 77 28 06 00 00 00 00 00 01 00 01 10 0c 00 00 00 19 10 51 10 19 10 01 00 01 00 11 10 69 18 05 10 81 11 05 10 25 14 01 00 01 00 01 10 5d 10 d5 11 01 10 19 10 01 12 01 00 01 00 01 10 81 13 01 90 01 00 00 00 00 00 00 00 01 00 00 00 00 00 0c 00 0c 00 08 00 00 00 39 13 6d 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 29 00 00 00 80 00 00 00 00 00 a0 00 80 00 80 00 00 00 20 00 a0 00 00 00 a0 00 a0 00 80 00 80 00 00 00 20 00 a0 00 80 00 80 00 80 00 a0 00 a0 00 00 00 00 00 80 00 80 00 80 00 00 00 00 00 00 00 00 00 a0 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0b 00 01 00 00 00 5f 01 00 00 00 1d 00 64 1d 01 23 1d 02 91 1d 03 f5 1f 07 00 90 02 00")
+    print(data)
     s2c = OptionalGreedyRange(s2c_packets)
-    print(s2c.parse(data))
+    x = s2c.parse(data)
+    y = s2c.build(x)
+    print()
+    print(y == data)
