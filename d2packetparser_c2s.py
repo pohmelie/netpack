@@ -223,7 +223,8 @@ c2s_packets = Struct(None,
                     ULInt32("y"),
                     Enum(ULInt32("object_direction"),
                         inventory = 0x00,
-                        cube_or_trade = 0x02,
+                        trade = 0x02,
+                        cube = 0x03,
                         stash = 0x04
                     )
                 ),

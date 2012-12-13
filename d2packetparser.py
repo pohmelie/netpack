@@ -15,7 +15,10 @@ def tmp(eth, ips):
     if not data:
         return
     if ip.header.source in ips:
-        data = decrypt(data)
+        try:
+            data = decrypt(data)
+        except:
+            pass
         s = Connection.SERVER
     else:
         s = Connection.CLIENT
