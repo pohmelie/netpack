@@ -1,6 +1,6 @@
 import imp
 import os
-from d2crypt import decrypt, encrypt
+from d2crypt import Decrypter, encrypt
 
 '''from multiprocessing import log_to_stderr, SUBDEBUG
 import logging
