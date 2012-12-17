@@ -4,9 +4,9 @@ from recipe import *
 
 attrs_list = dict(
     strength = 0,
-    dexterity = 1,
-    mana = 2,
-    life = 3,
+    energy = 1,
+    dexterity = 2,
+    vitality = 3,
     level = 12,
     experience = 13,
     stash_gold = 15,

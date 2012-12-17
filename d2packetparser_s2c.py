@@ -1,12 +1,14 @@
 from construct import *
 from d2packetparser_c2s import sid, char_type
 from d2packetparser_items import *
-from skills_list import Skill
-from attr_list import Attribute
+from list_skills import Skill
+from list_attrs import Attribute
+from list_entities import Entity
 
 
 skills = Skill("skill")
 attr_code = Attribute("attribute")
+entity_type = Entity("entity_type")
 
 def xy16(pre=""):
     pre = pre and pre + "_"
@@ -19,7 +21,8 @@ def xy16(pre=""):
 def etype_eid(pre=""):
     pre = pre and pre + "_"
     return Embed(Struct(None,
-            ULInt8(pre + "entity_type"),
+            Entity(pre + "entity_type"),
+            #ULInt8(pre + "entity_type"),
             sid(pre + "entity_id")
         )
     )
@@ -36,7 +39,7 @@ s2c_packets = Struct(None,
         load_successful = 0x02,
         seed = 0x03,
         enter_game = 0x04,
-        move_act = 0x05,
+        unload_complete = 0x05,
         game_exit = 0x06,
         map_add = 0x07,
         map_rem = 0x08,
@@ -131,7 +134,7 @@ s2c_packets = Struct(None,
         npc_assign = 0xac,
         warden = 0xae,
         compression = 0xaf,
-        timeout = 0xb0,
+        game_termination = 0xb0,
         timeout_full = 0xb4,
 
         #item actions
@@ -186,7 +189,7 @@ s2c_packets = Struct(None,
                     ULInt32("seed_2")
                 ),
                 "enter_game":Struct(None, Pass),
-                "move_act":Struct(None, Pass),
+                "unload_complete":Struct(None, Pass),
                 "game_exit":Struct(None, Pass),
                 "map_add":map_add_rem,
                 "map_rem":map_add_rem,
@@ -270,7 +273,8 @@ s2c_packets = Struct(None,
                     ULInt8("unknown2")
                 ),
                 "skill_book_count":Struct(None,
-                    ULInt8("entity_type"),
+                    entity_type,
+                    #ULInt8("entity_type"),
                     ULInt8("unknown1"),
                     ULInt32("entity_id"),
                     #ULInt16("skill_code"),
@@ -404,7 +408,8 @@ s2c_packets = Struct(None,
                         remove = 0x09
                     ),
                     sid("some_number_or_id"),
-                    ULInt8("entity_type"),
+                    entity_type,
+                    #ULInt8("entity_type"),
                     CString("A"),
                     Bytes("_unused1", lambda ctx: 15 - len(ctx.A)),
                     CString("B"),
@@ -520,7 +525,8 @@ s2c_packets = Struct(None,
                     sid("item_id")
                 ),
                 "party_update":Struct(None,
-                    ULInt8("entity_type"),
+                    entity_type,
+                    #ULInt8("entity_type"),
                     ULInt16("life_percent"),
                     sid("entity_id"),
                     ULInt16("area_id")
@@ -650,7 +656,7 @@ s2c_packets = Struct(None,
                     Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 1)
                 ),
                 "compression":Struct(None, Flag("active")),
-                "timeout":Struct(None, Pass),
+                "game_termination":Struct(None, Pass),
                 "timeout_full":Struct(None, Enum(ULInt32("reason"),
                         bad_char_version = 0x01,
                         bad_char_quest_data = 0x02,

@@ -11,39 +11,39 @@ from connection import unstack, Connection
 from time import time
 from recipe import *
 
-d = Decrypter()
+dec = Decrypter()
 
-def tmp(eth, ips):
-    ip, tcp, data = unstack(eth)
+from multiprocessing import log_to_stderr, SUBDEBUG
+import logging
+logger = log_to_stderr()
+logger.setLevel(logging.WARNING)
+
+def tmp(data, s, d):
     if not data:
         return
-    print()
-    print(rev(data))
+    logger.warning("")
+    logger.warning(rev(data))
     ddata = (data,)
-    if ip.header.source in ips:
-        if data != b"\xaf\x01":
-            ddata = d.decrypt(data)
-        s = Connection.SERVER
-    else:
-        s = Connection.CLIENT
+    if data != b"\xaf\x01" and s == Connection.SERVER:
+        ddata = dec.decrypt(data)
 
-    print("head =", rev(d.head))
-    print("decrypted count =", len(ddata))
+    logger.warning("head = " + rev(dec.head))
+    logger.warning("decrypted count = {}".format(len(ddata)))
     for dat in ddata:
-        print("\ndecrypted =", rev(dat))
+        logger.warning("\ndecrypted = " + rev(dat))
         x = d2_packet_parser[s].parse(dat)
-        print(x)
+        logger.warning(x)
         if x and (d2_packet_parser[s].build(x) != dat or x[-1].fun == "unknown"):
-            print("=====================================================================")
+            logger.warning("=====================================================================")
             if s == Connection.SERVER:
-                print("[{:.3f}] s -> c:".format(time() % 60))
+                logger.warning("[{:.3f}] s -> c:".format(time() % 60))
             else:
-                print("[{:.3f}] c -> s:".format(time() % 60))
-            print(rev(d2_packet_parser[s].build(x)))
-            print(x)
+                logger.warning("[{:.3f}] c -> s:".format(time() % 60))
+            logger.warning(rev(d2_packet_parser[s].build(x)))
+            logger.warning(x)
         elif s == Connection.SERVER:
             for p in x:
                 if p.fun in ("world_item_action", "owner_item_action"):
                     continue
-                    print("\n\nitem packet:")
-                    print(p)
+                    logger.warning("\n\nitem packet:")
+                    logger.warning(p)

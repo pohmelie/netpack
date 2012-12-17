@@ -3,6 +3,7 @@ from multiprocessing import Process, Queue
 
 from plugin import PluginManager
 from connection import Connection, unstack
+from d2packetparser import tmp
 from recipe import *
 
 '''from multiprocessing import log_to_stderr, SUBDEBUG
@@ -10,7 +11,6 @@ import logging
 logger = log_to_stderr()
 logger.setLevel(logging.WARNING)'''
 #logger.setLevel(SUBDEBUG)
-
 class DefaultQueueControl(Process):
     def __init__(self, qi, qo):
         Process.__init__(self)
@@ -19,7 +19,9 @@ class DefaultQueueControl(Process):
 
     def run(self):
         while True:
-            self.qo.put(self.qi.get())
+            pack = self.qi.get()
+            self.qo.put(pack)
+            tmp(*pack)
 
 class LogicElement():
     def __init__(self, name, con, logic, qi, qo):

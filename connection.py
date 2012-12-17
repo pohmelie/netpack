@@ -7,11 +7,6 @@ from checksum import *
 from recipe import *
 from plugin import *
 
-'''from multiprocessing import log_to_stderr
-import logging
-logger = log_to_stderr()
-logger.setLevel(logging.WARNING)'''
-
 unstack = lambda eth: (eth.next, eth.next.next, eth.next.next.next)
 _add = lambda x, y: (x + y) % (1 << 32)
 

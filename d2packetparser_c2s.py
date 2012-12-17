@@ -1,6 +1,8 @@
 from construct import *
+from list_skills import Skill
 
 
+skills = Skill("skill")
 sid = lambda name: ULInt32(name)
 idpair = lambda name1, name2: Struct(None, sid(name1), sid(name2))
 position = Struct(None, ULInt16("x"), ULInt16("y"))
@@ -282,9 +284,9 @@ c2s_packets = Struct(None,
                 ),
                 "purchase_life":Struct(None, sid("npc_id")),
                 "add_stat_point":Struct(None, ULInt16("stat_id")),
-                "add_skill_point":Struct(None, ULInt16("skill_id")),
+                "add_skill_point":Struct(None, skills),
                 "select_skill":Struct(None,
-                    ULInt16("skill_id"),
+                    skills,
                     Enum(ULInt16("skill_side"),
                         right = 0x0000,
                         left = 0x8000
