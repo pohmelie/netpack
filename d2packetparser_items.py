@@ -1,5 +1,6 @@
 from construct import *
 from d2packetparser_c2s import sid
+from recipe import *
 
 
 d2item_header = Embed(Struct(None,
@@ -38,6 +39,59 @@ d2item_header = Embed(Struct(None,
     )
 )
 
+def extb(d, bita, count=1):
+    getb = lambda d, bita: (d[bita >> 3] >> (bita & 7)) & 1
+    ret = 0
+    while count:
+        count = count - 1
+        ret = (ret << 1) + getb(d, bita + count)
+    return ret
 
-if __name__ == "__main__":
-    pass
+buffers = ("inventory", "body", "belt", "ground", "cursor", "world", "sockets")
+containers = ("unspecified", "inventory", "npc_trade", "trade_screen", "horadric_cube", "stash")
+qualities = ("unspecified", "inferior", "normal", "superior", "magic", "set", "rare", "unique", "crafted")
+
+def d2item_body_stats_extract(ctx):
+    d = ctx.data
+
+    identifiedv = bool(extb(d, 4))
+    etherialv = bool(extb(d, 22))
+    item_has_no_levelv = bool(extb(d, 21))
+    destinationv = buffers[extb(d, 42, 3)]
+
+    shift = 0
+    if destinationv == "ground":
+        xv = extb(d, 45, 16)
+        yv = extb(d, 61, 16)
+        contv = containers[0]
+        shift = 17
+    else:
+        xv = extb(d, 49, 4)
+        yv = extb(d, 53, 4)
+        contv = containers[extb(d, 57, 3)]
+
+    codev = "".join(map(lambda i: chr(extb(d, 60 + shift + 8 * i, 8)), range(3)))
+    ilvlv = qualityv = 0
+    if codev != "gld" and not item_has_no_levelv:
+        qualityv = extb(d, 102 + shift, 4)
+        ilvlv = extb(d, 95 + shift, 7)
+
+    return Container(
+        etherial = etherialv,
+        identified = identifiedv,
+        item_has_no_level = item_has_no_levelv,
+        destination = destinationv,
+        x = xv,
+        y = yv,
+        container = contv,
+        code = codev,
+        quality = qualities[qualityv],
+        ilvl = ilvlv
+    )
+
+d2item_body = Embed(Struct(None,
+        Anchor("tail"),
+        Bytes("data", lambda ctx: ctx.length_of_packet - (ctx.tail - ctx.start_fun)),
+        Value("item", d2item_body_stats_extract)
+    )
+)

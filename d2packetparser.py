@@ -21,18 +21,18 @@ logger.setLevel(logging.WARNING)
 def tmp(data, s, d):
     if not data:
         return
-    logger.warning("")
-    logger.warning(rev(data))
+    #logger.warning("")
+    #logger.warning(rev(data))
     ddata = (data,)
     if data != b"\xaf\x01" and s == Connection.SERVER:
         ddata = dec.decrypt(data)
 
-    logger.warning("head = " + rev(dec.head))
-    logger.warning("decrypted count = {}".format(len(ddata)))
+    #logger.warning("head = " + rev(dec.head))
+    #logger.warning("decrypted count = {}".format(len(ddata)))
     for dat in ddata:
-        logger.warning("\ndecrypted = " + rev(dat))
+        #logger.warning("\ndecrypted = " + rev(dat))
         x = d2_packet_parser[s].parse(dat)
-        logger.warning(x)
+        #logger.warning(x)
         if x and (d2_packet_parser[s].build(x) != dat or x[-1].fun == "unknown"):
             logger.warning("=====================================================================")
             if s == Connection.SERVER:
@@ -44,6 +44,8 @@ def tmp(data, s, d):
         elif s == Connection.SERVER:
             for p in x:
                 if p.fun in ("world_item_action", "owner_item_action"):
-                    continue
-                    logger.warning("\n\nitem packet:")
+                    logger.warning(p)
+        elif s == Connection.CLIENT:
+            for p in x:
+                if p.fun in ("run", "walk"):
                     logger.warning(p)
