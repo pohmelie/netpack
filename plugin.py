@@ -1,15 +1,53 @@
 import imp
 import os
 from d2crypt import Decrypter, encrypt
+from d2packetparser import d2_packet_parser
+from multiprocessing import Process
+from connection import Connection
+from construct import *
 
-'''from multiprocessing import log_to_stderr, SUBDEBUG
-import logging
-logger = log_to_stderr()
-#logger.setLevel(logging.WARNING)
-logger.setLevel(SUBDEBUG)'''
 
-iscommand = lambda data: data[0] == 0x15 and str(data[3:4], "ascii") == "\\"
-getcommand = lambda data: str(data[3: -3], "ascii")
+import multiprocessing, logging
+logger = multiprocessing.log_to_stderr()
+logger.setLevel(logging.WARNING)
+
+def info(s, col="silver"):
+    return([
+        Container(
+            fun = "chat",
+            entity_id = 0,
+            entity_type = "stash_wp_portal_chest",
+            chat_type = "system",
+            color = col,
+            char_level = 0,
+            message = bytes(s, "ascii"),
+            char_name = b"[sys]",
+            start_fun = 0
+        )],
+        Connection.SERVER,
+        Connection.CLIENT
+    )
+
+class DefaultQueueControl(Process):
+    def __init__(self, qi, qo):
+        Process.__init__(self)
+        self.dec = Decrypter()
+        self.qi = qi
+        self.qo = qo
+
+    def run(self):
+        self.plug = PluginManager()
+        while True:
+            data, s, d = self.qi.get()
+            mdata = (data,)
+            if s == Connection.SERVER and data != b"\xaf\x01":
+                mdata = self.dec.decrypt(data)
+            for idata in mdata:
+                for odata, src, dst in self.plug.act(d2_packet_parser[s].parse(idata), s, d):
+                    odata = d2_packet_parser[src].build(odata)
+                    if src == Connection.SERVER:
+                        odata = encrypt(odata)
+                    self.qo.put((odata, src, dst))
 
 class PluginManager():
     def __init__(self):
@@ -24,9 +62,6 @@ class PluginManager():
                     if "netpack_plugin" in dir(m):
                         self.plugins = self.plugins + (m.Logic,)
 
-    def check_for_charname(self, packs):
-        for pack in packs:
-            if pack[0] == 0x59: #assign player
-                p = self.ps.funcs[PluginManager.SERVER][pack[0]].unpack(pack)
-                if p["x"] == 0 and p["y"] == 0:
-                    return "".join(map(chr, filter(bool, p["Char Name"])))
+    def act(self, packets, s, d):
+        return (packets, s, d)
+        #info("packets {}".format(self.deb))

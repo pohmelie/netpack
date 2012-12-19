@@ -1,27 +1,10 @@
 from time import time, sleep
 from multiprocessing import Process, Queue
-
-from plugin import PluginManager
+from d2packetparser_c2s import c2s_packets
+from plugin import DefaultQueueControl
 from connection import Connection, unstack
-from d2packetparser import tmp
 from recipe import *
 
-'''from multiprocessing import log_to_stderr, SUBDEBUG
-import logging
-logger = log_to_stderr()
-logger.setLevel(logging.WARNING)'''
-#logger.setLevel(SUBDEBUG)
-class DefaultQueueControl(Process):
-    def __init__(self, qi, qo):
-        Process.__init__(self)
-        self.qi = qi
-        self.qo = qo
-
-    def run(self):
-        while True:
-            pack = self.qi.get()
-            self.qo.put(pack)
-            tmp(*pack)
 
 class LogicElement():
     def __init__(self, name, con, logic, qi, qo):
@@ -51,7 +34,7 @@ class ConnectionManager(Process):
         remlog = set()
         t = time()
         for log in self.logics:
-            if log.con.state in (Connection.TIMEOUT, Connection.RESET):
+            if log.con and log.con.state in (Connection.TIMEOUT, Connection.RESET):
                 self.remcon.add((log.con, t))
                 if log.name:
                     log.con = None
@@ -72,7 +55,7 @@ class ConnectionManager(Process):
 
     def get_logic(self, eth):
         for log in self.logics:
-            if log.con.passes(eth):
+            if log.con and log.con.passes(eth):
                 return log
         if not any(map(lambda x: x[0].passes(eth), self.remcon)):
             con = Connection(eth, self.server_ips)
@@ -89,12 +72,31 @@ class ConnectionManager(Process):
             curlog.con.update(eth)
             apply(self.qo.put, curlog.con.idle())
 
+    def check_logon(self, curlog, eth):
+        ip, tcp, data = unstack(eth)
+        if data and ip.header.destination in self.server_ips and data[0] == 0x68:
+            char_name = str(c2s_packets.parse(data).char_name, encoding="ascii")
+            remlog = set()
+            for log in self.logics:
+                if log.name == char_name:
+                    log.con = curlog.con
+                    log.con.qi = log.qi
+                    log.con.qo = log.qo
+                    curlog.logic.terminate()
+                    remlog.add(curlog)
+                    curlog = log
+                    break
+            else:
+                curlog.name = char_name
+            self.logics = self.logics - remlog
+        return curlog
+
     def run(self):
-        self.plugman = PluginManager()
         while True:
             self.idle()
             eth = self.qi.get()
             curlog = self.get_logic(eth)
-            #check for charname, commands, etc.
             if curlog:
+                if not curlog.name:
+                    curlog = self.check_logon(curlog, eth)
                 self.con_logic(curlog, eth)

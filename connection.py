@@ -1,11 +1,11 @@
 from construct.lib.container import Container
-from time import *
+from time import time
 from copy import deepcopy
 from multiprocessing import Queue
 
 from checksum import *
 from recipe import *
-from plugin import *
+
 
 unstack = lambda eth: (eth.next, eth.next.next, eth.next.next.next)
 _add = lambda x, y: (x + y) % (1 << 32)

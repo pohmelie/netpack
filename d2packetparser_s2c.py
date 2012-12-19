@@ -4,11 +4,13 @@ from d2packetparser_items import *
 from list_skills import Skill
 from list_attrs import Attribute
 from list_entities import Entity
+from list_chat_colors import Color
 
 
 skills = Skill("skill")
 attr_code = Attribute("attribute")
 entity_type = Entity("entity_type")
+color = Color("color")
 
 def xy16(pre=""):
     pre = pre and pre + "_"
@@ -301,8 +303,8 @@ s2c_packets = Struct(None,
                         sent_whisp = 0x06,
                     ),
                     etype_eid(),
-                    ULInt8("unknown1"),
-                    ULInt8("unknown2"),
+                    color,
+                    ULInt8("char_level"),
                     CString("char_name"),
                     CString("message")
                 ),
@@ -717,57 +719,3 @@ s2c_packets = Struct(None,
         )
     )
 )
-
-if __name__ == "__main__":
-    data = b'''\x01\x02\x04\x20\x20\x00\x00\x01\x00\x02\x03\x03\x79\x10\x6d\
-\x44\x67\x00\xd8\x04\xda\x28\x04\x05\x07\xf0\x03\xf0\x03\x67\x0b\x00\x01\x00\
-\x00\x00\x0e\x02\x12\x00\x00\x00\x03\x01\x02\x00\x00\x00\x22\x00\xa0\x01\x00\
-\x00\x00\xda\x00\x13\x44\x00\x22\x00\xa0\x01\x00\x00\x00\xdc\x00\x14\x44\x00\
-\x26\x04\x00\x02\x00\x00\x00\x00\x01\x00\x5b\x73\x79\x73\x5d\x00\x57\x65\x6c\
-\x63\x6f\x6d\x65\x20\x74\x6f\x20\x50\x6c\x61\x79\x47\x72\x6f\x75\x6e\x64\x2e\
-\x72\x75\x20\x44\x69\x61\x62\x6c\x6f\x20\x49\x49\x20\x73\x65\x72\x76\x65\x72\
-\x2e\x00\x26\x05\x00\x00\x03\x00\x00\x00\x1c\xfc\x00\x79\x6f\x62\x61\x00\x26\
-\x06\x00\x02\x00\x00\x00\x00\x00\xe5\x70\x6d\x63\x61\x00\x71\x00\x26\x02\x00\
-\x02\x00\x00\x00\x00\x00\x02\x70\x6d\x61\x61\x00\x71\x00\x5b\x24\x00\x03\x00\
-\x00\x00\x00\x70\x6d\x63\x61\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\
-\x01\x00\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x94\x08\x03\x00\x00\x00\x00\
-\x00\x01\x02\x00\x01\x01\x00\x01\xd9\x00\x01\xda\x00\x01\xdb\x00\x01\xdc\x00\
-\x01\x03\x00\x01'''
-    from recipe import *
-    from d2crypt import Decrypter
-
-    s2c = OptionalGreedyRange(s2c_packets)
-
-    #a = rev("f1 2c 06 a1 e2 0a fe f1 7c 6c 1c 86 c1 82 2e 0c a7 a5 91 a5 60 ca 76 36 8d 27 65 33 d1 90 72 15 46 b1 a4 6e 1a 0b 42 18 d6 37 1d 8a 6a c6 42 c1 e8 d2 76 2b 8a e7 63 60 ca 35 8d e3 28 d6 21 c5 d7 e8 55 8d a3 60 c4 36 8d 63 20 d5 ff e0 86 fc c9 58 ba 19 9b 3a 1b ef c0 89 b3 fd d7 bb dc 25 dc 26 5c 26 dc 27 5d 8b 9f b8 68 b8 69 b8 6a bd d9 5d cc 58 76 91 3b a3 77 32 77 33 76 8d 5d 76 9d a3 77 70 e7 7e 12 ee 29 c3 9d f8 4d b8 a7 0f 5d fb cf a4 1d 12 93 87 50 98 7c 2a 01 20 3a bb 6d 9d 40 b8 47 0c 83 48 54 02 40 75 70 36 bf 0b 81 b9 18 3a bf 9b bb 6d b6 d8 c2 fb de f7 f7 77 df bb ee ef 7b e3 81 29 0f de e6 87 26 86 52 38 11 c8 e6 8f 79 a9 a0 e4 1b b0 68 3c 1a b0 68 c1 a3 de e6 8e 68 8e e6 86 06 82 89 a3 de e6 8e c9 dd ff fe 1c 1a 23 8f 66 e6 53 03 51 81 af ff c3 ee b6 b7 90 1d 6f 3b 90 1c 80 90 15 b5 bc ee 40 56 f5 b2 02 40 7d 6d 6f ff fd 6f 5b d6 d6 ff fe 63 7e 31 3f 39 9c 9c b9 1c e5 76 80 f1 bc 50 7c 20 39 d2 28 8a 86 a0 c1 68 14 3a 31 86 15 e7 26 45 73 a3 32 00 92 1e 40 aa 03 a3 47 e6 95 b1 96 7a 22 04 83 63 e3 c8 6e 01 c9 e2 98 56 06 cb 90 80 0c 35 9f 02 a8 03 73 45 f9 a5 6c 65 8c e2 20 48 36 3e 3c 86 e9 62 9a 10 7e 15 45 00 2a 81 41 a1 fe 69 5a 8c 65 aa 11 02 41 b1 f5 ce c0 68 25 14 c6 62 81 98 fe 0f 87 70 2a 46 68 d1 07 34 40 40 23 19 51 a1 08 48 45 c3 eb 81 54 0a 0d 18 e6 95 b1 96 33 08 81 20 d8 f8 f2 1b b0 09 45 31 98 03 91 87 f0 7c 3b 81 64 24 b3 44 3e fc d6 b5 18 ca 29 a0 34 09 05 64 43 c8 59 4e 02 a5 34 c4 00 76 40 08 c4 00 da 3c 87 cc 04 54 80 74 d8 a2 3b 86 23 a0 2c 84 40 34 45 ef cd 6b 63 28 37 32 3b 2f 85 64 23 c8 55 60 7b 12 96 96 9d 30 09 01 26 a1 05 92 d0 0e 50 db 81 64 22 01 a2 3f 7e 6b 5b 19 42 a1 18 ec be 15 90 ae 16 d2 8f 62 52 d2 d3 a6 01 20 24 d4 20 32 5a 01 ca 1b 70 2c 84 49 34 30 f7 e6 b5 b1 94 3b 65 68 3a 0f 10 8f 21 68 21 91 84 31 8c af 19 02 20 09 32 02 ab 45 20 32 31 92 c0 30 e2 40 87 c0 2c 78 14 49 24 f0 06 4a 0d 28 80 a9 19 a3 44 9c d2 40 23 19 51 91 82 12 11 70 fa e0 54 8c d1 a1 8f 34 90 08 c6 54 66 c1 09 08 b8 7d 70 2a 46 68 d0 cb 9a 20 20 23 2a 35 c2 12 11 70 fa e0 54 8c d1 a2 5e 68 80 80 46 32 a3 48 10 90 8b 87 d7 02 a4 66 8d 08 dc d2 40 23 19 51 a0 5a 84 5c 3e b8 15 23 34 68 67 cd 24 02 31 95 19 92 d4 22 e1 f5 c0 a9 19 a3 43 4e 69 20 23 2a 34 c1 09 08 b8 7d 70 f1 a9 02 a8 0e 8d 0d 79 a5 6a 31 96 68 22 04 81 20 fa e1 60 03 82 91 c5 73 31 f0 29 27 07 23 b8 15 40 21 1a 26 e6 95 a8 c6 59 50 44 09 06 c7 c7 90 be 5d 06 7b 30 f2 24 46 f2 c1 28 1c 04 21 f0 0c 9b 13 ca a3 78 69 07 83 b8 15 40 1b 9a 33 cd 2b 63 2c 6b 11 02 41 b1 f5 ce d8 8d 41 50 7b 02 8d 81 54 07 66 8d 73 4a d8 cb 1a 84 40 90 6c 7c 79 4e 9c 9e 01 05 31 50 6a 21 19 12 5b 70 2a 46 68 d1 3f 34 40 40 46 54 75 a8 45 53 eb 81 52 33 46 86 dc d2 40 46 54 6d 2d 42 2a 9f 5c 0b 21 10 cd 0d fd f9 ad 6d 74 06 a4 e0 f4 1c a1 1e 42 99 31 11 a9 70 97 06 a0 e0 04 9a 89 a0 3d 82 81 2c 05 8d c1 7c 34 a2 02 a8 03 73 43 8e 69 5b 19 68 c4 40 90 24 1f 5c ed 3c 63 0a 82 b9 00 d8 15 23 34 68 47 e6 88 08 08 ca 8d 1a d4 22 a9 f5 c0 aa 06 8d 09 1c d2 40 46 59 d8 7e 88 45 3e b8 15 40 d1 a0 6d cd 24 04 65 93 83 f4 41 d1 f5 c0 aa 06 8d 03 7e 69 20 23 2c 39 0f d1 0d 87 d7 02 a8 0d cd 0e 79 a5 6c 65 a0 0e 43 20 08 44 3c 80 82 28 e8 0a a0 12 0d 14 73 4a d4 63 2d 30 88 12 03 c3 e3 c8 5f 60 1d c8 a4 c4 39 24 87 11 c8 71 b8 85 25 00 70 86 90 0d 1b 0a 82 d8 31 10 4f 42 d8 7c 07 48 40 7e 18 45 11 44 29 0a 00 55 03 46 87 5c d2 40 46 58 a4 1f a2 27 9f 5c 0a a0 68 d0 ef 9a 48 08 cb 18 c3 f4 43 d1 f5 c0 aa 06 8d 03 8e 69 20 23 2c b0 1f 9b 8b 67 d7 02 a8 1a 34 0e 79 a4 80 8c b5 c3 f4 43 d1 f5 c0 f1 b0 02 c8 49 4e 1d 7b f3 54 6b 50 0c a5 a4 2b 43 d1 25 10 28 04 25 c3 10 0e 64 47 4e 18 5b 1e c5 c2 50 3b 6d c0 b3 24 73 40 ef a0 0e b9 c4 80 8c a7 13 b0 f4 f9 f5 c0 b3 24 73 42 4f 40 1d 73 89 01 19 4e 17 3b 37 1e 8f ae 05 99 23 9a 07 9d 00 75 ce 24 02 31 94 e1 01 da 21 14 fa e0 59 08 86 68 1e fb f3 5a da e2 9a 70 84 37 83 94 23 c8 42 1e 10 b4 b5 6c 78 06 c0 18 c8 4f 2d 10 e6 02 c9 28 03 8b a1 6c 50 02 a4 66 8d 09 5c d2 40 46 54 66 8b 50 8a a7 d7 02 a8 14 1a 07 dc d2 b6 32 c6 81 10 24 1b 1f 1e 52 a5 06 ad 21 27 0a c3 e0 15 6c 0a a0 3a 34 0f f9 a5 6c 65 8a 82 20 48")
-    #b = rev("36 3e 3c 86 e0 1c 83 2b 85 a1 4c 7d 01 84 22 d6 c0 aa 00 dc d0 40 e6 95 b1 96 90 44 09 02 41 f1 e4 37 4f 2d 05 41 5c 0c b6 05 50 06 e6 82 0f 34 ad 8c b3 21 10 24 09 07 d7 3b 62 31 85 41 ec 80 6c 0a a0 0d cd 04 2e 69 5b 19 64 61 10 24 09 07 d7 10 58 96 82 a0 ae 06 5b 02 a8 1a 34 10 f9 a4 80 8c b8 7e 88 45 3e b8 15 40 72 68 00 39 a4 0c c6 5a 40 26 17 02 f8 9c 09 87 70 0e 16 c1 50 c2 0d 08 c7 e0 55 00 76 c1 2f 9a 56 c6 59 00 04 c9 e3 82 25 c4 20 a4 06 06 96 93 82 03 40 46 08 0e 06 12 64 34 19 81 54 07 6c 13 39 a5 6c 65 90 20 4c 9e 38 22 5c 87 2e 10 21 b9 a9 a1 d9 5c 5b 00 8d b8 16 42 22 c4 4f 7e 6a 8d 6c 65 0e d7 29 9b a1 44 04 02 f8 f0 66 34 0c 65 33 48 a6 b8 0a 40 02 90 80 a1 58 94 4e 04 e1 a4 3a 3d 28 89 01 58 50 f1 ae 02 cc 91 cd 04 5e 80 44 e7 12 02 32 9c 4e c3 d3 e7 d7 02 a8 09 2e 23 73 4a d8 cb 03 e3 e0 09 0a c8 47 90 a4 01 12 90 ea 84 b0 08 b4 c4 03 0b c7 61 88 07 91 44 59 98 15 40 a1 81 1f 9a 56 c6 5c 7f 27 8e 08 97 20 0a 61 50 b2 10 01 b0 23 02 43 fb 60 55 03 46 82 47 34 90 11 96 b4 3f 37 64 fa e0 55 01 d1 a0 93 cd 2b 63 2c 53 11 02 40 78 7c 79 0d c0 39 75 50 76 3c 04 21 f8 48 6d c0 aa 06 8d 04 ae 69 20 23 2c 79 0f d1 0f 47 d7 02 a8 04 76 04 be 69 5b 19 60 74 33 87 86 c8 47 90 9c 0d 4d 44 42 4a e1 09 08 42 3b 29 89 43 20 11 21 55 00 73 c3 10 e8 94 5e 16 c1 40 8c 22 14 00 39 68 78 4a 04 9b 02 a8 1a 34 13 39 a4 80 8c b1 8c 08 09 02 4a 15 c0 aa 06 8d 09 bc d2 40 46 59 60 52 12 44 94 2b 81 54 04 a3 41 37 9a 56 c6 58 a4 98 24 15 91 0f 20 0c 06 87 87 68 80 d8 76 53 16 09 84 92 cc 64 16 03 10 a0 03 42 b8 a0 05 90 9c 9a 09 de fc d6 b6 32 96 8d cd 0d 94 a2 1e 41 29 0e 18 c5 00 2c 84 50 42 27 fb f3 54 6b 50 0c a0 18 8e b4 7a 0f 10 8a 44 01 04 81 82 a0 f0 1a c5 51 58 7f 1a 8f b0 03 03 62 98 88 34 14 cf 42 72 d4 c0 f8 b0 32 13 8c 8b e1 58 94 33 04 63 72 39 1d b7 02 cc 91 cd 05 0e 80 4f e7 12 02 32 9c 4e d1 08 a7 d7 02 cc 91 cd 09 dd 00 9f ce 24 04 65 38 5c ed 11 64 fa e0 59 92 39 a0 a3 d0 09 fc e2 40 46 53 84 07 66 e1 d1 f5 c0 b3 24 73 41 4b a0 13 f9 c4 80 8c a7 08 4e cd c7 a3 eb 80 f1 9c 02 c8 4e 98 27 fb f3 54 6b 63 28 1b 48 4b 0f 04 94 45 82 00 9c 28 83 50 d6 7c 0b 32 47 34 14 fa 02 7f 38 90 11 94 e2 76 1e 9f 3e b8 16 64 8e 68 50 e8 09 fc e2 40 46 53 85 ce c3 d3 e7 d7 02 cc 91 cd 05 4e 80 9f ce 24 04 65 38 40 76 1e 9f 3e b8 16 64 8e 68 2a f4 04 fe 71 20 23 29 c2 13 b0 f4 f9 f5 c0 b3 24 73 41 5b a0 27 f3 89 01 19 4e 11 9d 87 a7 cf ae 05 99 23 9a 0a fd 01 3f 9c 48 08 ca 70 90 ec 3d 3e 7d 70 2c 84 47 42 2c 7b f3 54 6b 50 0c a0 19 19 04 5e 15 11 07 20 8c d0 c0 1c 39 99 80 60 03 0b 8d c5 80 f8 1c 04 41 f0 0e 1b 0b 20 04 41 14 42 c0 8a 3d 03 d0 c4 28 01 66 48 e6 82 cf 40 2c 73 89 00 8c 65 38 9d 9b 88 a7 d7 02 cc 91 cd 0a 3d 00 b1 ce 24 04 65 38 5c ed 10 b6 7d 70 0a ba ee db 6d b6 01 4f 84 eb 6d b6 d8 05 40 6a ed b6 db 60 15 83 37 6d b6 db 00 a8 44 8b 6d b6 d8 05 44 d3 b6 db 6d 80 54 66 ee db 6d b6 01 4c 0e ed b6 db 60 15 22 37 6d b6 db 0e af df 6d b6 db 0e af e6 ee db 6d b6 73 39 39 72 39 ca ed 28 3e 10 1c e9 14 45 43 50 60 b4 0a 1d 18 c3 0a f3 93 22 b9 d1 99 00 49 0f 27 21 ea 83 90 f9 41 c8 80 a0 e4 42 50 7e 01 8a 21 c8 86 f2 ca d0 20 2c 0b 6b ff a2 01 48 08 23 ee 89 6a 00 3e 7d d1 2d 40 41 1f 74 40 29 00 1f 3e e8 8b 88 00 f9 f7 44 b5 01 06 7d d1 00 a4 04 11 f7 44 5c 40 41 1f 74 40 29 01 06 7d c0 f1 50 44 5c 40 41 9f 74 f7 e0 ac d8 6c 4c e3 b7 82 37 e5 47 05 66 c3 62 65 a4 70 1e b9 d8 ff ce 3c 10 bb f3 25 62 e8 66 6c e8 80 4a fc 06 0e 01 75 00 17 32 7e 57 02 f7 e0 d0 0b ae fc 09 90 08 9f c6 24 52 01 0b f8 14 45 03 07 4f ca 0c 10 09 5f 80 c1 c0 2e a0 20 14 3f 25 8b 84 76 00 ba 77 e4 d0 2e 6c fc 52 02 e1 eb f1 fc 0b 87 cf c7 f0 2e 20 3f 1f c0 b8 84 fc 7f 58 fc 15 9b 0d 89 96 82 33 0e 04 e0 38 d9 52 65 a4 67 04 2e 61 cc 95 8b a1 99 b3 a5 86 1c 07 1b 2a 4c b4 f1 76 79 26 5e 36 2c 26 5e 46 5d 9e 7e bf 3c 5d 37 24 c0 51 b0 d2 99 79 19 74 dc fd 7e 78 b9 af 1c 20 78 d8 ac 99 79 19 73 5e 7d d7 e0 8d 1f 1f e5 d3 62 e2 65 a6 86 a8 e0 85 d1 f3 25 62 e8 66 6c e9 62 3e 5d 36 2e 26 5a 78 b9 a7 0e e5 d3 61 bd 36 78 b9 9f 16 a0 78 d8 78 4d 9e 2e 46 e4 99 70 d8 79 4c bc 8c b9 1b 9f af cf 17 4b c9 30 36 6c 39 26 5e 46 5d 2f 3f 5f")
-    a = rev("9d 05 19 10 87 00 00 00 00 01 00 00 00 10 00 a0 00 65 10 40 82 06 47 03 02")
-    print(s2c.parse(a))
-    exit(0)
-    #a = rev("f1 2b 06 a1 e2 0a fe f1 7c 6c 1c 86 c1 82 2e 0c a7 a5 91 a5 60 ca 76 36 8d 27 65 33 d1 90 72 15 46 b1 a4 6e 1a 0b 42 18 d6 37 1d 8a 6a c6 42 c1 e8 d2 76 2b 8a e7 63 60 ca 35 8d e3 28 d6 21 c5 d7 e8 55 8d a3 60 c4 36 8d 63 20 d5 ff e0 86 fc c9 58 ba 19 9b 3a 1b ef c0 89 b3 fd d7 bb dc 25 dc 26 5c 26 dc 27 5d 8b 9f b8 68 b8 69 b8 6a bd d9 5d cc 58 76 91 3b a3 77 32 77 33 76 8d 5d 76 9d a3 77 70 e7 7e 12 ee 01 e1 ce fc 26 dc 03 c3 d7 7e f3 e9 07 44 a2 50 e4 0d 0f 88 c2 88 1e 5d b6 ce a0 5c 23 86 41 a4 46 14 40 f2 e0 6d 7e 17 0a a8 c3 ab fa ee db 6d b6 30 be f7 bd fd dd f7 ee fb bb de f8 e0 4a 43 f7 b9 a1 c9 a1 94 8e 04 72 39 a3 de 6a 68 39 06 ec 1a 0f 06 ac 1a 30 68 f7 b9 a3 9a 23 b9 a1 81 a0 a2 68 f7 b9 a3 b2 77 7f ff 87 06 88 e3 d9 b9 94 c0 d4 60 6b ff f0 fb ad ad e4 07 5b ce e4 07 20 24 05 6d 6f 3b 90 15 bd 6c 80 90 1f 5b 5b ff ff 5b d6 f5 b5 bf ff 98 df 8c 4f ce 67 27 2e 47 39 5d a0")
-    a = rev("f1 c5 50 7c 20 39 d2 28 8a 86 a0 c1 68 14 3a 31 86 15 e7 26 45 73 a3 30 2e 49 0f 20 55 01 d1 a3 f3 4a d8 cb 3d 11 02 41 b1 f1 e4 37 00 e4 f1 4c 2b 03 65 c8 40 06 1a cf 81 54 01 b9 a2 fc d2 b6 32 c6 71 10 24 1b 1f 1e 43 74 b1 4d 08 3f 0a a2 80 15 40 a0 d0 ff 34 ad 46 32 d5 08 81 20 d8 fa e7 60 34 12 8a 63 31 40 cc 7f 07 c3 b8 15 23 34 68 83 9a 20 20 11 8c a8 d0 84 24 22 e1 f5 c0 aa 05 06 8c 73 4a d8 cb 19 84 40 90 6c 7c 79 0d d8 04 a2 98 cc 01 c8 c3 f8 3e 1d c0 b2 11 00 d1 0f bf 35 ad 8c a0 dc c8 ec be 15 90 8f 21 55 81 ec 4a 5a 5a 74 c0 24 04 9a 84 16 4b 40 39 43 6e 05 90 88 06 88 bd f9 ad 6c 65 0a 84 63 b2 f8 56 42 b8 5b 4a 3d 89 4b 4b 4e 98 04 80 93 50 80 c9 68 07 28 6d c0 b2 11 24 d1 1f bf 35 ad 8c a1 db 2b 41 d0 78 84 79 0b 41 0c 8c 21 8c 65 78 c8 11 00 49 90 15 5a 29 01 91 8c 96 01 87 12 04 3e 01 63 c0 a2 49 27 80 32 50 69 44 05 48 cd 1a 18 73 49 00 8c 65 46 46 08 48 45 c3 eb 81 52 33 46 89 39 a4 80 46 32 a3 36 08 48 45 c3 eb 81 52 33 46 86 3c d1 01 01 19 51 ae 10 90 8b 87 d7 02 a4 66 8d 0c b9 a2 02 01 18 ca 8d 20 42 42 2e 1f 5c 0a 91 9a 34 4b cd 24 02 31 95 1a 05 a8 45 c3 eb 81 52 33 46 84 6e 69 20 11 8c a8 cc 96 a1 17 0f ae 05 48 cd 1a 19 f3 49 01 19 51 a6 08 48 45 c3 eb 81 54 07 46 86 9c d2 b5 18 cb 34 11 02 40 90 7d 70 b0 01 c1 48 e2 b9 98 f8 14 93 83 91 dc 0a a0 0d cd 0d 79 a5 6c 65 8d 62 20 48 36 3e b9 db 11 a8 2a 0f 60 51 b0")
-    d = Decrypter()
-    def yoba(a):
-        print("\n\n\nreal:")
-        print(rev(a))
-        try:
-            print("head before", d.head)
-            print("decrypted:")
-            rda = d.decrypt(a)
-            print(len(rda))
-            print("head after", d.head)
-
-            print("\nparsing:")
-            for da in rda:
-                print()
-                print(rev(da))
-                try:
-                    pda = s2c.parse(da)
-                    print(pda)
-                except:
-                    print("can't parse")
-        except:
-            print("can't decrypt")
-
-    yoba(a)
-    #yoba(b)
-    #yoba(a + b)
