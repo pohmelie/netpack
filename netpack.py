@@ -100,5 +100,5 @@ class Netpack():
             self.kernel32.ResetEvent(self.hEvent)
 
 if __name__ == "__main__":
-    print("netpack 2012.12.13\n\ntype '\\help' in game for more information\n")
+    print("netpack 2012.12.20")
     Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), 2).mainloop()

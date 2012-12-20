@@ -4,11 +4,10 @@ from time import *
 netpack_plugin = True
 
 class Logic():
-    name = "lk"
-    desc = "Lower Kurast 3ppl chest bot. Type \\lk help for more information."
+    name = "follow"
+    desc = "simple follow bot."
     hlp = (
-        "\\lk help",
-        "\\lk start sorcname mule1 mule2"
+        "\\follow help",
     )
 
     def __init__(self, *args):
