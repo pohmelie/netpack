@@ -7,7 +7,7 @@ from atexit import register
 
 
 class Netpack():
-    def __init__(self, server_ips, adapter_id=None):
+    def __init__(self, server_ips, mac=None):
         self.server_ips = server_ips
         raw_ips = lambda ip: bytes(map(int, ip.split(".")))
         self.server_ips_raw = tuple(map(raw_ips, server_ips))
@@ -25,11 +25,24 @@ class Netpack():
 
         self.mode = ADAPTER_MODE()
         self.mode.dwFlags = MSTCP_FLAG_SENT_TUNNEL | MSTCP_FLAG_RECV_TUNNEL
+
+        adapter_id = None
+        if mac != None:
+            for i in range(tmp.m_nAdapterCount):
+                if mac == pmac(tmp.m_czCurrentAddress[i]):
+                    adapter_id = i + 1
+                    break
+            else:
+                print("Can't find mac = {} in adapters list\n".format(mac))
         if adapter_id == None:
             print("Use 'ipconfig /all' to determine your mac address")
+            print("you can write it in 'mac.txt' for more silent run\n")
             for i in range(tmp.m_nAdapterCount):
                 print("{}). {}".format(i + 1, pmac(tmp.m_czCurrentAddress[i])))
             adapter_id = int(input("#: "))
+            mac = pmac(tmp.m_czCurrentAddress[adapter_id - 1])
+
+        print("\nUsing:\n\tadapter id = {}\n\tmac = {}".format(adapter_id, mac))
         self.mode.hAdapterHandle = tmp.m_nAdapterHandle[adapter_id - 1]
 
         self.hEvent = self.kernel32.CreateEventW(None, True, False, None)
@@ -100,5 +113,10 @@ class Netpack():
             self.kernel32.ResetEvent(self.hEvent)
 
 if __name__ == "__main__":
-    print("netpack 2012.12.20")
-    Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), 2).mainloop()
+    print("netpack 2012.12.21")
+    mac = None
+    for line in open("mac.txt"):
+        if line[0] != "#":
+            mac = line.strip()
+            break
+    Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), mac).mainloop()

@@ -1,4 +1,7 @@
 from connection import Connection
+from threading import Thread
+from time import sleep
+from au3bind import autoit
 from construct import *
 
 
@@ -32,3 +35,21 @@ def check_command(pack):
         pack.fun == "send_normal_chat" and \
         pack.mode == "normal" and \
         str(pack.message, encoding="ascii")[0] == "\\"
+
+class Rejoiner(Thread):
+    def __init__(self, caption, gamename, gamepass):
+        Thread.__init__(self)
+
+        self.caption = caption
+        self.gamename = gamename
+        self.gamepass = gamepass
+
+    def run(self):
+        self.au3 = autoit()
+        self.au3.AU3_ControlSend(self.caption, "", "", "{ESCAPE}")
+        self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 400, 260)
+        sleep(3)
+        self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 590, 460)
+        sleep(1)
+        self.au3.AU3_ControlSend(self.caption, "", "", self.gamename + "{TAB}" + self.gamepass + "{ENTER}")
+

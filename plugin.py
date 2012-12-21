@@ -4,8 +4,9 @@ from d2crypt import Decrypter, encrypt
 from d2packetparser import d2_packet_parser
 from multiprocessing import Process
 from connection import Connection
-from plugin_recipe import *
+from pluginrecipe import *
 from recipe import *
+from au3bind import autoit
 
 
 from time import time
@@ -37,6 +38,13 @@ class DefaultQueueControl(Process):
                     self.qo.put((odata, src, dst))
 
 class PluginManager():
+    builtins_help = (
+        "\\? or \\help - this message.",
+        "\\name [caption] - sets window caption to [caption] (character name if omitted).",
+        "\\start plugname - starts 'plugname' plugin.",
+        "\\stop - stops current plugins."
+    )
+
     def __init__(self):
 
         #self.f = open("log.txt", "w")
@@ -44,16 +52,15 @@ class PluginManager():
         self.welcome = info("Welcome to netpack. Type \\? or \\help for more information.", "green")
         self.plugins = ()
         self.hlp = ()
-        self.plug = None
+        self.plugs = ()
         self.char_name = None
-        self.au3 = windll
+        self.au3 = autoit()
 
-        plugdir = ".\\plugins"
-        for fname in os.listdir(plugdir):
-            if os.path.isfile(plugdir + "\\" + fname):
+        for fname in os.listdir("."):
+            if os.path.isfile(fname):
                 mname, ext = os.path.splitext(fname)
-                if mname != "recipe" and ext == ".py":
-                    file, pathname, desc = imp.find_module(mname, [plugdir])
+                if mname.startswith("plugin_") and ext == ".py":
+                    file, pathname, desc = imp.find_module(mname)
                     m = imp.load_module(mname, file, pathname, desc)
                     if "netpack_plugin" in dir(m):
                         self.plugins = self.plugins + (m.Logic,)
@@ -83,26 +90,53 @@ class PluginManager():
                     fword = com[0]
                     if fword in ("\\help", "\\?"):
                         fake.append(echo(pack, self.char_name))
+                        fake.append(info("Netpack builtins:", "br_white"))
+                        apply(lambda x: fake.append(info(x)), self.builtins_help)
                         fake.append(info("Netpack available plugins:", "br_white"))
-                        apply(lambda x: fake.append(info(x)), self.hlp)
-                        fake.append(info("Type '\\plugname help' for more information", "br_white"))
+                        apply(lambda x: fake.append(info(x)), self.hlp or ("None",))
+                        fake.append(info("Currently running plugins:", "br_white"))
+                        if self.plugs:
+                            apply(lambda x: fake.append(info(x.name)), self.plugs)
+                        else:
+                            fake.append(info("None"))
+
+                    elif fword == "\\start":
+                        fake.append(echo(pack, self.char_name))
+                        if len(com) > 1:
+                            pname = com[1]
+                            for p in self.plugins:
+                                if p.name == pname:
+                                    self.plugs = self.plugs + (p(),)
+                                    break
+                            else:
+                                fake.append(info("There is no '{}' plugin.".format(com[1]), "red"))
+                        else:
+                            fake.append(info("Wrong input. Type \\? or \\help for more information.", "red"))
 
                     elif fword == "\\stop":
                         fake.append(echo(pack, self.char_name))
-                        fake.append(info("plugin stopped"))
-                        self.plug = None
+                        if self.plugs:
+                            fake.append(info("{} plugins stopped.".format(len(self.plugs))))
+                            self.plugs = ()
+                        else:
+                            fake.append(info("There are no running plugins.", "red"))
 
                     elif fword == "\\name":
                         fake.append(echo(pack, self.char_name))
+                        name = self.char_name
+                        if len(com) > 1:
+                            name = com[1]
+                        self.au3.AU3_WinSetTitle("", "", name)
+                        fake.append(info("Window caption set to '{}'".format(name)))
 
-                        fake.append(info("you want name"))
                     else:
-                        fake.append(info("you want extra"))
-                        pass
-                        #check plugins
+                        real.append(pack)
                 else:
-                    fake.append(info("Netpack not ready, reconnect please.", "red"))
+                    fake.append(info("Netpack is not ready, reconnect please.", "red"))
             else:
                 real.append(pack)
 
+        for p in self.plugs:
+            real, f = p.act(real, s, d)
+            fake = fake + f
         return [(real, s, d)] + fake

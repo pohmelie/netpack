@@ -1,0 +1,2069 @@
+
+
+[52.58] s -> c
+Container(
+    fun = compression
+    active = True
+    start_fun = 0)
+
+[52.61] c -> s
+Container(
+    char_type = sorceress
+    d2gs_hash = 629846797
+    start_fun = 0
+    d2gs_token = 121
+    version = 101
+    _unused = b'\x18\xaeoK\x00\x00\x00\x00'
+    fun = send_logon_info
+    char_name = b'catfish')
+
+[52.66] c -> s
+Container(
+    fun = ping
+    delay = 0
+    warden_response = 0
+    tickcount = 21609343
+    start_fun = 0)
+
+[52.72] s -> c
+Container(
+    diff_core_flag = hell
+    ladder = yes
+    start_fun = 0
+    difficulty = hell
+    expo = classic
+    fun = setup
+    ladder_expo_flag = ladder)
+
+[52.78] s -> c
+Container(
+    fun = pong
+    server_response = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    start_fun = 0)
+
+[52.81] s -> c
+Container(
+    fun = load_successful
+    start_fun = 0)
+
+[52.84] c -> s
+Container(
+    fun = enter_game
+    start_fun = 0)
+
+[52.94] s -> c
+Container(
+    fun = unknown_0xc1
+    start_fun = 0)
+Container(
+    entity_id = 0
+    entity_type = stash_wp_portal_chest
+    chat_type = system
+    start_fun = 1
+    color = red
+    char_level = 0
+    fun = chat
+    message = b'Welcome to PlayGround.ru Diablo II server.'
+    char_name = b'[sys]')
+Container(
+    char_type = sorceress
+    y = 0
+    start_fun = 60
+    player_id = 1
+    _unused = b'\x00\x00\x00\x00\x00\x00\x00\x00'
+    fun = player_assign
+    x = 0
+    char_name = b'catfish')
+Container(
+    entity_id = 1
+    entity_type = player
+    stats_list = b'iY\xf9\xff\x1f'
+    start_fun = 86
+    length_of_packet = 12
+    fun = entity_info_add)
+Container(
+    fun = overhead_clear
+    entity_id = 1
+    entity_type = player
+    start_fun = 98)
+Container(
+    fun = skill_log
+    count = 20
+    player_id = 1
+    skill = [Container(
+    skill = attack
+    skill_level = 1),
+ Container(
+    skill = throw
+    skill_level = 1),
+ Container(
+    skill = kick
+    skill_level = 1),
+ Container(
+    skill = scroll_of_identify
+    skill_level = 1),
+ Container(
+    skill = book_of_identify
+    skill_level = 1),
+ Container(
+    skill = scroll_of_townportal
+    skill_level = 1),
+ Container(
+    skill = book_of_townportal
+    skill_level = 1),
+ Container(
+    skill = unsummon
+    skill_level = 1),
+ Container(
+    skill = ice_bolt
+    skill_level = 1),
+ Container(
+    skill = static_field
+    skill_level = 7),
+ Container(
+    skill = telekinesis
+    skill_level = 1),
+ Container(
+    skill = frost_nova
+    skill_level = 1),
+ Container(
+    skill = ice_blast
+    skill_level = 1),
+ Container(
+    skill = nova
+    skill_level = 15),
+ Container(
+    skill = teleport
+    skill_level = 20),
+ Container(
+    skill = glacial_spike
+    skill_level = 1),
+ Container(
+    skill = blizzard
+    skill_level = 1),
+ Container(
+    skill = lightning_mastery
+    skill_level = 3),
+ Container(
+    skill = frozen_orb
+    skill_level = 20),
+ Container(
+    skill = cold_mastery
+    skill_level = 20)]
+    start_fun = 104)
+Container(
+    entity_id = 1
+    stats_amount = 20
+    entity_type = player
+    start_fun = 170
+    unknown2 = 133
+    unknown1 = 65
+    fun = skill_book_count
+    skill = book_of_townportal)
+Container(
+    entity_id = 1
+    stats_amount = 19
+    entity_type = player
+    start_fun = 182
+    unknown2 = 133
+    unknown1 = 65
+    fun = skill_book_count
+    skill = book_of_identify)
+Container(
+    entity_id = 1
+    entity_type = player
+    unknown = 4294967295
+    start_fun = 194
+    fun = skill_select
+    skill = ice_blast
+    skill_side = left)
+Container(
+    entity_id = 1
+    entity_type = player
+    unknown = 4294967295
+    start_fun = 207
+    fun = skill_select
+    skill = static_field
+    skill_side = right)
+Container(
+    fun = unknown_0x5e
+    data = b'\x01\x00\x01\x01\x00\x01\x00\x01\x00\x01\x00\x00\x00\x00\x01\x01\x01\x01\x00\x01\x00\x00\x00\x01\x01\x00\x00\x01\x01\x01\x01\x01\x01\x01\x01\x01w'
+    start_fun = 220)
+Container(
+    fun = quest_tree
+    quest_info = b'\x06\x00\x00\x00\x00\x00\x01\x00\x01\x10\x0c\x00\x00\x00\x19\x10\x00\x00\x19\x10\x01\x00\x01\x00\x11\x10y\x1c\x05\x10\x81\x11\x05\x10-\x16\x01\x00\x00\x00\x00\x00\x05\x10\x00\x00\x01\x10\r\x10\x01\x12\x01\x00\x01\x00\x01\x90\x01\x10(\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    start_fun = 258)
+Container(
+    fun = game_quest_info
+    quest_info = b'\x00\x00\x00\x80\x00\x00\x00\x00\x00\xa0\x00\x00\x00\x80\x00\x00\x00 \x00\xa0\x00\x00\x00\xa0\x00\xa0\x00\x80\x00\x80\x00\x00\x00\x00\x00\x00\x00\x80\x00\x00\x00\x80\x00\xa0\x00\xa0\x00\x00\x00\x00\x00\x80\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    start_fun = 361)
+Container(
+    fun = handshake
+    entity_id = 1
+    entity_type = player
+    start_fun = 458)
+Container(
+    fun = unknown_0x5f
+    data = b'\x01\x00\x00\x00'
+    start_fun = 464)
+Container(
+    fun = attr_byte
+    attribute = strength
+    amount = 65
+    start_fun = 469)
+Container(
+    fun = attr_byte
+    attribute = energy
+    amount = 35
+    start_fun = 472)
+Container(
+    fun = attr_byte
+    attribute = dexterity
+    amount = 41
+    start_fun = 475)
+Container(
+    fun = attr_word
+    attribute = vitality
+    amount = 354
+    start_fun = 478)
+Container(
+    fun = attr_byte
+    attribute = 5
+    amount = 2
+    start_fun = 482)
+Container(
+    fun = attr_dword
+    attribute = 7
+    amount = 222464
+    start_fun = 485)
+Container(
+    fun = attr_word
+    attribute = 9
+    amount = 50432
+    start_fun = 491)
+Container(
+    fun = attr_dword
+    attribute = 11
+    amount = 127744
+    start_fun = 495)
+Container(
+    fun = attr_byte
+    attribute = level
+    amount = 82
+    start_fun = 501)
+Container(
+    fun = attr_dword
+    attribute = stash_gold
+    amount = 563334
+    start_fun = 504)
+
+[53.05] s -> c
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = gpw
+        container = stash
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 0
+        quality = unspecified)
+    item_id = 1
+    start_fun = 0
+    action = moved_in_cube_inventory
+    tail = 8
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00`z\x06w\x07\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = box
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 28
+        item_has_no_level = False
+        y = 0
+        x = 7
+        quality = normal)
+    item_id = 2
+    start_fun = 20
+    action = moved_in_cube_inventory
+    tail = 28
+    length_of_packet = 23
+    fun = world_item_action
+    data = b'\x10\x00\x80\x00\x02\x00\x0e"\xf6\x86\x07\x02\x8e\xf0\x1f')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 8
+        quality = unspecified)
+    item_id = 3
+    start_fun = 43
+    action = moved_in_cube_inventory
+    tail = 51
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00p"g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 7
+        quality = unspecified)
+    item_id = 4
+    start_fun = 63
+    action = moved_in_cube_inventory
+    tail = 71
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00n"g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 6
+        quality = unspecified)
+    item_id = 5
+    start_fun = 83
+    action = moved_in_cube_inventory
+    tail = 91
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00l"g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 2
+        x = 6
+        quality = unspecified)
+    item_id = 6
+    start_fun = 103
+    action = moved_in_cube_inventory
+    tail = 111
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00L"g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 1
+        x = 6
+        quality = unspecified)
+    item_id = 7
+    start_fun = 123
+    action = moved_in_cube_inventory
+    tail = 131
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00,"g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp5
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 1
+        x = 5
+        quality = unspecified)
+    item_id = 8
+    start_fun = 143
+    action = moved_in_cube_inventory
+    tail = 151
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x08\x02\x00*\xd2\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 6
+        quality = unspecified)
+    item_id = 9
+    start_fun = 163
+    action = moved_in_cube_inventory
+    tail = 171
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00\x0c"g\xc7\x06\x02')
+Container(
+    category = other
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = rin
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 30
+        item_has_no_level = False
+        y = 0
+        x = 7
+        quality = rare)
+    data = b'\x11\x00\x80\x00\x02\xe4\x0e \x97\xe6\x06\x02\x8f\x85\xd6\xbc\x86\xc9\x87t9\x8c\xd6\xb0 \xc6B\x00C`Dp\x02*\xc5\x10\xa8\xc0\x7f'
+    item_id = 10
+    start_fun = 183
+    action = item_on_cursor_was_equipped
+    tail = 196
+    length_of_packet = 52
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = tbl
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 40
+        item_has_no_level = False
+        y = 0
+        x = 8
+        quality = rare)
+    data = b'\x11\x00\x80\x00\x02\x04\x11@\'\xc6\x06\x02\x94qZ\x171\x11\xf2\x11CQ3" \xf1\x00\x02\x84\x14P-\x8c\x9c\x04\xc6\xb0\xfe\x03'
+    item_id = 11
+    start_fun = 235
+    action = item_on_cursor_was_equipped
+    tail = 248
+    length_of_packet = 52
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = rin
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 60
+        item_has_no_level = False
+        y = 0
+        x = 6
+        quality = rare)
+    data = b'\x11\x00\x80\x00\x02\xc4\x0c \x97\xe6\x06\x02\x9e\x85O\xb1\xf0\x88\x8fa\xe9\x91\x86!\xe04!\x85\x14=+\xa0\xa0\xc8\xfd\x07'
+    item_id = 12
+    start_fun = 287
+    action = item_on_cursor_was_equipped
+    tail = 300
+    length_of_packet = 49
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = tbt
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 51
+        item_has_no_level = False
+        y = 0
+        x = 9
+        quality = rare)
+    data = b"\x11\x00\x80\x00\x02$\x13@'F\x07\x82\x99!\x8a\xd6.\rR3\x17\xb30-B\x01\x89\x08'\xacR\xe8\xb4\x08z2\t\x0cj\x8c\xe7?"
+    item_id = 13
+    start_fun = 336
+    action = item_on_cursor_was_equipped
+    tail = 349
+    length_of_packet = 55
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 3
+        quality = unspecified)
+    item_id = 14
+    start_fun = 391
+    action = put_into_belt
+    tail = 399
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\x06 g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 2
+        quality = unspecified)
+    item_id = 15
+    start_fun = 411
+    action = put_into_belt
+    tail = 419
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\x04 g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 6
+        quality = unspecified)
+    item_id = 16
+    start_fun = 431
+    action = put_into_belt
+    tail = 439
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\x0c g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 10
+        quality = unspecified)
+    item_id = 17
+    start_fun = 451
+    action = put_into_belt
+    tail = 459
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\x14 g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 7
+        quality = unspecified)
+    item_id = 18
+    start_fun = 471
+    action = put_into_belt
+    tail = 479
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x08\x0e g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 11
+        quality = unspecified)
+    item_id = 19
+    start_fun = 491
+    action = put_into_belt
+    tail = 499
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x08\x16 g\xc7\x06\x02')
+
+[53.08] s -> c
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp4
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 5
+        quality = unspecified)
+    item_id = 20
+    start_fun = 0
+    action = moved_in_cube_inventory
+    tail = 8
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00\n\xd2\x06G\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = tbk
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 10
+        item_has_no_level = False
+        y = 0
+        x = 9
+        quality = normal)
+    item_id = 21
+    start_fun = 20
+    action = moved_in_cube_inventory
+    tail = 28
+    length_of_packet = 25
+    fun = world_item_action
+    data = b"\x10\x00\x80\x00\x02\x00\x12B'\xb6\x06\x02\x85\x00(\xfc\x07")
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = gpw
+        container = stash
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 1
+        quality = unspecified)
+    item_id = 22
+    start_fun = 45
+    action = moved_in_cube_inventory
+    tail = 53
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00bz\x06w\x07\x02')
+Container(
+    category = other
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = tgl
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 51
+        item_has_no_level = False
+        y = 0
+        x = 10
+        quality = unique)
+    data = b'\x11\x00\x80\x00\x02D\x15@w\xc6\x06\x82\xd9\x91\x06\x16\x90x\x00\xa1\xc2\x86\x8c\x0f\x14\x80\x11` \r\xcaO\xf2\x1f'
+    item_id = 23
+    start_fun = 65
+    action = item_on_cursor_was_equipped
+    tail = 78
+    length_of_packet = 47
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = rvl
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 2
+        x = 7
+        quality = unspecified)
+    item_id = 24
+    start_fun = 112
+    action = moved_in_cube_inventory
+    tail = 120
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00N"g\xc7\x06\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = ibk
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 87
+        item_has_no_level = False
+        y = 2
+        x = 9
+        quality = normal)
+    item_id = 25
+    start_fun = 132
+    action = moved_in_cube_inventory
+    tail = 140
+    length_of_packet = 25
+    fun = world_item_action
+    data = b'\x10\x00\x80\x08\x02\x00R\x92&\xb6\x06\x82\xab\x10&\xfc\x07')
+Container(
+    category = armor
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = stu
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 51
+        item_has_no_level = False
+        y = 0
+        x = 3
+        quality = unique)
+    data = b'\x11\x00\x80\x00\x02d\x060GW\x07\x82\xd9!\x05+\x00\xd1\x00@E\x80\x8aB\xf6a\x04]PcP\xff\x01'
+    item_id = 26
+    start_fun = 157
+    action = item_on_cursor_was_equipped
+    tail = 170
+    length_of_packet = 46
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = helm
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = fhl
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 51
+        item_has_no_level = False
+        y = 0
+        x = 1
+        quality = rare)
+    data = b"\x11\x00\x80\x00\x02$\x02`\x86\xc6\x06\x82\x99!\xfc\x121c\x92\x12fI\t<8\x04(AXrB'\x05\xd4\x7f"
+    item_id = 27
+    start_fun = 203
+    action = item_on_cursor_was_equipped
+    tail = 216
+    length_of_packet = 48
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = amu
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 51
+        item_has_no_level = False
+        y = 0
+        x = 2
+        quality = unique)
+    data = b'\x11\x00\x80\x00\x02D\x04\x10\xd6V\x07\x82\xd9\x8d:8A\x86B\xc1\x180\x90\xe5\xc6\xa0\xfe\x03'
+    item_id = 28
+    start_fun = 251
+    action = item_on_cursor_was_equipped
+    tail = 264
+    length_of_packet = 41
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = key
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 87
+        item_has_no_level = False
+        y = 2
+        x = 8
+        quality = normal)
+    item_id = 29
+    start_fun = 292
+    action = moved_in_cube_inventory
+    tail = 300
+    length_of_packet = 24
+    fun = world_item_action
+    data = b'\x10\x00\x80\x08\x02\x00P\xb2V\x96\x07\x82\xab\xc0\xe0?')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp4
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 4
+        quality = unspecified)
+    item_id = 30
+    start_fun = 316
+    action = moved_in_cube_inventory
+    tail = 324
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00\x08\xd2\x06G\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 2
+        x = 5
+        quality = unspecified)
+    item_id = 31
+    start_fun = 336
+    action = moved_in_cube_inventory
+    tail = 344
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00J\x82\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 5
+        quality = unspecified)
+    item_id = 32
+    start_fun = 356
+    action = moved_in_cube_inventory
+    tail = 364
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00j\x82\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 4
+        quality = unspecified)
+    item_id = 33
+    start_fun = 376
+    action = moved_in_cube_inventory
+    tail = 384
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x08\x02\x00h\x82\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp4
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 2
+        x = 4
+        quality = unspecified)
+    item_id = 34
+    start_fun = 396
+    action = moved_in_cube_inventory
+    tail = 404
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00H\x82\x06G\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 1
+        x = 4
+        quality = unspecified)
+    item_id = 35
+    start_fun = 416
+    action = moved_in_cube_inventory
+    tail = 424
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00(\x82\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp5
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 1
+        quality = unspecified)
+    item_id = 36
+    start_fun = 436
+    action = put_into_belt
+    tail = 444
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\x02\xd0\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp5
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 5
+        quality = unspecified)
+    item_id = 37
+    start_fun = 456
+    action = put_into_belt
+    tail = 464
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\n\xd0\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 0
+        quality = unspecified)
+    item_id = 38
+    start_fun = 476
+    action = put_into_belt
+    tail = 484
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x00\x02\x08\x00\x80\x06W\x03\x02')
+
+[53.09] s -> c
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 4
+        quality = unspecified)
+    item_id = 39
+    start_fun = 0
+    action = put_into_belt
+    tail = 8
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x04\xa0\x08\x02\x08\x08\x80\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp5
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 9
+        quality = unspecified)
+    item_id = 40
+    start_fun = 20
+    action = put_into_belt
+    tail = 28
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x08\x12\xd0\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = unspecified
+        destination = belt
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 0
+        x = 8
+        quality = unspecified)
+    item_id = 41
+    start_fun = 40
+    action = put_into_belt
+    tail = 48
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x08\x10\x80\x06W\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = mp4
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 3
+        x = 3
+        quality = unspecified)
+    item_id = 42
+    start_fun = 60
+    action = moved_in_cube_inventory
+    tail = 68
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00f\xd2\x06G\x03\x02')
+Container(
+    category = other
+    item = Container(
+        etherial = False
+        code = hp5
+        container = inventory
+        destination = inventory
+        identified = True
+        ilvl = 0
+        item_has_no_level = True
+        y = 2
+        x = 3
+        quality = unspecified)
+    item_id = 43
+    start_fun = 80
+    action = moved_in_cube_inventory
+    tail = 88
+    length_of_packet = 20
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00\x02\x00F\x82\x06W\x03\x02')
+Container(
+    category = weapon
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = bld
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 62
+        item_has_no_level = False
+        y = 0
+        x = 5
+        quality = unique)
+    data = b'\x11\x00\x80\x00\x02\xa4\n \xc6F\x06\x02\xdf\xa1\x02\x18\x18\x12HM\xb8\xe1\x04O\n\x9e\x15<-x\xd2\x18\xff\x03'
+    item_id = 44
+    start_fun = 100
+    action = item_on_cursor_was_equipped
+    tail = 113
+    length_of_packet = 47
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    category = shield
+    owner_entity_type = player
+    item = Container(
+        etherial = False
+        code = kit
+        container = unspecified
+        destination = body
+        identified = True
+        ilvl = 51
+        item_has_no_level = False
+        y = 0
+        x = 4
+        quality = rare)
+    data = b"\x11\x00\x80\x00\x02\x84\x08\xb0\x96F\x07\x82\x99\xa1\x9b\xd50[q\x12C\xd1(\xe7\xd0\x01\x0f\x0f\x10jP\xa0D\x04'\x8aRT\xad(jQ\xe4d`F\xf6\x1f"
+    item_id = 45
+    start_fun = 147
+    action = item_on_cursor_was_equipped
+    tail = 160
+    length_of_packet = 61
+    fun = owner_item_action
+    owner_entity_id = 1)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 0
+    skill = 48
+    side = 0
+    start_fun = 208)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 1
+    skill = 55
+    side = 0
+    start_fun = 216)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 3
+    skill = 220
+    side = 0
+    start_fun = 224)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 4
+    skill = 43
+    side = 0
+    start_fun = 232)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 5
+    skill = 64
+    side = 0
+    start_fun = 240)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 6
+    skill = 54
+    side = 0
+    start_fun = 248)
+Container(
+    fun = bind_skill_to_hotkey
+    slot = 7
+    skill = 42
+    side = 0
+    start_fun = 256)
+Container(
+    entity_id = 1
+    entity_type = player
+    unknown = 4294967295
+    start_fun = 264
+    fun = skill_select
+    skill = ice_blast
+    skill_side = left)
+Container(
+    entity_id = 1
+    entity_type = player
+    unknown = 4294967295
+    start_fun = 277
+    fun = skill_select
+    skill = static_field
+    skill_side = right)
+Container(
+    fun = attr_byte
+    attribute = strength
+    amount = 65
+    start_fun = 290)
+Container(
+    fun = attr_byte
+    attribute = energy
+    amount = 35
+    start_fun = 293)
+Container(
+    fun = attr_byte
+    attribute = dexterity
+    amount = 41
+    start_fun = 296)
+Container(
+    fun = attr_word
+    attribute = vitality
+    amount = 354
+    start_fun = 299)
+Container(
+    fun = attr_byte
+    attribute = 5
+    amount = 2
+    start_fun = 303)
+Container(
+    fun = attr_dword
+    attribute = 7
+    amount = 222464
+    start_fun = 306)
+Container(
+    fun = attr_word
+    attribute = 9
+    amount = 50432
+    start_fun = 312)
+Container(
+    fun = attr_dword
+    attribute = 11
+    amount = 127744
+    start_fun = 316)
+Container(
+    fun = attr_byte
+    attribute = level
+    amount = 82
+    start_fun = 322)
+Container(
+    fun = attr_dword
+    attribute = stash_gold
+    amount = 563334
+    start_fun = 325)
+Container(
+    area_id = 103
+    start_fun = 331
+    act = 3
+    fun = seed
+    seed_1 = 704152697
+    seed_2 = 102601358)
+Container(
+    fun = game_refresh
+    some_boolean = 0
+    possible_player_slot = 2
+    some_counter = 0
+    start_fun = 343)
+Container(
+    fun = map_add
+    x = 1008
+    area_id = 103
+    y = 1008
+    start_fun = 353)
+Container(
+    fun = map_add
+    x = 1000
+    area_id = 103
+    y = 1000
+    start_fun = 359)
+Container(
+    fun = map_add
+    x = 1000
+    area_id = 103
+    y = 1008
+    start_fun = 365)
+Container(
+    fun = map_add
+    x = 1008
+    area_id = 103
+    y = 1000
+    start_fun = 371)
+Container(
+    fun = map_add
+    x = 1016
+    area_id = 103
+    y = 1000
+    start_fun = 377)
+Container(
+    fun = map_add
+    x = 1000
+    area_id = 103
+    y = 1016
+    start_fun = 383)
+Container(
+    fun = map_add
+    x = 1008
+    area_id = 103
+    y = 1008
+    start_fun = 389)
+Container(
+    fun = map_add
+    x = 1016
+    area_id = 103
+    y = 1008
+    start_fun = 395)
+Container(
+    fun = map_add
+    x = 1008
+    area_id = 103
+    y = 1016
+    start_fun = 401)
+Container(
+    fun = map_add
+    x = 1016
+    area_id = 103
+    y = 1016
+    start_fun = 407)
+Container(
+    entity_id = 1
+    entity_type = player
+    reassign = True
+    start_fun = 413
+    y = 5043
+    fun = reassign
+    x = 5048)
+Container(
+    fun = unknown_0x7e
+    data = b'\x00\x00\x00\x00'
+    start_fun = 424)
+Container(
+    npc_id = 4
+    life_percent = 128
+    npc_class_code = 246
+    stats_list = b'\x01'
+    start_fun = 429
+    y = 5028
+    length_of_packet = 14
+    fun = npc_assign
+    x = 5021)
+Container(
+    entity_id = 4
+    entity_type = monster_npc_merc
+    stats_list = b'iY\xf9\xff\x1f'
+    start_fun = 443
+    length_of_packet = 12
+    fun = entity_info_add)
+Container(
+    npc_id = 4
+    y = 5028
+    start_fun = 455
+    life_percent = 128
+    fun = npc_stop
+    x = 5021)
+Container(
+    npc_id = 3
+    life_percent = 128
+    npc_class_code = 367
+    stats_list = b'\x01'
+    start_fun = 465
+    y = 5020
+    length_of_packet = 14
+    fun = npc_assign
+    x = 5020)
+Container(
+    entity_id = 3
+    entity_type = monster_npc_merc
+    stats_list = b'iY\xf9\xff\x1f'
+    start_fun = 479
+    length_of_packet = 12
+    fun = entity_info_add)
+Container(
+    npc_id = 3
+    y = 5020
+    start_fun = 491
+    life_percent = 128
+    fun = npc_stop
+    x = 5020)
+
+[53.42] s -> c
+Container(
+    entity_id = 30
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 0
+    y = 5025
+    state = 0
+    x = 5037
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 29
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 14
+    y = 5035
+    state = 0
+    x = 5037
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 28
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 28
+    y = 5007
+    state = 0
+    x = 5022
+    fun = object_assign
+    entity_class_code = 345)
+Container(
+    entity_id = 27
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 42
+    y = 5007
+    state = 0
+    x = 5023
+    fun = object_assign
+    entity_class_code = 345)
+Container(
+    entity_id = 26
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 56
+    y = 5035
+    state = 0
+    x = 5017
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 25
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 70
+    y = 5025
+    state = 0
+    x = 5017
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 24
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 84
+    y = 5045
+    state = 0
+    x = 5037
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 23
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 98
+    y = 5055
+    state = 0
+    x = 5037
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 22
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 112
+    y = 5040
+    state = 0
+    x = 5019
+    fun = object_assign
+    entity_class_code = 267)
+Container(
+    entity_id = 21
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 126
+    y = 5055
+    state = 0
+    x = 5017
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 20
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 140
+    y = 5045
+    state = 0
+    x = 5017
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 19
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 154
+    y = 5033
+    state = 0
+    x = 5055
+    fun = object_assign
+    entity_class_code = 408)
+Container(
+    entity_id = 18
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 168
+    y = 5019
+    state = 2
+    x = 5044
+    fun = object_assign
+    entity_class_code = 398)
+Container(
+    entity_id = 18
+    entity_state = 2
+    entity_type = stash_wp_portal_chest
+    start_fun = 182
+    fun = object_state
+    changeable = True)
+Container(
+    npc_id = 2
+    life_percent = 128
+    npc_class_code = 257
+    stats_list = b'\x01'
+    start_fun = 194
+    y = 5023
+    length_of_packet = 14
+    fun = npc_assign
+    x = 5083)
+Container(
+    entity_id = 2
+    entity_type = monster_npc_merc
+    stats_list = b'iY\xf9\xff\x1f'
+    start_fun = 208
+    length_of_packet = 12
+    fun = entity_info_add)
+Container(
+    npc_id = 2
+    y = 5023
+    start_fun = 220
+    life_percent = 128
+    fun = npc_stop
+    x = 5083)
+Container(
+    entity_id = 17
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 230
+    y = 5025
+    state = 0
+    x = 5096
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 16
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 244
+    y = 5021
+    state = 0
+    x = 5094
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 15
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 258
+    y = 5039
+    state = 0
+    x = 5090
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 14
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 272
+    y = 5039
+    state = 0
+    x = 5104
+    fun = object_assign
+    entity_class_code = 408)
+Container(
+    entity_id = 13
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 286
+    y = 5018
+    state = 0
+    x = 5090
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 12
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 300
+    y = 5034
+    state = 0
+    x = 5080
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 33
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 314
+    y = 5047
+    state = 0
+    x = 5055
+    fun = object_assign
+    entity_class_code = 408)
+Container(
+    entity_id = 32
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 328
+    y = 5040
+    state = 0
+    x = 5077
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 31
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 342
+    y = 5050
+    state = 0
+    x = 5077
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 1
+    entity_type = player
+    stats_list = b'J\x95\xc0\xeb\x8f\xaf\x03\xff\x01'
+    start_fun = 356
+    state = 72
+    length_of_packet = 17
+    fun = set_state)
+Container(
+    entity_id = 1
+    entity_type = player
+    stats_list = b'O\xe7x\r\xf2\x95\xe2?'
+    start_fun = 373
+    state = 73
+    length_of_packet = 16
+    fun = set_state)
+Container(
+    entity_id = 1
+    entity_type = player
+    stats_list = b'\xac\xfc\x0f'
+    start_fun = 389
+    state = 105
+    length_of_packet = 11
+    fun = set_state)
+Container(
+    fun = attr_byte
+    attribute = level
+    amount = 82
+    start_fun = 400)
+Container(
+    fun = attr_byte
+    attribute = strength
+    amount = 65
+    start_fun = 403)
+Container(
+    fun = attr_byte
+    attribute = dexterity
+    amount = 41
+    start_fun = 406)
+Container(
+    npc_id = 1
+    life_percent = 128
+    npc_class_code = 405
+    stats_list = b'\x01'
+    start_fun = 409
+    y = 5058
+    length_of_packet = 14
+    fun = npc_assign
+    x = 5083)
+Container(
+    entity_id = 1
+    entity_type = monster_npc_merc
+    stats_list = b'iY\xf9\xff\x1f'
+    start_fun = 423
+    length_of_packet = 12
+    fun = entity_info_add)
+Container(
+    npc_id = 1
+    y = 5058
+    start_fun = 435
+    life_percent = 128
+    fun = npc_stop
+    x = 5083)
+Container(
+    entity_id = 11
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 445
+    y = 5043
+    state = 0
+    x = 5092
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 10
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 459
+    y = 5046
+    state = 0
+    x = 5084
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 9
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 473
+    y = 5046
+    state = 0
+    x = 5081
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 8
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 487
+    y = 5063
+    state = 0
+    x = 5097
+    fun = object_assign
+    entity_class_code = 374)
+
+[53.44] s -> c
+Container(
+    entity_id = 7
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 0
+    y = 5064
+    state = 0
+    x = 5094
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 6
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 14
+    y = 5052
+    state = 0
+    x = 5104
+    fun = object_assign
+    entity_class_code = 408)
+Container(
+    entity_id = 5
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 28
+    y = 5055
+    state = 0
+    x = 5080
+    fun = object_assign
+    entity_class_code = 409)
+Container(
+    entity_id = 4
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 42
+    y = 5062
+    state = 0
+    x = 5082
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 3
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 56
+    y = 5066
+    state = 0
+    x = 5083
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 2
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 70
+    y = 5043
+    state = 0
+    x = 5080
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    entity_id = 1
+    interaction = 0
+    entity_type = stash_wp_portal_chest
+    start_fun = 84
+    y = 5040
+    state = 0
+    x = 5086
+    fun = object_assign
+    entity_class_code = 374)
+Container(
+    fun = attr_byte
+    attribute = strength
+    amount = 65
+    start_fun = 98)
+Container(
+    fun = attr_byte
+    attribute = energy
+    amount = 35
+    start_fun = 101)
+Container(
+    fun = attr_byte
+    attribute = dexterity
+    amount = 41
+    start_fun = 104)
+Container(
+    fun = attr_word
+    attribute = vitality
+    amount = 354
+    start_fun = 107)
+Container(
+    fun = attr_byte
+    attribute = 5
+    amount = 2
+    start_fun = 111)
+Container(
+    fun = attr_dword
+    attribute = 7
+    amount = 222464
+    start_fun = 114)
+Container(
+    fun = attr_word
+    attribute = 9
+    amount = 50432
+    start_fun = 120)
+Container(
+    fun = attr_dword
+    attribute = 11
+    amount = 127744
+    start_fun = 124)
+Container(
+    fun = attr_byte
+    attribute = level
+    amount = 82
+    start_fun = 130)
+Container(
+    fun = attr_dword
+    attribute = stash_gold
+    amount = 563334
+    start_fun = 133)
+Container(
+    fun = relator_2
+    unknown2 = 0
+    entity_id = 1
+    unknown1 = 0
+    start_fun = 139)
+Container(
+    fun = enter_game
+    start_fun = 150)
+Container(
+    fun = relator_2
+    unknown2 = 0
+    entity_id = 1
+    unknown1 = 0
+    start_fun = 151)
+Container(
+    char_type = sorceress
+    pack_len = 36
+    party_number = 65535
+    char_level = 82
+    start_fun = 162
+    player_id = 1
+    _unused = b'\x00\x00\x00\x00\x00\x00\x00\x00'
+    fun = player_in_game
+    char_name = b'catfish')
+Container(
+    fun = kill_count
+    count = 0
+    entity_id = 1
+    start_fun = 198)
+Container(
+    fun = party_number
+    player_id = 1
+    party_number = 65535
+    start_fun = 205)
+Container(
+    A = b'catfish'
+    B = b'pohmelie'
+    some_number_or_id = 0
+    entity_type = player
+    _unused2 = b'\x00\x00\x00\x00\x00\x00\x00'
+    _unused1 = b'\x00\x00\x00\x00\x00\x00\x00\x00'
+    start_fun = 212
+    action = friendly
+    fun = event_notify
+    event = joined_the_game)
+Container(
+    fun = unknown_0xcb
+    data = b'\xff\x06\x00\x00\x01\x01\x00\x00\x04\x02\x00\x00\xb8\x13\x00\x00\xb3\x13\x00\x00\xb8\xb3'
+    start_fun = 252)
+Container(
+    fun = attr_word
+    attribute = 14
+    amount = 21262
+    start_fun = 275)
+Container(
+    fun = exp_dword
+    amount = 831085881
+    start_fun = 279)
+
+[53.80] s -> c
+Container(
+    npc_id = 2
+    unknown = b'\x01\x00\x07K\x00\x05'
+    start_fun = 0
+    y = 5030
+    movement_type = 1
+    fun = npc_move
+    x = 5089)
+
+[54.12] s -> c
+Container(
+    npc_id = 1
+    unknown = b'\x01\x00\x07K\x00\x05'
+    start_fun = 0
+    y = 5051
+    movement_type = 1
+    fun = npc_move
+    x = 5088)
+
+[54.45] s -> c
+Container(
+    npc_id = 4
+    unknown = b'\x01\x00\x07K\x00\x05'
+    start_fun = 0
+    y = 5027
+    movement_type = 1
+    fun = npc_move
+    x = 5024)
+
+[55.80] s -> c
+Container(
+    npc_id = 4
+    y = 5027
+    start_fun = 0
+    life_percent = 128
+    fun = npc_stop
+    x = 5024)
+
+[57.67] c -> s
+Container(
+    fun = ping
+    delay = 86
+    warden_response = 0
+    tickcount = 21614359
+    start_fun = 0)
+
+[57.77] s -> c
+Container(
+    fun = pong
+    server_response = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    start_fun = 0)
+Container(
+    npc_id = 2
+    y = 5030
+    start_fun = 33
+    life_percent = 128
+    fun = npc_stop
+    x = 5089)
+
+[58.11] s -> c
+Container(
+    npc_id = 1
+    y = 5051
+    start_fun = 0
+    life_percent = 128
+    fun = npc_stop
+    x = 5088)
+
+[58.33] s -> c
+Container(
+    fun = game_refresh
+    some_boolean = 128
+    possible_player_slot = 2
+    some_counter = 8
+    start_fun = 0)
+Container(
+    fun = relator_1
+    unknown2 = 0
+    entity_id = 1
+    unknown1 = 0
+    start_fun = 10)
+Container(
+    fun = relator_2
+    unknown2 = 0
+    entity_id = 1
+    unknown1 = 0
+    start_fun = 21)
+
+[58.44] c -> s
+Container(
+    fun = exit_game
+    start_fun = 0)
+
+[58.50] s -> c
+Container(
+    fun = game_termination
+    start_fun = 0)
+
+[58.50] s -> c
+Container(
+    fun = unload_complete
+    start_fun = 0)
+Container(
+    fun = game_exit
+    start_fun = 1)

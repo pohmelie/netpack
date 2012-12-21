@@ -1,0 +1,3 @@
+#write your mac address here
+#format: xx:xx:xx:xx:xx:xx
+00:09:3B:F0:1A:40
