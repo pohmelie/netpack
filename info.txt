@@ -1,6 +1,11 @@
 assign player 0x59 char name here on conneciton
 reassign player 0x15 coord on teleport here
 
+start position = (5118, 5168)
+run1 = (5130, 5155)
+run2 = (5130, 5135)
+run3 = ()
+
 LK size:
     width (x) = 337
     height (y) = 272

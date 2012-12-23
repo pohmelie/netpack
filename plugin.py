@@ -70,12 +70,15 @@ class PluginManager():
 
         '''self.f.write("\n\n[{:.2f}] ".format(time() % 60))
         self.f.write(("c -> s", "s -> c")[s])
+        fake = []
         for pack in packets:
             self.f.write("\n" + repr(pack))
         self.f.flush()'''
+        #return [(packets, s, d)] + fake
 
         real = []
         fake = []
+
         for pack in packets:
             if pack.fun == "send_logon_info" and s == Connection.CLIENT:
                 self.char_name = str(pack.char_name, "ascii")
@@ -106,7 +109,8 @@ class PluginManager():
                             pname = com[1]
                             for p in self.plugins:
                                 if p.name == pname:
-                                    self.plugs = self.plugs + (p(),)
+                                    self.plugs = self.plugs + (p(self.char_name),)
+                                    fake.append(info("'{}' plugin added to queue.".format(pname)))
                                     break
                             else:
                                 fake.append(info("There is no '{}' plugin.".format(com[1]), "red"))

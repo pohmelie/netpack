@@ -5,6 +5,7 @@ from plugin import DefaultQueueControl
 from connection import Connection, unstack
 from recipe import *
 
+
 class LogicElement():
     def __init__(self, name, con, logic, qi, qo):
         self.name = name

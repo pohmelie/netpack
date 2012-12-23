@@ -137,7 +137,7 @@ class Connection():
         ip, tcp, data = unstack(eth)
         ip = (ip.header.source, ip.header.destination)
         port = (tcp.header.source, tcp.header.destination)
-        return port in (self.port, self.port[::-1]) and ip in (self.ip, self.ip[::-1])
+        return (port, ip) in ((self.port, self.ip), (self.port[::-1], self.ip[::-1]))
 
     def idle(self):
         ret = ()

@@ -36,6 +36,23 @@ def check_command(pack):
         pack.mode == "normal" and \
         str(pack.message, encoding="ascii")[0] == "\\"
 
+def funfil(name, packets):
+    for pack in packets:
+        if pack.fun == name:
+            yield pack
+
+def send_run(nx, ny):
+    return([
+        Container(
+            start_fun = 0,
+            fun = "run",
+            x = nx,
+            y = ny
+        )],
+        Connection.CLIENT,
+        Connection.SERVER
+    )
+
 class Rejoiner(Thread):
     def __init__(self, caption, gamename, gamepass):
         Thread.__init__(self)
@@ -46,6 +63,7 @@ class Rejoiner(Thread):
 
     def run(self):
         self.au3 = autoit()
+        sleep(0.25)
         self.au3.AU3_ControlSend(self.caption, "", "", "{ESCAPE}")
         self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 400, 260)
         sleep(3)

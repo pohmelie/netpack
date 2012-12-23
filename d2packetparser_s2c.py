@@ -138,6 +138,7 @@ s2c_packets = Struct(None,
         compression = 0xaf,
         game_termination = 0xb0,
         timeout_full = 0xb4,
+        movement_confirmation = 0xcc,
 
         #item actions
         world_item_action = 0x9c,
@@ -153,7 +154,6 @@ s2c_packets = Struct(None,
         unknown_0xc1 = 0xc1,
         unknown_0xca = 0xca,
         unknown_0xcb = 0xcb,
-        unknown_0xcc = 0xcc,
 
         _default_ = "unknown"
     ),
@@ -688,6 +688,13 @@ s2c_packets = Struct(None,
                         unable_to_enter_the_game = 0x1a
                     )
                 ),
+                "movement_confirmation":Struct(None,
+                    ULInt32("stamina"),
+                    ULInt32("x"),
+                    ULInt32("y"),
+                    SLInt8("dx"),
+                    SLInt8("dy")
+                ),
 
                 #item actions
                 "world_item_action":Struct(None,
@@ -710,7 +717,6 @@ s2c_packets = Struct(None,
                 "unknown_0xc1":Struct(None, Pass),
                 "unknown_0xca":Struct(None, Bytes("data", 25 - 1)),
                 "unknown_0xcb":Struct(None, Bytes("data", 23 - 1)),
-                "unknown_0xcc":Struct(None, Bytes("data", 15 - 1)),
             },
             default = Struct(None,
                 Pointer(lambda ctx: ctx.start_fun, HexDumpAdapter(GreedyRange(ULInt8("data")))),

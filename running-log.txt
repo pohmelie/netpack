@@ -1,0 +1,1486 @@
+
+
+[49.10] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 3
+    x = 5114
+    y = 5164)
+
+[49.85] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5121
+    y = 5170)
+
+[49.97] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 2
+    x = 5130
+    y = 5188)
+
+[50.86] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5120
+    y = 5172)
+
+[51.14] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 1
+    x = 5120
+    y = 5172)
+
+[51.74] c -> s
+Container(
+    start_fun = 0
+    warden_response = 0
+    fun = ping
+    tickcount = 1890420271
+    delay = 23)
+
+[51.82] s -> c
+Container(
+    start_fun = 0
+    server_response = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    fun = pong)
+
+[52.35] c -> s
+Container(
+    start_fun = 0
+    object_id = 50
+    fun = pick_up_object_from_storage)
+
+[52.42] s -> c
+Container(
+    length_of_packet = 25
+    item = Container(
+        identified = True
+        code = r14
+        ilvl = 0
+        container = inventory
+        etherial = False
+        quality = unspecified
+        destination = cursor
+        item_has_no_level = True
+        x = 2
+        y = 2)
+    category = other
+    action = put_onto_cursor
+    item_id = 50
+    start_fun = 0
+    fun = owner_item_action
+    owner_entity_id = 1
+    data = b'\x10\x00\xa0\x00e\x10D"\x17C\x03\x02'
+    tail = 13
+    owner_entity_type = player)
+Container(
+    start_fun = 25
+    entity_id = 1
+    fun = relator_1
+    unknown1 = 0
+    unknown2 = 0)
+Container(
+    start_fun = 36
+    entity_id = 1
+    fun = relator_2
+    unknown1 = 0
+    unknown2 = 0)
+
+[52.74] c -> s
+Container(
+    object_direction = inventory
+    fun = place_object_in_a_location
+    start_fun = 0
+    object_id = 50
+    x = 2
+    y = 2)
+
+[52.82] s -> c
+Container(
+    length_of_packet = 20
+    item = Container(
+        identified = True
+        code = r14
+        ilvl = 0
+        container = inventory
+        etherial = False
+        quality = unspecified
+        destination = inventory
+        item_has_no_level = True
+        x = 2
+        y = 2)
+    category = other
+    action = moved_in_cube_inventory
+    item_id = 50
+    start_fun = 0
+    fun = world_item_action
+    data = b'\x10\x00\xa0\x00e\x00D"\x17C\x03\x02'
+    tail = 8)
+Container(
+    start_fun = 20
+    entity_id = 1
+    fun = relator_1
+    unknown1 = 0
+    unknown2 = 0)
+Container(
+    start_fun = 31
+    entity_id = 1
+    fun = relator_2
+    unknown1 = 0
+    unknown2 = 0)
+
+[54.58] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5132
+    y = 5168)
+
+[54.70] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5134
+    y = 5168)
+
+[54.73] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5117
+    y = 5178)
+Container(
+    start_fun = 16
+    fun = map_add
+    area_id = 75
+    x = 1032
+    y = 1024)
+Container(
+    start_fun = 22
+    fun = map_add
+    area_id = 75
+    x = 1032
+    y = 1032)
+Container(
+    start_fun = 28
+    fun = map_add
+    area_id = 75
+    x = 1032
+    y = 1040)
+Container(
+    start_fun = 34
+    fun = map_rem
+    area_id = 75
+    x = 1008
+    y = 1024)
+Container(
+    start_fun = 40
+    fun = map_rem
+    area_id = 75
+    x = 1008
+    y = 1032)
+Container(
+    start_fun = 46
+    fun = map_rem
+    area_id = 75
+    x = 1008
+    y = 1040)
+
+[54.78] s -> c
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 18
+    fun = object_assign
+    x = 5181
+    start_fun = 0
+    interaction = 0
+    state = 0
+    entity_class_code = 212
+    y = 5156)
+
+[55.23] s -> c
+Container(
+    start_fun = 0
+    fun = unknown_0xcc
+    data = b'\xbd\x01\x00\x00\x08\x14\x00\x000\x14\x00\x00\xfa\x00')
+
+[55.25] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 2
+    movement_type = 1
+    x = 5134
+    y = 5188)
+
+[55.66] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 1
+    x = 5117
+    y = 5178)
+
+[56.42] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 2
+    x = 5134
+    y = 5188)
+
+[56.50] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5133
+    y = 5143)
+
+[56.61] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5132
+    y = 5141)
+
+[56.66] s -> c
+Container(
+    unknown = b'\x01\x00\r\x87\x00('
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5134
+    y = 5149)
+
+[56.74] c -> s
+Container(
+    start_fun = 0
+    warden_response = 0
+    fun = ping
+    tickcount = 1890425279
+    delay = 35)
+
+[56.81] s -> c
+Container(
+    start_fun = 0
+    server_response = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    fun = pong)
+Container(
+    entity_type = player
+    entity_id = 1
+    fun = party_update
+    area_id = 75
+    life_percent = 100
+    start_fun = 33)
+
+[57.06] s -> c
+Container(
+    start_fun = 0
+    fun = map_add
+    area_id = 75
+    x = 1016
+    y = 1016)
+Container(
+    start_fun = 6
+    fun = map_add
+    area_id = 75
+    x = 1024
+    y = 1016)
+Container(
+    start_fun = 12
+    fun = map_add
+    area_id = 75
+    x = 1032
+    y = 1016)
+Container(
+    start_fun = 18
+    fun = map_rem
+    area_id = 75
+    x = 1016
+    y = 1040)
+Container(
+    start_fun = 24
+    fun = map_rem
+    area_id = 75
+    x = 1024
+    y = 1040)
+Container(
+    start_fun = 30
+    fun = map_rem
+    area_id = 75
+    x = 1032
+    y = 1040)
+
+[57.10] s -> c
+Container(
+    length_of_packet = 14
+    fun = npc_assign
+    stats_list = b'\x01'
+    life_percent = 128
+    start_fun = 0
+    npc_id = 5
+    npc_class_code = 255
+    x = 5118
+    y = 5085)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 5
+    start_fun = 14
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 26
+    npc_id = 5
+    x = 5118
+    y = 5085)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 25
+    fun = object_assign
+    x = 5116
+    start_fun = 36
+    interaction = 0
+    state = 0
+    entity_class_code = 352
+    y = 5080)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 24
+    fun = object_assign
+    x = 5111
+    start_fun = 50
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5097)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 23
+    fun = object_assign
+    x = 5115
+    start_fun = 64
+    interaction = 0
+    state = 2
+    entity_class_code = 251
+    y = 5080)
+Container(
+    entity_type = stash_wp_portal_chest
+    changeable = False
+    fun = object_state
+    entity_id = 23
+    start_fun = 78
+    entity_state = 2)
+Container(
+    length_of_packet = 17
+    fun = npc_assign
+    stats_list = b'\x11\xc3\x16\x00'
+    life_percent = 128
+    start_fun = 90
+    npc_id = 4
+    npc_class_code = 294
+    x = 5146
+    y = 5098)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 4
+    start_fun = 107
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 119
+    npc_id = 4
+    x = 5146
+    y = 5098)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 22
+    fun = object_assign
+    x = 5139
+    start_fun = 129
+    interaction = 0
+    state = 2
+    entity_class_code = 117
+    y = 5109)
+Container(
+    entity_type = stash_wp_portal_chest
+    changeable = False
+    fun = object_state
+    entity_id = 22
+    start_fun = 143
+    entity_state = 2)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 21
+    fun = object_assign
+    x = 5123
+    start_fun = 155
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5084)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 20
+    fun = object_assign
+    x = 5140
+    start_fun = 169
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5085)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 19
+    fun = object_assign
+    x = 5159
+    start_fun = 183
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5092)
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 197
+    npc_id = 3
+    movement_type = 1
+    x = 5113
+    y = 5168)
+
+[57.98] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 4
+    movement_type = 1
+    x = 5139
+    y = 5094)
+
+[58.29] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 5
+    movement_type = 1
+    x = 5119
+    y = 5091)
+Container(
+    start_fun = 16
+    fun = unknown_0xcc
+    data = b'\xbd\x01\x00\x00\x0c\x14\x00\x00\x15\x14\x00\x00\x00\x00')
+
+[58.58] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5133
+    y = 5117)
+
+[58.70] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5133
+    y = 5116)
+
+[58.85] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 3
+    x = 5113
+    y = 5168)
+
+[58.93] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 1
+    x = 5134
+    y = 5149)
+
+[59.33] s -> c
+Container(
+    unknown = b'\x01\x00\x0f\x87\x00('
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5133
+    y = 5144)
+
+[59.74] s -> c
+Container(
+    unknown = b'\x01\x00\r\x87\x00('
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5132
+    y = 5124)
+
+[59.94] s -> c
+Container(
+    start_fun = 0
+    fun = map_add
+    area_id = 75
+    x = 1016
+    y = 1008)
+Container(
+    start_fun = 6
+    fun = map_add
+    area_id = 75
+    x = 1024
+    y = 1008)
+Container(
+    start_fun = 12
+    fun = map_add
+    area_id = 75
+    x = 1032
+    y = 1008)
+Container(
+    start_fun = 18
+    entity_type = monster_npc_merc
+    fun = lost_sight
+    entity_id = 3)
+Container(
+    start_fun = 24
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 17)
+Container(
+    start_fun = 30
+    fun = map_rem
+    area_id = 75
+    x = 1016
+    y = 1032)
+Container(
+    start_fun = 36
+    entity_type = monster_npc_merc
+    fun = lost_sight
+    entity_id = 2)
+Container(
+    start_fun = 42
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 1)
+Container(
+    start_fun = 48
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 2)
+Container(
+    start_fun = 54
+    fun = map_rem
+    area_id = 75
+    x = 1024
+    y = 1032)
+Container(
+    start_fun = 60
+    fun = map_rem
+    area_id = 75
+    x = 1032
+    y = 1032)
+
+[59.98] s -> c
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 30
+    fun = object_assign
+    x = 5083
+    start_fun = 0
+    interaction = 0
+    state = 0
+    entity_class_code = 212
+    y = 5043)
+Container(
+    length_of_packet = 14
+    fun = npc_assign
+    stats_list = b'\x01'
+    life_percent = 128
+    start_fun = 14
+    npc_id = 9
+    npc_class_code = 245
+    x = 5139
+    y = 5063)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 9
+    start_fun = 28
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 40
+    npc_id = 9
+    x = 5139
+    y = 5063)
+Container(
+    length_of_packet = 17
+    fun = npc_assign
+    stats_list = b'q\xc0\x01\x00'
+    life_percent = 128
+    start_fun = 50
+    npc_id = 8
+    npc_class_code = 296
+    x = 5155
+    y = 5060)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 8
+    start_fun = 67
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 79
+    npc_id = 8
+    x = 5155
+    y = 5060)
+Container(
+    length_of_packet = 17
+    fun = npc_assign
+    stats_list = b'\x91$\x01\x00'
+    life_percent = 128
+    start_fun = 89
+    npc_id = 7
+    npc_class_code = 294
+    x = 5128
+    y = 5064)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 7
+    start_fun = 106
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 118
+    npc_id = 7
+    x = 5128
+    y = 5064)
+Container(
+    length_of_packet = 14
+    fun = npc_assign
+    stats_list = b'\x01'
+    life_percent = 128
+    start_fun = 128
+    npc_id = 6
+    npc_class_code = 359
+    x = 5146
+    y = 5060)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 6
+    start_fun = 142
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 154
+    npc_id = 6
+    x = 5146
+    y = 5060)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 29
+    fun = object_assign
+    x = 5141
+    start_fun = 164
+    interaction = 0
+    state = 0
+    entity_class_code = 267
+    y = 5057)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 28
+    fun = object_assign
+    x = 5159
+    start_fun = 178
+    interaction = 0
+    state = 2
+    entity_class_code = 237
+    y = 5049)
+Container(
+    entity_type = stash_wp_portal_chest
+    changeable = True
+    fun = object_state
+    entity_id = 28
+    start_fun = 192
+    entity_state = 2)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 27
+    fun = object_assign
+    x = 5126
+    start_fun = 204
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5052)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 26
+    fun = object_assign
+    x = 5148
+    start_fun = 218
+    interaction = 0
+    state = 2
+    entity_class_code = 117
+    y = 5040)
+Container(
+    entity_type = stash_wp_portal_chest
+    changeable = False
+    fun = object_state
+    entity_id = 26
+    start_fun = 232
+    entity_state = 2)
+
+[0.29] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 4
+    x = 5139
+    y = 5094)
+
+[0.49] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 6
+    movement_type = 1
+    x = 5151
+    y = 5057)
+
+[0.86] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 8
+    movement_type = 1
+    x = 5156
+    y = 5079)
+Container(
+    start_fun = 16
+    fun = unknown_0xcc
+    data = b'\xbd\x01\x00\x00\r\x14\x00\x00\xfc\x13\x00\x00\x00\x00')
+
+[0.90] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 5
+    x = 5119
+    y = 5091)
+
+[1.18] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 9
+    movement_type = 1
+    x = 5141
+    y = 5060)
+
+[1.22] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 6
+    x = 5151
+    y = 5057)
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 10
+    npc_id = 1
+    x = 5132
+    y = 5124)
+
+[1.31] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5134
+    y = 5093)
+
+[1.34] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 7
+    movement_type = 1
+    x = 5128
+    y = 5058)
+
+[1.42] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5134
+    y = 5091)
+
+[1.75] c -> s
+Container(
+    start_fun = 0
+    warden_response = 0
+    fun = ping
+    tickcount = 1890430286
+    delay = 36)
+
+[1.81] s -> c
+Container(
+    start_fun = 0
+    server_response = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    fun = pong)
+
+[2.02] s -> c
+Container(
+    unknown = b'\x01\x00\r\x87\x00('
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5142
+    y = 5083)
+
+[2.74] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 9
+    x = 5141
+    y = 5060)
+
+[3.06] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 7
+    x = 5128
+    y = 5058)
+
+[3.63] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5144
+    y = 5079)
+
+[3.76] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5146
+    y = 5077)
+
+[3.85] s -> c
+Container(
+    start_fun = 0
+    fun = unknown_0xcc
+    data = b'\xbd\x01\x00\x00\x10\x14\x00\x00\xe1\x13\x00\x00\xf7\x0b')
+
+[4.81] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 6
+    movement_type = 1
+    x = 5147
+    y = 5052)
+
+[4.93] s -> c
+Container(
+    start_fun = 0
+    fun = map_add
+    area_id = 75
+    x = 1016
+    y = 1000)
+Container(
+    start_fun = 6
+    fun = map_add
+    area_id = 75
+    x = 1024
+    y = 1000)
+Container(
+    start_fun = 12
+    fun = map_add
+    area_id = 75
+    x = 1032
+    y = 1000)
+Container(
+    start_fun = 18
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 14)
+Container(
+    start_fun = 24
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 15)
+Container(
+    start_fun = 30
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 16)
+Container(
+    start_fun = 36
+    fun = map_rem
+    area_id = 75
+    x = 1016
+    y = 1024)
+Container(
+    start_fun = 42
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 3)
+Container(
+    start_fun = 48
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 4)
+Container(
+    start_fun = 54
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 5)
+Container(
+    start_fun = 60
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 6)
+Container(
+    start_fun = 66
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 7)
+Container(
+    start_fun = 72
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 8)
+Container(
+    start_fun = 78
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 9)
+Container(
+    start_fun = 84
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 10)
+Container(
+    start_fun = 90
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 11)
+Container(
+    start_fun = 96
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 12)
+Container(
+    start_fun = 102
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 13)
+Container(
+    start_fun = 108
+    fun = map_rem
+    area_id = 75
+    x = 1024
+    y = 1024)
+Container(
+    start_fun = 114
+    entity_type = stash_wp_portal_chest
+    fun = lost_sight
+    entity_id = 18)
+Container(
+    start_fun = 120
+    fun = map_rem
+    area_id = 75
+    x = 1032
+    y = 1024)
+
+[4.98] s -> c
+Container(
+    length_of_packet = 14
+    fun = npc_assign
+    stats_list = b'\x01'
+    life_percent = 128
+    start_fun = 0
+    npc_id = 10
+    npc_class_code = 254
+    x = 5083
+    y = 5008)
+Container(
+    entity_type = monster_npc_merc
+    length_of_packet = 12
+    fun = entity_info_add
+    entity_id = 10
+    start_fun = 14
+    stats_list = b'iY\xf9\xff\x1f')
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 26
+    npc_id = 10
+    x = 5083
+    y = 5008)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 49
+    fun = object_assign
+    x = 5105
+    start_fun = 36
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5031)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 48
+    fun = object_assign
+    x = 5106
+    start_fun = 50
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5036)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 47
+    fun = object_assign
+    x = 5102
+    start_fun = 64
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5031)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 46
+    fun = object_assign
+    x = 5104
+    start_fun = 78
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5026)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 45
+    fun = object_assign
+    x = 5100
+    start_fun = 92
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5026)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 44
+    fun = object_assign
+    x = 5103
+    start_fun = 106
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5034)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 43
+    fun = object_assign
+    x = 5099
+    start_fun = 120
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5028)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 42
+    fun = object_assign
+    x = 5102
+    start_fun = 134
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5028)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 41
+    fun = object_assign
+    x = 5105
+    start_fun = 148
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5037)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 40
+    fun = object_assign
+    x = 5089
+    start_fun = 162
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5030)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 39
+    fun = object_assign
+    x = 5148
+    start_fun = 176
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5007)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 38
+    fun = object_assign
+    x = 5131
+    start_fun = 190
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5038)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 37
+    fun = object_assign
+    x = 5132
+    start_fun = 204
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5035)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 36
+    fun = object_assign
+    x = 5136
+    start_fun = 218
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5035)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 35
+    fun = object_assign
+    x = 5135
+    start_fun = 232
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5031)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 34
+    fun = object_assign
+    x = 5133
+    start_fun = 246
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5033)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 33
+    fun = object_assign
+    x = 5127
+    start_fun = 260
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5033)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 32
+    fun = object_assign
+    x = 5128
+    start_fun = 274
+    interaction = 0
+    state = 0
+    entity_class_code = 374
+    y = 5036)
+Container(
+    entity_type = stash_wp_portal_chest
+    entity_id = 31
+    fun = object_assign
+    x = 5140
+    start_fun = 288
+    interaction = 0
+    state = 0
+    entity_class_code = 370
+    y = 5022)
+
+[5.10] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 4
+    movement_type = 1
+    x = 5133
+    y = 5094)
+
+[5.33] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 1
+    x = 5142
+    y = 5083)
+
+[5.62] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 6
+    x = 5147
+    y = 5052)
+
+[5.70] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 5
+    movement_type = 1
+    x = 5124
+    y = 5092)
+
+[5.86] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 10
+    movement_type = 1
+    x = 5084
+    y = 5014)
+
+[6.18] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5151
+    y = 5060)
+
+[6.30] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 8
+    x = 5156
+    y = 5079)
+
+[6.31] c -> s
+Container(
+    start_fun = 0
+    fun = run
+    x = 5151
+    y = 5058)
+
+[6.76] c -> s
+Container(
+    start_fun = 0
+    warden_response = 0
+    fun = ping
+    tickcount = 1890435294
+    delay = 34)
+
+[6.81] s -> c
+Container(
+    start_fun = 0
+    server_response = b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    fun = pong)
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 33
+    npc_id = 4
+    x = 5133
+    y = 5094)
+Container(
+    start_fun = 43
+    fun = unknown_0xcc
+    data = b'\xbd\x01\x00\x00\x1c\x14\x00\x00\xcd\x13\x00\x00\xfd\x0b')
+
+[7.13] s -> c
+Container(
+    unknown = b'\x01\x00\r\x87\x00('
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5159
+    y = 5050)
+
+[7.54] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 9
+    movement_type = 1
+    x = 5142
+    y = 5066)
+
+[7.89] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 5
+    x = 5124
+    y = 5092)
+
+[8.45] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 10
+    x = 5084
+    y = 5014)
+
+[8.81] s -> c
+Container(
+    unknown = b'\x01\x00\x07K\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 7
+    movement_type = 1
+    x = 5131
+    y = 5054)
+
+[9.65] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 1
+    movement_type = 1
+    x = 5163
+    y = 5064)
+
+[10.01] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 6
+    movement_type = 1
+    x = 5151
+    y = 5056)
+Container(
+    start_fun = 16
+    fun = unknown_0xcc
+    data = b'\xbd\x01\x00\x00\x1f\x14\x00\x00\xc2\x13\x00\x00\x00\x00')
+
+[10.14] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 9
+    x = 5142
+    y = 5066)
+
+[10.25] s -> c
+Container(
+    fun = npc_stop
+    life_percent = 128
+    start_fun = 0
+    npc_id = 7
+    x = 5131
+    y = 5054)
+
+[10.74] s -> c
+Container(
+    unknown = b'\x01\x00\rK\x00\x05'
+    fun = npc_move
+    start_fun = 0
+    npc_id = 6
+    movement_type = 1
+    x = 5156
+    y = 5055)
+
+[11.17] c -> s
+Container(
+    start_fun = 0
+    fun = exit_game)
+
+[11.22] s -> c
+Container(
+    start_fun = 0
+    fun = game_termination)
+
+[11.23] s -> c
+Container(
+    start_fun = 0
+    fun = unload_complete)
+Container(
+    start_fun = 1
+    fun = game_exit)

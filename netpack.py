@@ -113,7 +113,7 @@ class Netpack():
             self.kernel32.ResetEvent(self.hEvent)
 
 if __name__ == "__main__":
-    print("netpack 2012.12.21")
+    print("netpack 2012.12.24")
     mac = None
     for line in open("mac.txt"):
         if line[0] != "#":
