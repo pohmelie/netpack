@@ -138,6 +138,7 @@ s2c_packets = Struct(None,
         compression = 0xaf,
         game_termination = 0xb0,
         timeout_full = 0xb4,
+        stats_confirmation = 0xcb,
         movement_confirmation = 0xcc,
 
         #item actions
@@ -153,7 +154,6 @@ s2c_packets = Struct(None,
         unknown_0xa5 = 0xa5,
         unknown_0xc1 = 0xc1,
         unknown_0xca = 0xca,
-        unknown_0xcb = 0xcb,
 
         _default_ = "unknown"
     ),
@@ -687,6 +687,14 @@ s2c_packets = Struct(None,
                         failed_to_join = 0x19,
                         unable_to_enter_the_game = 0x1a
                     )
+                ),
+                "stats_confirmation":Struct(None,
+                    ULInt32("hp"),
+                    ULInt32("mp"),
+                    ULInt32("stamina"),
+                    ULInt32("x"),
+                    ULInt32("y"),
+                    ULInt16("unknown")
                 ),
                 "movement_confirmation":Struct(None,
                     ULInt32("stamina"),

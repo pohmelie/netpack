@@ -204,5 +204,5 @@ def encrypt(packet):
 if __name__ == "__main__":
     from recipe import *
     d = Decrypter()
-    data = rev("07 1f 7f ff ff ff c0")
+    data = b'\x03 \x80'
     print(d.decrypt(data))

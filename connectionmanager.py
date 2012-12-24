@@ -6,6 +6,12 @@ from connection import Connection, unstack
 from recipe import *
 
 
+'''from time import time
+import multiprocessing, logging
+logger = multiprocessing.log_to_stderr()
+#logger.setLevel(multiprocessing.SUBDEBUG)
+logger.setLevel(logging.WARNING)'''
+
 class LogicElement():
     def __init__(self, name, con, logic, qi, qo):
         self.name = name
@@ -14,12 +20,10 @@ class LogicElement():
         self.qi = qi
         self.qo = qo
 
-    def smth(self, val):
-        return val in (self.name, self.con, self.logic, self.qi, self.qo)
-
-    def __repr__(self):
-        pps = "LogicElement(name = {}, con = {}, logic = {}, qi = {}, qo = {}"
-        return pps.format(self.name, self.con, self.logic, self.qi, self.qo)
+    def clear(self):
+        self.qi.put(None)
+        while self.qo.get() != None:
+            pass
 
 class ConnectionManager(Process):
     def __init__(self, qi, qo, server_ips):
@@ -79,6 +83,7 @@ class ConnectionManager(Process):
             remlog = set()
             for log in self.logics:
                 if log.name == char_name:
+                    log.clear()
                     log.con = curlog.con
                     log.con.qi = log.qi
                     log.con.qo = log.qo

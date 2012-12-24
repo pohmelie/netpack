@@ -10,9 +10,9 @@ from au3bind import autoit
 
 
 from time import time
-import multiprocessing, logging
+'''import multiprocessing, logging
 logger = multiprocessing.log_to_stderr()
-logger.setLevel(multiprocessing.SUBDEBUG)
+logger.setLevel(multiprocessing.SUBDEBUG)'''
 #logger.setLevel(logging.WARNING)
 
 
@@ -26,7 +26,13 @@ class DefaultQueueControl(Process):
     def run(self):
         self.plug = PluginManager()
         while True:
-            data, s, d = self.qi.get()
+            x = self.qi.get()
+            if x == None:
+                self.qo.put(None)
+                continue
+            data, s, d = x
+            #logger.warning(repr(data))
+            #logger.warning("in: " + rev(data))
             mdata = (data,)
             if s == Connection.SERVER and data != b"\xaf\x01":
                 mdata = self.dec.decrypt(data)
@@ -35,6 +41,7 @@ class DefaultQueueControl(Process):
                     odata = d2_packet_parser[src].build(odata)
                     if src == Connection.SERVER and data != b"\xaf\x01":
                         odata = encrypt(odata)
+                    #logger.warning("out: " + rev(odata))
                     self.qo.put((odata, src, dst))
 
 class PluginManager():
@@ -47,7 +54,7 @@ class PluginManager():
 
     def __init__(self):
 
-        #self.f = open("log.txt", "w")
+        self.f = open("log.txt", "w")
 
         self.welcome = info("Welcome to netpack. Type \\? or \\help for more information.", "green")
         self.plugins = ()
@@ -68,13 +75,11 @@ class PluginManager():
 
     def act(self, packets, s, d):
 
-        '''self.f.write("\n\n[{:.2f}] ".format(time() % 60))
+        self.f.write("\n\n[{:.2f}] ".format(time() % 60))
         self.f.write(("c -> s", "s -> c")[s])
-        fake = []
         for pack in packets:
             self.f.write("\n" + repr(pack))
-        self.f.flush()'''
-        #return [(packets, s, d)] + fake
+        self.f.flush()
 
         real = []
         fake = []

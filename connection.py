@@ -116,6 +116,7 @@ class Connection():
         self.qi = qi or Queue()
         self.qo = qo or Queue()
         self.state = Connection.WAIT
+        self.reset = [False, False]
 
         ip, tcp, data = unstack(eth)
         if ip.header.source in server_ips:
@@ -143,7 +144,10 @@ class Connection():
         ret = ()
         while not self.qo.empty():
             data, s , d = self.qo.get()
-            ret = ret + (self.o[d].add(self.make(data, s == Connection.CLIENT)),)
+            if data == Connection.RESET:
+                ret = ret + (self.o[d].add(self.make(b"", s == Connection.CLIENT, True)),)
+            elif not self.reset[d]:
+                ret = ret + (self.o[d].add(self.make(data, s == Connection.CLIENT)),)
 
         rss, rsc = self.o[Connection.SERVER].resend(), self.o[Connection.CLIENT].resend()
         if (rsc == None or rss == None) and self.state != Connection.RESET:
@@ -157,11 +161,14 @@ class Connection():
 
         checksum = tcp.header.checksum
         recalculatechecksums(ip)
-        if checksum != tcp.header.checksum:
+        if checksum != tcp.header.checksum or self.reset[s]:
             return
 
         if tcp.header.flags.rst:
-            self.state = Connection.RESET
+            self.reset[s] = True
+            self.qo.put((Connection.RESET, s, d))
+            if all(self.reset):
+                self.state = Connection.RESET
             return
 
         if self.state != Connection.WAIT:
@@ -170,7 +177,7 @@ class Connection():
             self.qo.put((b"", d, s))
             self.qo.put((b"", s, d))
             for _, _, dat in map(unstack, eths):
-                if len(dat) != 0:
+                if len(dat) != 0 and not any(self.reset):
                     self.qi.put((dat, s, d))
         else:
             self.i[s].add(eth)
@@ -179,7 +186,7 @@ class Connection():
             if self.i[s].seq and self.i[d].seq:
                 self.state = Connection.STABLE
 
-    def make(self, data, c2s):
+    def make(self, data, c2s, reset=False):
         if c2s:
             s, d = (Connection.CLIENT, Connection.SERVER)
         else:
@@ -199,6 +206,7 @@ class Connection():
         tcp.header.source = self.port[s]
         tcp.header.destination = self.port[d]
         tcp.header.flags.psh = len(data) != 0
+        tcp.header.flags.rst = reset
         tcp.next = data
 
         recalculatechecksums(ip)

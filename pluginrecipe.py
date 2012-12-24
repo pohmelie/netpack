@@ -36,18 +36,41 @@ def check_command(pack):
         pack.mode == "normal" and \
         str(pack.message, encoding="ascii")[0] == "\\"
 
-def funfil(name, packets):
-    for pack in packets:
-        if pack.fun == name:
-            yield pack
-
-def send_run(nx, ny):
+def s_run(nx, ny):
     return([
         Container(
             start_fun = 0,
             fun = "run",
             x = nx,
             y = ny
+        )],
+        Connection.CLIENT,
+        Connection.SERVER
+    )
+
+def s_reassign(etype, eid, nx, ny):
+    return ([
+        Container(
+            start_fun = 0,
+            fun = "reassign",
+            reassign = True,
+            x = nx,
+            y = ny,
+            entity_type = etype,
+            entity_id = eid
+        )],
+        Connection.SERVER,
+        Connection.CLIENT
+    )
+
+def c_select_skill(sskill, sside):
+    return ([
+        Container(
+            start_fun = 0,
+            fun = "select_skill",
+            side = sside,
+            skill = sskill,
+            unknown = 0xffffffff
         )],
         Connection.CLIENT,
         Connection.SERVER
@@ -65,6 +88,7 @@ class Rejoiner(Thread):
         self.au3 = autoit()
         sleep(0.25)
         self.au3.AU3_ControlSend(self.caption, "", "", "{ESCAPE}")
+        sleep(0.1)
         self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 400, 260)
         sleep(3)
         self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 590, 460)

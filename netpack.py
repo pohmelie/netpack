@@ -5,9 +5,17 @@ from multiprocessing import Queue
 from connectionmanager import ConnectionManager
 from atexit import register
 
+'''from time import time
+import multiprocessing, logging
+logger = multiprocessing.log_to_stderr()
+logger.setLevel(multiprocessing.SUBDEBUG)
+#logger.setLevel(logging.WARNING)'''
 
 class Netpack():
-    def __init__(self, server_ips, mac=None):
+    def __init__(self, server_ips, mac=None, f=None):
+        if f:
+            self.f = f
+
         self.server_ips = server_ips
         raw_ips = lambda ip: bytes(map(int, ip.split(".")))
         self.server_ips_raw = tuple(map(raw_ips, server_ips))
@@ -105,11 +113,23 @@ class Netpack():
                 d = bytes(self.packetbuffer.m_IBuffer[:self.packetbuffer.m_Length])
                 if self.checkfortcp(d) and self.checkforips(d):
                     self.qi.put_nowait(ip_stack.parse(d))
+                    '''pack = ip_stack.parse(d)
+                    self.f.write("input pack:\n")
+                    self.f.write(repr(pack))
+                    self.f.write("\n\n")
+                    self.f.flush()
+                    self.qi.put_nowait(pack)'''
                 else:
                     self.send(self.request)
 
             while not self.qo.empty():
                 self.sendpack(self.qo.get())
+                '''pack = self.qo.get()
+                self.f.write("output pack:\n")
+                self.f.write(repr(pack))
+                self.f.write("\n\n")
+                self.f.flush()
+                self.sendpack(pack)'''
             self.kernel32.ResetEvent(self.hEvent)
 
 if __name__ == "__main__":
@@ -119,4 +139,5 @@ if __name__ == "__main__":
         if line[0] != "#":
             mac = line.strip()
             break
+    #f = open("log.txt", "w")
     Netpack(tuple(map(lambda x: x.strip(), open("ip.txt"))), mac).mainloop()

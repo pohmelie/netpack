@@ -39,6 +39,12 @@ class AutoItX3():
         self.au3.AU3_AutoItSetOption.argtypes = (c_wchar_p, c_long, )
         self.AU3_AutoItSetOption = lambda szOption, nValue: self.au3.AU3_AutoItSetOption(szOption, nValue)
 
+        self.AU3_AutoItSetOption("SendKeyDelay", 20)
+        self.AU3_AutoItSetOption("SendKeyDownDelay", 20)
+        self.AU3_AutoItSetOption("SendCapslockMode", 0)
+        self.AU3_AutoItSetOption("WinTitleMatchMode", 2)
+        self.AU3_AutoItSetOption("MouseClickDownDelay", 25)
+
         self.au3.AU3_BlockInput.restype = None
         self.au3.AU3_BlockInput.argtypes = (c_long, )
         self.AU3_BlockInput = lambda nFlag: self.au3.AU3_BlockInput(nFlag)

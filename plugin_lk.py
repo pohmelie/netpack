@@ -19,9 +19,17 @@ class Logic():
         "\\lk stop"
     )
 
+    (
+        GETTING_PLAYER_ID,
+        GETTING_PLAYER_COORD,
+        WAITING_PLAYER_IN_GAME,
+        MAKE_STEP,
+        WAITING_MOVEMENT_CONFIRMATION,
+        SELECT_TELEKENESIS) = tuple(range(6))
+
+
     def __init__(self, char_name):
         self.sorc = self.mule1 = self.mule2 = None
-        self.runs = 0
         self.act = self.prepare
         self.char_name = char_name
         self.first = True
@@ -30,16 +38,14 @@ class Logic():
         self.prefix = None
         self.runnum = None
 
-        self.id = None
-
-        self.run_to_center_step = None
         self.steps_to_center = (
             (14, -12),
             (14, -37),
             (14, -63),
             (27, -76),
             (30, -96),
-            (33, -109)
+            (33, -109),
+            (33, -116)
         )
 
         self.au3 = autoit()
@@ -82,7 +88,8 @@ class Logic():
                         if all((self.sorc, self.mule1, self.mule2)):
                             self.prefix = self.prefix or self.sorc[:10]
                             self.runnum = 0
-                            self.subact = self.waiting_game_enter
+                            self.step = Logic.GETTING_PLAYER_ID
+                            self.subact = self.steps
                             self.next_game()
                         else:
                             fake.append(info("There are no captions.", "red"))
@@ -101,27 +108,53 @@ class Logic():
             fake = fake + f
         return real, fake
 
-    def waiting_game_enter(self, packets, s, d):
+    def steps(self, packets, s, d):
+        real = []
         fake = []
-        if s == Connection.SERVER:
-            for pack in packets:
+        for pack in packets:
+            if self.step == Logic.GETTING_PLAYER_ID:
+                real.append(pack)
                 if pack.fun == "player_assign" and pack.x == 0 and pack.y == 0:
                     self.id = pack.player_id
-                elif pack.fun == "reassign" and pack.entity_id == self.id:
+                    self.step = Logic.GETTING_PLAYER_COORD
+
+            elif self.step == Logic.GETTING_PLAYER_COORD:
+                real.append(pack)
+                if pack.fun == "reassign" and pack.entity_id == self.id:
                     self.x = pack.x
                     self.y = pack.y
-                elif pack.fun == "player_in_game":
-                    fake.append(info("'lk' {}, run #{}".format(self.sorc, self.runnum)))
-                    fake.append(info("({}, {})".format(self.x, self.y)))
-                    self.run_to_center_step = None
-                    self.subact = self.run_to_center
-        return packets, fake
+                    self.step = Logic.WAITING_PLAYER_IN_GAME
 
-    def gen_run(self):
-        return send_run(
-            self.x + self.steps_to_center[self.run_to_center_step][0],
-            self.y + self.steps_to_center[self.run_to_center_step][1]
-        )
+            elif self.step == Logic.WAITING_PLAYER_IN_GAME:
+                real.append(pack)
+                if pack.fun == "player_in_game":
+                    fake.append(info("'lk' {}, run #{}".format(self.sorc, self.runnum)))
+                    self.running_step = 0
+                    self.step = Logic.MAKE_STEP
+
+            elif self.step == Logic.MAKE_STEP:
+                real.append(pack)
+                fake.append(s_run(
+                    self.x + self.steps_to_center[self.running_step][0],
+                    self.y + self.steps_to_center[self.running_step][1]))
+                self.running_step = self.running_step + 1
+                self.step = Logic.WAITING_MOVEMENT_CONFIRMATION
+
+            elif self.step == Logic.WAITING_MOVEMENT_CONFIRMATION:
+                if pack.fun == "movement_confirmation" and pack.dx == 0 and pack.dy == 0:
+                    if self.running_step == len(self.steps_to_center):
+                        self.step = Logic.SELECT_TELEKENESIS
+                    else:
+                        fake.append(s_reassign("player", self.id, pack.x, pack.y))
+                        self.step = Logic.MAKE_STEP
+                elif pack.fun != "movement_confirmation":
+                    real.append(pack)
+
+            elif self.step == Logic.SELECT_TELEKENESIS:
+                real.append(pack)
+
+        return real, fake
+
 
     def run_to_center(self, packets, s, d):
         fake = []
@@ -144,8 +177,8 @@ class Logic():
                     self.run_to_center_step = self.run_to_center_step + 1
                     if self.run_to_center_step == len(self.steps_to_center):
                         fake.append(info("on center, bro!"))
-                        self.subact = self.waiting_game_enter
-                        self.next_game()
+                        self.subact = self.gen_select_skill("telekinesis", "right", self.right_skill)
+                        #self.next_game()
                         break
                     fake.append(self.gen_run())
                     fake.append(info("step #{}".format(self.run_to_center_step)))
@@ -156,3 +189,16 @@ class Logic():
     def next_game(self):
         self.runnum = self.runnum + 1
         Rejoiner(self.sorc, self.prefix + str(self.runnum), self.prefix).start()
+
+    def gen_select_skill(self, skill, side, nsubact):
+        sended = False
+        def skill_selector(packets, s, d):
+            if not sended:
+                return packets, [select_skill(skill, side)]
+            else:
+                for pack in packets:
+                    if s == Connection.SERVER and pack.fun == "skill_select"\
+                        and self.id == pack.entity_id and pack.skill == skill:
+                            self.subact = nsubact
+                return packets, []
+        return skill_selector
