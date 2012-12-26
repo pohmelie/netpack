@@ -5,6 +5,7 @@ from list_skills import Skill
 from list_attrs import Attribute
 from list_entities import Entity
 from list_chat_colors import Color
+from list_class_codes import ClassCode
 
 
 skills = Skill("skill")
@@ -363,7 +364,7 @@ s2c_packets = Struct(None,
                 "stat_merc_list":Struct(None, Pass),
                 "object_assign":Struct(None,
                     etype_eid(),
-                    ULInt16("entity_class_code"),
+                    ClassCode("entity_class_code"),
                     xy16(),
                     ULInt8("state"),
                     ULInt8("interaction"),

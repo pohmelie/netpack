@@ -63,14 +63,38 @@ def s_reassign(etype, eid, nx, ny):
         Connection.CLIENT
     )
 
-def c_select_skill(sskill, sside):
+def c_select_skill(sskill, side):
     return ([
         Container(
             start_fun = 0,
             fun = "select_skill",
-            side = sside,
+            skill_side = side,
             skill = sskill,
             unknown = 0xffffffff
+        )],
+        Connection.CLIENT,
+        Connection.SERVER
+    )
+
+def c_act_right_skill(otype, oid):
+    return ([
+        Container(
+            fun = "right_skill_on_object",
+            object_type = otype,
+            object_id = oid,
+            start_fun = 0
+        )],
+        Connection.CLIENT,
+        Connection.SERVER
+    )
+
+def c_go_to_waypoint(area, wid):
+    return ([
+        Container(
+            fun = "waypoint_interaction",
+            area_id = area,
+            waypoint_id = wid,
+            start_fun = 0
         )],
         Connection.CLIENT,
         Connection.SERVER
