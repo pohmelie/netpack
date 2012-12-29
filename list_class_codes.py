@@ -3,7 +3,8 @@ from recipe import *
 
 
 class_codes_list = dict(
-    waypoint = 237,
+    act3_waypoint = 237,
+    act4_waypoint = 398,
     stash = 267,
 )
 rclass_codes_list = dict(map(reversed, class_codes_list.items()))

@@ -25,8 +25,15 @@ class Logic():
         WAITING_PLAYER_IN_GAME,
         MAKE_STEP,
         WAITING_MOVEMENT_CONFIRMATION,
-        WAIT_TELEKENESIS,
-        WAIT_WP_LIST) = tuple(range(7))
+        WAIT_TELEKINESIS,
+        WAIT_WP_LIST,
+        WAIT_LK_LOAD,
+        WAIT_TP_BOOK,
+        WAIT_TP,
+        WAIT_ACT3_LOAD,
+        WAIT_TELEKINESIS_ON_END,
+        WAIT_WP_LIST_ON_END,
+        WAIT_ACT4_LOAD) = tuple(range(14))
 
 
     def __init__(self, char_name):
@@ -39,15 +46,7 @@ class Logic():
         self.prefix = None
         self.runnum = None
 
-        self.steps_to_center = (
-            (14, -12),
-            (14, -37),
-            (14, -63),
-            (27, -76),
-            (30, -96),
-            (33, -109)
-        )
-
+        self.info = InfoGrabber()
         self.au3 = autoit()
 
     def prepare(self, packets, s, d):
@@ -103,6 +102,7 @@ class Logic():
             else:
                 real.append(pack)
 
+        self.info.grab(real, s, d)
         if self.subact:
             real, f = self.subact(real, s, d)
             fake = fake + f
@@ -112,12 +112,6 @@ class Logic():
         real = []
         fake = []
         for pack in packets:
-            if pack.fun == "object_assign":
-                if pack.entity_class_code == "waypoint":
-                    self.wp_id = pack.entity_id
-                elif pack.entity_class_code == "stash":
-                    self.stash_id = pack.entity_id
-
             if self.step == Logic.GETTING_PLAYER_ID:
                 real.append(pack)
                 if pack.fun == "player_assign" and pack.x == 0 and pack.y == 0:
@@ -126,7 +120,7 @@ class Logic():
 
             elif self.step == Logic.GETTING_PLAYER_COORD:
                 real.append(pack)
-                if pack.fun == "reassign" and pack.entity_id == self.id:
+                if pack.fun == "reassign" and pack.entity_id == self.id and pack.entity_type == "player":
                     self.x = pack.x
                     self.y = pack.y
                     self.step = Logic.WAITING_PLAYER_IN_GAME
@@ -136,11 +130,14 @@ class Logic():
                 if pack.fun == "player_in_game":
                     fake.append(info("'lk' {}, run #{}".format(self.sorc, self.runnum)))
                     self.running_step = 0
-                    self.step = Logic.MAKE_STEP
+                    #here check for stash and npc journey
+                    fake.append(c_act_to_object("run_to_a_object", "stash_wp_or_tp", self.act4_wp_id))
+                    fake.append(c_select_skill("telekinesis", "right"))
+                    self.step = Logic.WAIT_TELEKINESIS
 
             elif self.step == Logic.MAKE_STEP:
                 real.append(pack)
-                fake.append(s_run(
+                fake.append(c_run(
                     self.x + self.steps_to_center[self.running_step][0],
                     self.y + self.steps_to_center[self.running_step][1]))
                 self.running_step = self.running_step + 1
@@ -151,69 +148,70 @@ class Logic():
                     fake.append(s_reassign("player", self.id, pack.x, pack.y))
                     if self.running_step == len(self.steps_to_center):
                         fake.append(c_select_skill("telekinesis", "right"))
-                        self.step = Logic.WAIT_TELEKENESIS
+                        self.step = Logic.WAIT_TELEKINESIS
                     else:
                         self.step = Logic.MAKE_STEP
                 elif pack.fun != "movement_confirmation":
                     real.append(pack)
 
-            elif self.step == Logic.WAIT_TELEKENESIS:
+            elif self.step == Logic.WAIT_TELEKINESIS:
                 real.append(pack)
                 if pack.fun == "skill_select" and pack.skill == "telekinesis":
-                    fake.append(c_act_right_skill("stash_wp_or_tp", self.wp_id))
+                    fake.append(c_act_to_object("right_skill_on_object", "stash_wp_or_tp", self.act4_wp_id))
                     self.step = Logic.WAIT_WP_LIST
 
             elif self.step == Logic.WAIT_WP_LIST:
                 if pack.fun == "wp_state":
-                    fake.append(c_go_to_waypoint("lower_kurast", self.wp_id))
+                    fake.append(c_go_to_waypoint("lower_kurast", self.act4_wp_id))
+                    self.step = Logic.WAIT_LK_LOAD
                 else:
                     real.append(pack)
 
+            elif self.step == Logic.WAIT_LK_LOAD:
+                real.append(pack)
+                if pack.fun == "enter_game":
+                    fake.append(c_select_skill("book_of_townportal", "right"))
+                    self.step = Logic.WAIT_TP_BOOK
+
+            elif self.step == Logic.WAIT_TP_BOOK:
+                real.append(pack)
+                if pack.fun == "skill_select" and pack.skill == "book_of_townportal":
+                    fake.append(c_act_to_location("right_skill_on_location", self.x, self.y))
+                    self.step = Logic.WAIT_TP
+
+            elif self.step == Logic.WAIT_TP:
+                real.append(pack)
+                if pack.fun == "tele_state":
+                    fake.append(c_act_to_object("interact_with_object", "stash_wp_or_tp", pack.teleport_id))
+                    self.step = Logic.WAIT_ACT3_LOAD
+
+            elif self.step == Logic.WAIT_ACT3_LOAD:
+                real.append(pack)
+                if pack.fun == "reassign" and pack.entity_id == self.id and pack.entity_type == "player":
+                    fake.append(c_act_to_object("run_to_a_object", "stash_wp_or_tp", self.act4_wp_id))
+                    fake.append(c_select_skill("telekinesis", "right"))
+                    self.step = Logic.WAIT_TELEKINESIS_ON_END
+
+            elif self.step == Logic.WAIT_TELEKINESIS_ON_END:
+                real.append(pack)
+                if pack.fun == "skill_select" and pack.skill == "telekinesis":
+                    fake.append(c_act_to_object("right_skill_on_object", "stash_wp_or_tp", self.act3_wp_id))
+                    self.step = Logic.WAIT_WP_LIST_ON_END
+
+            elif self.step == Logic.WAIT_WP_LIST_ON_END:
+                if pack.fun == "wp_state":
+                    fake.append(c_go_to_waypoint("the_pandeminoum_fortress", self.act3_wp_id))
+                    self.step = Logic.WAIT_ACT4_LOAD
+                else:
+                    real.append(pack)
+
+            elif self.step == Logic.WAIT_ACT4_LOAD:
+                real.append(pack)
+                if pack.fun == "reassign" and pack.entity_id == self.id and pack.entity_type == "player":
+                    self.step = Logic.GETTING_PLAYER_ID
+
         return real, fake
-
-    def run_to_center(self, packets, s, d):
-        fake = []
-        if self.run_to_center_step == None:
-            self.run_to_center_step = 0
-            fake.append(self.gen_run())
-            fake.append(info("step #{}".format(self.run_to_center_step)))
-        elif s == Connection.SERVER:
-            for pack in packets:
-
-                if pack.fun == "movement_confirmation":
-                    fake.append(info(
-                            "x = {}, y = {}, dx = {}, dy = {}, stamina = {}".format(
-                                pack.x, pack.y, pack.dx, pack.dy, pack.stamina
-                            )
-                        )
-                    )
-
-                if pack.fun == "movement_confirmation" and abs(pack.dx) < 10 and abs(pack.dy) < 10:
-                    self.run_to_center_step = self.run_to_center_step + 1
-                    if self.run_to_center_step == len(self.steps_to_center):
-                        fake.append(info("on center, bro!"))
-                        self.subact = self.gen_select_skill("telekinesis", "right", self.right_skill)
-                        #self.next_game()
-                        break
-                    fake.append(self.gen_run())
-                    fake.append(info("step #{}".format(self.run_to_center_step)))
-                    break
-            packets = list(filter(lambda x: x.fun != "movement_confirmation", packets))
-        return packets, fake
 
     def next_game(self):
         self.runnum = self.runnum + 1
         Rejoiner(self.sorc, self.prefix + str(self.runnum), self.prefix).start()
-
-    def gen_select_skill(self, skill, side, nsubact):
-        sended = False
-        def skill_selector(packets, s, d):
-            if not sended:
-                return packets, [select_skill(skill, side)]
-            else:
-                for pack in packets:
-                    if s == Connection.SERVER and pack.fun == "skill_select"\
-                        and self.id == pack.entity_id and pack.skill == skill:
-                            self.subact = nsubact
-                return packets, []
-        return skill_selector
