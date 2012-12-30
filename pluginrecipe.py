@@ -76,10 +76,22 @@ def c_select_skill(sskill, side):
         Connection.SERVER
     )
 
-def c_act_right_skill(otype, oid):
+def c_act_to_location(fname, lx, ly):
     return ([
         Container(
-            fun = "right_skill_on_object",
+            fun = fname,
+            x = lx,
+            y = ly,
+            start_fun = 0
+        )],
+        Connection.CLIENT,
+        Connection.SERVER
+    )
+
+def c_act_to_object(fname, otype, oid):
+    return ([
+        Container(
+            fun = fname,
             object_type = otype,
             object_id = oid,
             start_fun = 0
@@ -99,6 +111,54 @@ def c_go_to_waypoint(area, wid):
         Connection.CLIENT,
         Connection.SERVER
     )
+
+class InfoGrabber():
+    act = act4_wp_id = act3_wp_id = stash_id = area_id = x = y = tp_count =\
+    hp = mp = stamina = lskill = rskill = id = None
+
+    def grab(self, packets, s, d):
+        for pack in packets:
+            if pack.fun == "object_assign":
+                if pack.entity_class_code == "act4_waypoint":
+                    self.act4_wp_id = pack.entity_id
+                elif pack.entity_class_code == "act3_waypoint":
+                    self.act3_wp_id = pack.entity_id
+                elif pack.entity_class_code == "stash":
+                    self.stash_id = pack.entity_id
+
+            elif pack.fun == "seed":
+                self.area_id = pack.area_id
+                self.act = pack.act + 1
+
+            elif pack.fun == "reassign" and pack.entity_id == self.id and pack.entity_type == "player":
+                self.x = pack.x
+                self.y = pack.y
+
+            elif pack.fun == "skill_book_count" and pack.skill == "book_of_townportal" \
+                and pack.entity_type == "player" and pack.entity_id == self.id:
+                self.tp_count = pack.stats_amount
+
+            elif pack.fun == "stats_confirmation":
+                self.hp = pack.hp
+                self.mp = pack.mp
+                self.x = pack.x
+                self.y = pack.y
+                self.stamina = pack.stamina
+
+            elif pack.fun == "movement_confirmation":
+                self.stamina = pack.stamina
+                if pack.dx == 0 and pack.dy == 0:
+                    self.x = pack.x
+                    self.y = pack.y
+
+            elif pack.fun == "skill_select" and pack.entity_id == self.id and pack.entity_type == "player":
+                if pack.skill_side == "right":
+                    self.rskill = pack.skill
+                else:
+                    self.lskill = pack.skill
+
+            elif pack.fun == "player_assign" and pack.x == 0 and pack.y == 0:
+                self.id = pack.player_id
 
 class Rejoiner(Thread):
     def __init__(self, caption, gamename, gamepass):

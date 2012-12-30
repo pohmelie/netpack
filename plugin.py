@@ -54,7 +54,7 @@ class PluginManager():
 
     def __init__(self):
 
-        self.f = open("log.txt", "w")
+        #self.f = open("log.txt", "w")
 
         self.welcome = info("Welcome to netpack. Type \\? or \\help for more information.", "green")
         self.plugins = ()
@@ -75,11 +75,11 @@ class PluginManager():
 
     def act(self, packets, s, d):
 
-        self.f.write("\n\n[{:.2f}] ".format(time() % 60))
+        '''self.f.write("\n\n[{:.2f}] ".format(time() % 60))
         self.f.write(("c -> s", "s -> c")[s])
         for pack in packets:
             self.f.write("\n" + repr(pack))
-        self.f.flush()
+        self.f.flush()'''
 
         real = []
         fake = []
