@@ -36,7 +36,7 @@ def check_command(pack):
         pack.mode == "normal" and \
         str(pack.message, encoding="ascii")[0] == "\\"
 
-def s_run(nx, ny):
+def c_run(nx, ny):
     return([
         Container(
             start_fun = 0,

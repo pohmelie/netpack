@@ -171,49 +171,6 @@ class Logic():
 
         return real, fake
 
-    def run_to_center(self, packets, s, d):
-        fake = []
-        if self.run_to_center_step == None:
-            self.run_to_center_step = 0
-            fake.append(self.gen_run())
-            fake.append(info("step #{}".format(self.run_to_center_step)))
-        elif s == Connection.SERVER:
-            for pack in packets:
-
-                if pack.fun == "movement_confirmation":
-                    fake.append(info(
-                            "x = {}, y = {}, dx = {}, dy = {}, stamina = {}".format(
-                                pack.x, pack.y, pack.dx, pack.dy, pack.stamina
-                            )
-                        )
-                    )
-
-                if pack.fun == "movement_confirmation" and abs(pack.dx) < 10 and abs(pack.dy) < 10:
-                    self.run_to_center_step = self.run_to_center_step + 1
-                    if self.run_to_center_step == len(self.steps_to_center):
-                        fake.append(info("on center, bro!"))
-                        self.subact = self.gen_select_skill("telekinesis", "right", self.right_skill)
-                        #self.next_game()
-                        break
-                    fake.append(self.gen_run())
-                    fake.append(info("step #{}".format(self.run_to_center_step)))
-                    break
-            packets = list(filter(lambda x: x.fun != "movement_confirmation", packets))
-        return packets, fake
-
     def next_game(self):
         self.runnum = self.runnum + 1
         Rejoiner(self.sorc, self.prefix + str(self.runnum), self.prefix).start()
-
-    def gen_select_skill(self, skill, side, nsubact):
-        sended = False
-        def skill_selector(packets, s, d):
-            if not sended:
-                return packets, [select_skill(skill, side)]
-            else:
-                for pack in packets:
-                    if s == Connection.SERVER and pack.fun == "skill_select"\
-                        and self.id == pack.entity_id and pack.skill == skill:
-                            self.subact = nsubact
-                return packets, []
-        return skill_selector
