@@ -49,6 +49,10 @@ class Logic():
         self.info = InfoGrabber()
         self.au3 = autoit()
 
+        self.subacts = (
+
+        )
+
     def prepare(self, packets, s, d):
         real = []
         fake = []

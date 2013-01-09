@@ -112,6 +112,17 @@ def c_go_to_waypoint(area, wid):
         Connection.SERVER
     )
 
+class DefaultAction():
+    def __init__(self):
+        self.info = InfoGrabber()
+        self.scheme = ()
+
+    def act(self, packets, s, d):
+        pass
+
+    def command(self):
+        pass
+
 class InfoGrabber():
     act = act4_wp_id = act3_wp_id = stash_id = area_id = x = y = tp_count =\
     hp = mp = stamina = lskill = rskill = id = None
@@ -161,12 +172,13 @@ class InfoGrabber():
                 self.id = pack.player_id
 
 class Rejoiner(Thread):
-    def __init__(self, caption, gamename, gamepass):
+    def __init__(self, caption, gamename, gamepass, create):
         Thread.__init__(self)
 
         self.caption = caption
         self.gamename = gamename
         self.gamepass = gamepass
+        self.create = create
 
     def run(self):
         self.au3 = autoit()
@@ -175,7 +187,11 @@ class Rejoiner(Thread):
         sleep(0.1)
         self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 400, 260)
         sleep(3)
-        self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 590, 460)
+        if self.create:
+            self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 590, 460)
+        else:
+            self.au3.AU3_ControlClick(self.caption, "", "", "left", 1, 700, 460)
+
         sleep(1)
         self.au3.AU3_ControlSend(self.caption, "", "", self.gamename + "{TAB}" + self.gamepass + "{ENTER}")
 
