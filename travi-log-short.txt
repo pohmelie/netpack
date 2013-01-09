@@ -1,0 +1,220 @@
+councils:
+
+simple: ========================================================================
+Container(
+    npc_id = 54
+    life_percent = 127
+    npc_class_code = 345
+    stats_list = b'!28\xc8\xe8\x00\x00\x00\x00'
+    start_fun = 42
+    y = 2138
+    length_of_packet = 22
+    fun = npc_assign
+    x = 4823)
+Container(
+    entity_id = 54
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 64
+    length_of_packet = 26
+    fun = entity_info_add)
+
+Container(
+    npc_id = 55
+    life_percent = 127
+    npc_class_code = 345
+    stats_list = b'!28\xc8\xe8\x00\x00\x00\x00'
+    start_fun = 0
+    y = 2127
+    length_of_packet = 22
+    fun = npc_assign
+    x = 4826)
+Container(
+    entity_id = 55
+    entity_type = monster_npc_merc
+    stats_list = b'i\xfe\x01'
+    start_fun = 22
+    length_of_packet = 10
+    fun = entity_info_add)
+
+Container(
+    npc_id = 56
+    life_percent = 127
+    npc_class_code = 345
+    stats_list = b'!28\xc8\xe8\x00\x00\x00\x00'
+    start_fun = 435
+    y = 2143
+    length_of_packet = 22
+    fun = npc_assign
+    x = 4812)
+Container(
+    entity_id = 56
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd\x9a\x7f'
+    start_fun = 457
+    length_of_packet = 27
+    fun = entity_info_add)
+
+Container(
+    npc_id = 57
+    life_percent = 127
+    npc_class_code = 345
+    stats_list = b'!28\xc8\xe8\x00\x00\x00\x00'
+    start_fun = 377
+    y = 2144
+    length_of_packet = 22
+    fun = npc_assign
+    x = 4811)
+Container(
+    entity_id = 57
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 399
+    length_of_packet = 26
+    fun = entity_info_add)
+
+Container(
+    npc_id = 63
+    life_percent = 127
+    npc_class_code = 346
+    stats_list = b'!*H@\x00\x00\x00\x00'
+    start_fun = 0
+    y = 2143
+    length_of_packet = 21
+    fun = npc_assign
+    x = 4809)
+Container(
+    entity_id = 63
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 21
+    length_of_packet = 26
+    fun = entity_info_add)
+
+Container(
+    npc_id = 62
+    life_percent = 127
+    npc_class_code = 346
+    stats_list = b'!*H@\x00\x00\x00\x00'
+    start_fun = 57
+    y = 2139
+    length_of_packet = 21
+    fun = npc_assign
+    x = 4821)
+Container(
+    entity_id = 62
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 78
+    length_of_packet = 26
+    fun = entity_info_add)
+
+Container(
+    npc_id = 61
+    life_percent = 127
+    npc_class_code = 346
+    stats_list = b'!*H@\x00\x00\x00\x00'
+    start_fun = 125
+    y = 2137
+    length_of_packet = 21
+    fun = npc_assign
+    x = 4826)
+Container(
+    entity_id = 61
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 146
+    length_of_packet = 26
+    fun = entity_info_add)
+
+Container(
+    npc_id = 60
+    life_percent = 127
+    npc_class_code = 346
+    stats_list = b'!*H@\x00\x00\x00\x00'
+    start_fun = 188
+    y = 2142
+    length_of_packet = 21
+    fun = npc_assign
+    x = 4816)
+Container(
+    entity_id = 60
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 209
+    length_of_packet = 26
+    fun = entity_info_add)
+
+bosses: ========================================================================
+Container(
+    npc_id = 58
+    life_percent = 128
+    npc_class_code = 345
+    stats_list = b'\xa1\xe9\x00\x90\xe0\xc80\xb0\x00(\xdc\x02'
+    start_fun = 315
+    y = 2144
+    length_of_packet = 25
+    fun = npc_assign
+    x = 4813)
+Container(
+    entity_id = 58
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd\x9a\x7f'
+    start_fun = 340
+    length_of_packet = 27
+    fun = entity_info_add)
+
+Container(
+    npc_id = 53
+    life_percent = 127
+    npc_class_code = 345
+    stats_list = b'\xa1\xd1\x0008\xc8\xe8\xb0\x00\x187\x05'
+    start_fun = 106
+    y = 2138
+    length_of_packet = 25
+    fun = npc_assign
+    x = 4819)
+Container(
+    entity_id = 53
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'
+    start_fun = 131
+    length_of_packet = 26
+    fun = entity_info_add)
+
+Container(
+    npc_id = 59
+    life_percent = 127
+    npc_class_code = 346
+    stats_list = b'\xa1\xd9\x00(H@\xf0\xb0\x00(k\x06'
+    start_fun = 245
+    y = 2142
+    length_of_packet = 25
+    fun = npc_assign
+    x = 4811)
+Container(
+    entity_id = 59
+    entity_type = monster_npc_merc
+    stats_list = b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0\x7f\xe8\x9d*\xf0\xca\xe6k\xc4\xff4\xff'
+    start_fun = 270
+    length_of_packet = 35
+    fun = entity_info_add)
+
+
+determine damage: ==============================================================
+Container(
+    entity_id = 58
+    sfx = 77
+    entity_type = monster_npc_merc
+    start_fun = 13
+    life_percent = 72
+    fun = show_dmg
+    effect_state = 19)
+
+death (drop before this): ======================================================
+Container(
+    fun = end_state
+    entity_id = 54
+    entity_type = monster_npc_merc
+    state = 49
+    start_fun = 184)
