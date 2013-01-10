@@ -1,15 +1,15 @@
 from construct import *
 from d2packetparser_c2s import sid, char_type
 from d2packetparser_items import *
-from list_skills import Skill
-from list_attrs import Attribute
 from list_entities import Entity
 from list_chat_colors import Color
-from list_class_codes import ClassCode
+from list_d2_files import D2Attribute, D2Object, D2Skill, D2Monstat
 
 
-skills = Skill("skill")
-attr_code = Attribute("attribute")
+npc_class_code = D2Monstat("npc_class_code")
+object_class_code = D2Object("entity_class_code")
+skills = D2Skill("skill")
+attr_code = D2Attribute("attribute")
 entity_type = Entity("entity_type")
 color = Color("color")
 
@@ -364,7 +364,7 @@ s2c_packets = Struct(None,
                 "stat_merc_list":Struct(None, Pass),
                 "object_assign":Struct(None,
                     etype_eid(),
-                    ClassCode("entity_class_code"),
+                    object_class_code,
                     xy16(),
                     ULInt8("state"),
                     ULInt8("interaction"),
@@ -648,7 +648,7 @@ s2c_packets = Struct(None,
                 "entity_heal":Struct(None, etype_eid(), ULInt8("life_percent")),
                 "npc_assign":Struct(None,
                     sid("npc_id"),
-                    ULInt16("npc_class_code"),
+                    npc_class_code,
                     xy16(),
                     ULInt8("life_percent"),
                     ULInt8("length_of_packet"),

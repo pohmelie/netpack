@@ -39,15 +39,15 @@ chat = Struct(None,
 )
 
 body_location = Enum(ULInt16("body_location"),
-    hat = 0x01,
-    amulet = 0x02,
-    body_armor = 0x03,
-    left_side_weapon = 0x04,
-    right_side_weapon = 0x05,
-    left_side_ring = 0x06,
-    right_side_ring = 0x07,
+    head = 0x01,
+    neck = 0x02,
+    torso = 0x03,
+    right_arm = 0x04,
+    left_arm = 0x05,
+    right_ring = 0x06,
+    left_ring = 0x07,
     belt = 0x08,
-    boots = 0x09,
+    feet = 0x09,
     gloves = 0x0a
 )
 
