@@ -3,10 +3,9 @@ from d2packetparser_c2s import sid, char_type
 from d2packetparser_items import *
 from list_entities import Entity
 from list_chat_colors import Color
-from list_d2_files import D2Attribute, D2Object, D2Skill, D2Monstat
+from list_d2_files import D2Attribute, D2Object, D2Skill, D2Monstat, D2Montype
 
 
-npc_class_code = D2Monstat("npc_class_code")
 object_class_code = D2Object("entity_class_code")
 skills = D2Skill("skill")
 attr_code = D2Attribute("attribute")
@@ -648,11 +647,30 @@ s2c_packets = Struct(None,
                 "entity_heal":Struct(None, etype_eid(), ULInt8("life_percent")),
                 "npc_assign":Struct(None,
                     sid("npc_id"),
-                    npc_class_code,
+                    D2Monstat("npc_class_code"),
+                    D2Montype("npc_class_code", "npc_type"),
                     xy16(),
                     ULInt8("life_percent"),
                     ULInt8("length_of_packet"),
-                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 12)
+                    BitStruct("info",
+                        Nibble("animation_mode"),
+                        Flag("section2_exists"),
+                        Padding(3),
+#                        If(lambda ctx: ctx["section2_exists"],
+#                            BitField("npc_stats", lambda ctx: ctx["_"]["npc_type"]["stats_length"])
+#                        ),
+#                        Flag("section3_exists"),
+#                        If(lambda ctx: ctx["section3_exists"],
+#                            Struct("npc_flags",
+#                                Flag("champion"),
+#                                Flag("unique"),
+#                                Flag("super_unique"),
+#                                Flag("minion"),
+#                                Flag("ghostly")
+#                            )
+#                        )
+                    )
+#                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 12)
                 ),
                 "warden":Struct(None,
                     ULInt8("length_of_packet"),
@@ -734,3 +752,10 @@ s2c_packets = Struct(None,
         )
     )
 )
+
+
+if __name__ == "__main__":
+    #s = "ac 30 03 cd f1 b8 01 4a 27 9f 33 80 1b f1 41 a0 a1 01 10 49 88 d8 b0 00 88 b3 05"
+    #print(s2c_packets.parse(rev(s)))
+    print(BitStruct("yoba", Nibble("tst"), Padding(4), endian="big").parse(b"\xa1"))
+    print(BitStruct("yoba", Nibble("tst"), Padding(4), endian="little").parse(b"\xa1"))

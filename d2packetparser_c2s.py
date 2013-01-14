@@ -1,8 +1,8 @@
 from construct import *
-from list_skills import Skill
+from list_d2_files import D2Skill
 
 
-skills = Skill("skill")
+skills = D2Skill("skill")
 sid = lambda name: ULInt32(name)
 idpair = lambda name1, name2: Struct(None, sid(name1), sid(name2))
 position = Struct(None, ULInt16("x"), ULInt16("y"))

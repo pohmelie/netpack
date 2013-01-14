@@ -1,7 +1,7 @@
 from .py3compat import int2byte
 
 
-def int_to_bin(number, width=32):
+def int_to_bin(number, width=32, **kw):
     r"""
     Convert an integer into its binary representation in a bytes object.
     Width is the amount of bits to generate. If width is larger than the actual
@@ -16,14 +16,18 @@ def int_to_bin(number, width=32):
         >>> int_to_bin(19, 8)
         b'\x00\x00\x00\x01\x00\x00\x01\x01'
     """
+    endian = kw.get("endian", "big")
     if number < 0:
         number += 1 << width
-    i = width - 1
+    if endian == "big":
+        i, adder = width - 1, -1
+    else:
+        i, adder = 0, 1
     bits = bytearray(width)
-    while number and i >= 0:
+    while number and i >= 0 and i < width:
         bits[i] = number & 1
         number >>= 1
-        i -= 1
+        i = i + adder
     return bytes(bits)
 
 
@@ -41,12 +45,14 @@ _bit_values = {
     '1': 1,
     }
 
-def bin_to_int(bits, signed=False):
+def bin_to_int(bits, signed=False, **kw):
     r"""
     Logical opposite of int_to_bin. Both '0' and '\x00' are considered zero,
     and both '1' and '\x01' are considered one. Set sign to True to interpret
     the number as a 2-s complement signed integer.
     """
+    if kw.get("endian", "big") == "little":
+        bits = bits[::-1]
     number = 0
     bias = 0
     ptr = 0
@@ -78,18 +84,26 @@ def swap_bytes(bits, bytesize=8):
     return b"".join(output)
 
 
-_char_to_bin = {}
-_bin_to_char = {}
+_char_to_bin = {"big":{}, "little":{}}
+_bin_to_char = {"big":{}, "little":{}}
+_reverse = lambda x: (x * 0x0202020202 & 0x010884422010) % 1023
 for i in range(256):
     ch = int2byte(i)
     bin = int_to_bin(i, 8)
     # Populate with for both keys i and ch, to support Python 2 & 3
-    _char_to_bin[ch] = bin
-    _char_to_bin[i] = bin
-    _bin_to_char[bin] = ch
+    _char_to_bin["big"][ch] = bin
+    _char_to_bin["big"][i] = bin
+    _bin_to_char["big"][bin] = ch
 
+    ch = int2byte(_reverse(i))
+    bin = int_to_bin(_reverse(i), 8)
+    _char_to_bin["little"][ch] = bin
+    _char_to_bin["little"][i] = bin
+    _bin_to_char["little"][bin] = ch
 
-def encode_bin(data):
+print(_char_to_bin["big"][1], _char_to_bin["little"][1])
+
+def encode_bin(data, **kw):
     """
     Create a binary representation of the given b'' object. Assume 8-bit
     ASCII. Example:
@@ -97,13 +111,15 @@ def encode_bin(data):
         >>> encode_bin('ab')
         b"\x00\x01\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x01\x00"
     """
-    return b"".join(_char_to_bin[ch] for ch in data)
+    print(data, kw)
+    endian = kw.get("endian", "big")
+    return b"".join(_char_to_bin[endian][ch] for ch in data)
 
-
-def decode_bin(data):
+def decode_bin(data, **kw):
     """
     Locical opposite of decode_bin.
     """
+    endian = kw.get("endian", "big")
     if len(data) & 7:
         raise ValueError("Data length must be a multiple of 8")
     i = 0
@@ -111,8 +127,7 @@ def decode_bin(data):
     l = len(data) // 8
     chars = [b""] * l
     while j < l:
-        chars[j] = _bin_to_char[data[i:i+8]]
+        chars[j] = _bin_to_char[endian][data[i:i+8]]
         i += 8
         j += 1
     return b"".join(chars)
-

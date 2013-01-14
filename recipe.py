@@ -13,22 +13,22 @@ def rev(x):
         return " ".join(map("{:0>2x}".format, x))
 
 class D2Container(Container):
-    def __init__(self, names, nums, index, i, line):
+    def __init__(self, names, nums, index, reformer, i, line):
         Container.__init__(self)
         data = line.strip("\n").split("\t")
-        self.__dict__ = dict(compress(zip(names, data), nums))
+        self.__dict__ = (reformer or (lambda x: x))(dict(compress(zip(names, data), nums)))
         if index and data[index] and data[index].isdecimal():
             i = int(data[index])
         elif index:
             i = None
         self.__dict__["_id"] = i
 
-def read_d2_file(fname, fields=None, idname=None):
+def read_d2_file(fname, fields=None, idname=None, reformer=None):
     with open(fname) as f:
         names = f.readline().strip().replace(" ", "_").split("\t")
         nums = tuple(map(lambda name: name in (fields or names), names))
         index = idname and names.index(idname)
-        return tuple(map(lambda x: D2Container(names, nums, index, *x), enumerate(f)))
+        return tuple(map(lambda x: D2Container(names, nums, index, reformer, *x), enumerate(f)))
 
 
 if __name__ == "__main__":

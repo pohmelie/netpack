@@ -2,9 +2,10 @@ from .binary import encode_bin, decode_bin
 
 class BitStreamReader(object):
 
-    __slots__ = ["substream", "buffer", "total_size"]
+    __slots__ = ["substream", "buffer", "total_size", "_kw"]
 
-    def __init__(self, substream):
+    def __init__(self, substream, **kw):
+        self._kw = kw
         self.substream = substream
         self.total_size = 0
         self.buffer = ""
@@ -38,7 +39,7 @@ class BitStreamReader(object):
             bytes = count // 8
             if count & 7:
                 bytes += 1
-            buf = encode_bin(self.substream.read(bytes))
+            buf = encode_bin(self.substream.read(bytes), **self._kw)
             data += buf[:count]
             self.buffer = buf[count:]
         self.total_size += len(data)
@@ -46,9 +47,10 @@ class BitStreamReader(object):
 
 class BitStreamWriter(object):
 
-    __slots__ = ["substream", "buffer", "pos"]
+    __slots__ = ["substream", "buffer", "pos", "_kw"]
 
-    def __init__(self, substream):
+    def __init__(self, substream, **kw):
+        self._kw = kw
         self.substream = substream
         self.buffer = []
         self.pos = 0
@@ -57,7 +59,7 @@ class BitStreamWriter(object):
         self.flush()
 
     def flush(self):
-        bytes = decode_bin("".join(self.buffer))
+        bytes = decode_bin("".join(self.buffer), **self._kw)
         self.substream.write(bytes)
         self.buffer = []
         self.pos = 0

@@ -327,7 +327,7 @@ def Optional(subcon):
     """
     return Select(subcon.name, subcon, Pass)
 
-def Bitwise(subcon):
+def Bitwise(subcon, **kw):
     """converts the stream to bits, and passes the bitstream to subcon
     * subcon - a bitwise construct (usually BitField)
     """
@@ -342,13 +342,16 @@ def Bitwise(subcon):
         con = Buffered(subcon,
             encoder = decode_bin,
             decoder = encode_bin,
-            resizer = resizer
+            resizer = resizer,
+            **kw
         )
     else:
         con = Restream(subcon,
             stream_reader = BitStreamReader,
             stream_writer = BitStreamWriter,
-            resizer = resizer)
+            resizer = resizer,
+            **kw
+        )
     return con
 
 def Aligned(subcon, modulus = 4, pattern = "\x00"):
@@ -451,18 +454,18 @@ def AlignedStruct(name, *subcons, **kw):
     """
     return Struct(name, *(Aligned(sc, **kw) for sc in subcons))
 
-def BitStruct(name, *subcons):
+def BitStruct(name, *subcons, **kw):
     """a struct of bitwise fields
     * name - the name of the struct
     * subcons - the subcons that make up this structure
     """
-    return Bitwise(Struct(name, *subcons))
+    return Bitwise(Struct(name, *subcons), **kw)
 
 def EmbeddedBitStruct(*subcons):
     """an embedded BitStruct. no name is necessary.
     * subcons - the subcons that make up this structure
     """
-    return Bitwise(Embedded(Struct(None, *subcons)))
+    return Bitwise(Embedded(Struct(None, *subcons)), **kw)
 
 #===============================================================================
 # strings

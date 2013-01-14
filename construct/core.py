@@ -1060,21 +1060,22 @@ class Buffered(Subconstruct):
         resizer = lambda size: size / 8,
     )
     """
-    __slots__ = ["encoder", "decoder", "resizer"]
-    def __init__(self, subcon, decoder, encoder, resizer):
+    __slots__ = ["encoder", "decoder", "resizer", "_kw"]
+    def __init__(self, subcon, decoder, encoder, resizer, **kw):
         Subconstruct.__init__(self, subcon)
+        self._kw = kw
         self.encoder = encoder
         self.decoder = decoder
         self.resizer = resizer
     def _parse(self, stream, context):
         data = _read_stream(stream, self._sizeof(context))
-        stream2 = BytesIO(self.decoder(data))
+        stream2 = BytesIO(self.decoder(data, **self._kw))
         return self.subcon._parse(stream2, context)
     def _build(self, obj, stream, context):
         size = self._sizeof(context)
         stream2 = BytesIO()
         self.subcon._build(obj, stream2, context)
-        data = self.encoder(stream2.getvalue())
+        data = self.encoder(stream2.getvalue(), **self._kw)
         assert len(data) == size
         _write_stream(stream, self._sizeof(context), data)
     def _sizeof(self, context):
@@ -1110,19 +1111,20 @@ class Restream(Subconstruct):
         resizer = lambda size: size / 8,
     )
     """
-    __slots__ = ["stream_reader", "stream_writer", "resizer"]
-    def __init__(self, subcon, stream_reader, stream_writer, resizer):
+    __slots__ = ["stream_reader", "stream_writer", "resizer", "_kw"]
+    def __init__(self, subcon, stream_reader, stream_writer, resizer, **kw):
         Subconstruct.__init__(self, subcon)
+        self._kw = kw
         self.stream_reader = stream_reader
         self.stream_writer = stream_writer
         self.resizer = resizer
     def _parse(self, stream, context):
-        stream2 = self.stream_reader(stream)
+        stream2 = self.stream_reader(stream, **self._kw)
         obj = self.subcon._parse(stream2, context)
         stream2.close()
         return obj
     def _build(self, obj, stream, context):
-        stream2 = self.stream_writer(stream)
+        stream2 = self.stream_writer(stream, **self._kw)
         self.subcon._build(obj, stream2, context)
         stream2.close()
     def _sizeof(self, context):
