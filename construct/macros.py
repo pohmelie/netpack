@@ -4,7 +4,7 @@ from .lib import (BitStreamReader, BitStreamWriter, encode_bin,
 from .core import (Struct, MetaField, StaticField, FormatField,
     OnDemand, Pointer, Switch, Value, RepeatUntil, MetaArray, Sequence, Range,
     Select, Pass, SizeofError, Buffered, Restream, Reconfig)
-from .adapters import (BitIntegerAdapter, PaddingAdapter,
+from .adapters import (BitIntegerAdapter, LBitIntegerAdapter, PaddingAdapter,
     ConstAdapter, CStringAdapter, LengthValueAdapter, IndexingAdapter,
     PaddedStringAdapter, FlagsAdapter, StringAdapter, MappingAdapter)
 import collections
@@ -70,6 +70,14 @@ def BitField(name, length, swapped = False, signed = False, bytesize = 8):
         bytesize=bytesize
     )
 
+def LBitField(name, length, swapped = False, signed = False, bytesize = 8):
+    return LBitIntegerAdapter(Field(name, length),
+        length,
+        swapped=swapped,
+        signed=signed,
+        bytesize=bytesize
+    )
+
 #def Padding(length, pattern = "\x00", strict = False):
 def Padding(length, pattern = b"\x00", strict = False):
     r"""a padding field (value is discarded)
@@ -115,12 +123,18 @@ def Flag(name, truth = 1, falsehood = 0, default = False):
 def Bit(name):
     """a 1-bit BitField; must be enclosed in a BitStruct"""
     return BitField(name, 1)
+
 def Nibble(name):
     """a 4-bit BitField; must be enclosed in a BitStruct"""
     return BitField(name, 4)
+def LNibble(name):
+    return LBitField(name, 4)
+
 def Octet(name):
     """an 8-bit BitField; must be enclosed in a BitStruct"""
     return BitField(name, 8)
+def LOctet(name):
+    return LBitField(name, 8)
 
 def UBInt8(name):
     """unsigned, big endian 8-bit integer"""
@@ -454,18 +468,31 @@ def AlignedStruct(name, *subcons, **kw):
     """
     return Struct(name, *(Aligned(sc, **kw) for sc in subcons))
 
-def BitStruct(name, *subcons, **kw):
+def BitStruct(name, *subcons):
     """a struct of bitwise fields
     * name - the name of the struct
     * subcons - the subcons that make up this structure
     """
-    return Bitwise(Struct(name, *subcons), **kw)
+    return Bitwise(Struct(name, *subcons))
+
+def LBitStruct(name, *subcons):
+    """a struct of bitwise fields with little endian bit order
+    * name - the name of the struct
+    * subcons - the subcons that make up this structure
+    """
+    return Bitwise(Struct(name, *subcons), endian="little")
 
 def EmbeddedBitStruct(*subcons):
     """an embedded BitStruct. no name is necessary.
     * subcons - the subcons that make up this structure
     """
-    return Bitwise(Embedded(Struct(None, *subcons)), **kw)
+    return Bitwise(Embedded(Struct(None, *subcons)))
+
+def LEmbeddedBitStruct(*subcons):
+    """an embedded BitStruct with little endian bit order. no name is necessary.
+    * subcons - the subcons that make up this structure
+    """
+    return Bitwise(Embedded(Struct(None, *subcons)), endian="little")
 
 #===============================================================================
 # strings

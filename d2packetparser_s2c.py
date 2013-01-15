@@ -652,23 +652,23 @@ s2c_packets = Struct(None,
                     xy16(),
                     ULInt8("life_percent"),
                     ULInt8("length_of_packet"),
-                    BitStruct("info",
-                        Nibble("animation_mode"),
+                    LBitStruct("info",
+                        LNibble("animation_mode"),
                         Flag("section2_exists"),
-                        Padding(3),
-#                        If(lambda ctx: ctx["section2_exists"],
-#                            BitField("npc_stats", lambda ctx: ctx["_"]["npc_type"]["stats_length"])
-#                        ),
-#                        Flag("section3_exists"),
-#                        If(lambda ctx: ctx["section3_exists"],
-#                            Struct("npc_flags",
-#                                Flag("champion"),
-#                                Flag("unique"),
-#                                Flag("super_unique"),
-#                                Flag("minion"),
-#                                Flag("ghostly")
-#                            )
-#                        )
+                        If(lambda ctx: ctx["section2_exists"],
+                            LBitField("npc_stats", lambda ctx: ctx["_"]["npc_type"]["stats_length"])
+                        ),
+                        Flag("section3_exists"),
+                        If(lambda ctx: ctx["section3_exists"],
+                            Struct("npc_flags",
+                                Flag("champion"),
+                                Flag("unique"),
+                                Flag("super_unique"),
+                                Flag("minion"),
+                                Flag("ghostly")
+                            )
+                        ),
+                        Padding(2),
                     )
 #                    Bytes("stats_list", lambda ctx: ctx.length_of_packet - 1 - 12)
                 ),
@@ -755,7 +755,54 @@ s2c_packets = Struct(None,
 
 
 if __name__ == "__main__":
-    #s = "ac 30 03 cd f1 b8 01 4a 27 9f 33 80 1b f1 41 a0 a1 01 10 49 88 d8 b0 00 88 b3 05"
-    #print(s2c_packets.parse(rev(s)))
-    print(BitStruct("yoba", Nibble("tst"), Padding(4), endian="big").parse(b"\xa1"))
-    print(BitStruct("yoba", Nibble("tst"), Padding(4), endian="little").parse(b"\xa1"))
+    #f1 41 a0 a1 01 10 49 88 d8 b0 00 88 b3 05
+    #1000 1111 1000 0010 0000 0101 1000 0101 1000 0000 0000 1000 1001 0010 0001 0001 0001 1011 0000 1101 0000 0000 0001 0001 1100 1101 1010 0000
+    #1000
+    #animation = 1
+    #     1
+    #section 2 exist
+    #48 bits padding
+    #      111 1000 0010 0000 0101 1000 0101 1000 0000 0000 1000 1001 0
+    #33 bits padding
+    #      111
+    s = "ac 30 03 cd f1 b8 01 4a 27 9f 33 80 1b f1 41 a0 a1 01 10 49 88 d8 b0 00 88 b3 05"
+    print(s2c_packets.parse(rev(s)))
+    print(rev(b'!28\xc8\xe8\x00\x00\x00\x00'))
+    print(rev(b'13\x94\x01\x11\x0f\x8axp\xa7\n\xbc\xea\xf9\xaa\xf0?\xcd?'))
+
+    #21 32 38 c8 e8 00 00 00 00
+    #
+    #1000 0100 0100 1100 0001 1100 0001 0011 0001 0111 0000 0000 0000 0000
+    #1000 - animation
+    #     0 - section 2 doesn't exists
+    #      1 - section 3 exists
+    #       0 - champion
+    #        0 - unique
+    #          0 - super unique
+    #           1 - minion
+    #            0 - ghostly
+    #             0 1100 000 - mode 1
+    #                       1 1100 000 - mode 2
+    #                                 1 0011 000 - mode 3
+    #                                           1 0111 000 - mode 4
+    #                                                     0 0000 000 - terminator
+
+    #31 33 94 01 11 0f 8a 78 70 a7 0a bc ea f9 aa f0 3f cd 3f
+    #1000 1100 1100 1100 0010 1001 1000 0000 1000 1000 1111 0000 0101 0001
+
+    '''bbb = BitStruct(None, Nibble("x"), Nibble("y"))
+    bbl = BitStruct(None, Nibble("x"), LNibble("y"))
+    blb = BitStruct(None, LNibble("x"), Nibble("y"))
+    bll = BitStruct(None, LNibble("x"), LNibble("y"))
+    lbb = LBitStruct(None, Nibble("x"), Nibble("y"))
+    lbl = LBitStruct(None, Nibble("x"), LNibble("y"))
+    llb = LBitStruct(None, LNibble("x"), Nibble("y"))
+    lll = LBitStruct(None, LNibble("x"), LNibble("y"))
+
+    src = b"\xa1"
+    print("source:", src)
+    for i in (bbb, bbl, blb, bll, lbb, lbl, llb, lll):
+        y = i.parse(b"\xa1")
+        print(y)
+        print(i.build(y))
+        print()'''

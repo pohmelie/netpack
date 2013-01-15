@@ -106,5 +106,6 @@ __all__ = [
     'SymmetricMapping', 'Terminator', 'TerminatorError', 'Tunnel',
     'TunnelAdapter', 'UBInt16', 'UBInt32', 'UBInt64', 'UBInt8', 'ULInt16',
     'ULInt32', 'ULInt64', 'ULInt8', 'UNInt16', 'UNInt32', 'UNInt64', 'UNInt8',
-    'Union', 'ValidationError', 'Validator', 'Value', "Magic",
+    'Union', 'ValidationError', 'Validator', 'Value', "Magic", "LBitStruct",
+    "LEmbeddedBitStruct", "LNibble", "LOctet", "LBitField", "LBitIntegerAdapter",
 ]

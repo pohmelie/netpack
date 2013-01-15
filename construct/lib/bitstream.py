@@ -8,7 +8,7 @@ class BitStreamReader(object):
         self._kw = kw
         self.substream = substream
         self.total_size = 0
-        self.buffer = ""
+        self.buffer = b""
 
     def close(self):
         if self.total_size % 8 != 0:
@@ -19,7 +19,7 @@ class BitStreamReader(object):
         return self.substream.tell()
 
     def seek(self, pos, whence = 0):
-        self.buffer = ""
+        self.buffer = b""
         self.total_size = 0
         self.substream.seek(pos, whence)
 
@@ -29,7 +29,7 @@ class BitStreamReader(object):
 
         l = len(self.buffer)
         if count == 0:
-            data = ""
+            data = b""
         elif count <= l:
             data = self.buffer[:count]
             self.buffer = self.buffer[count:]

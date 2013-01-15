@@ -95,13 +95,10 @@ for i in range(256):
     _char_to_bin["big"][i] = bin
     _bin_to_char["big"][bin] = ch
 
-    ch = int2byte(_reverse(i))
     bin = int_to_bin(_reverse(i), 8)
     _char_to_bin["little"][ch] = bin
     _char_to_bin["little"][i] = bin
     _bin_to_char["little"][bin] = ch
-
-print(_char_to_bin["big"][1], _char_to_bin["little"][1])
 
 def encode_bin(data, **kw):
     """
@@ -111,7 +108,6 @@ def encode_bin(data, **kw):
         >>> encode_bin('ab')
         b"\x00\x01\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x01\x00"
     """
-    print(data, kw)
     endian = kw.get("endian", "big")
     return b"".join(_char_to_bin[endian][ch] for ch in data)
 

@@ -25,43 +25,51 @@ class BitIntegerAdapter(Adapter):
     """
     Adapter for bit-integers (converts bitstrings to integers, and vice versa).
     See BitField.
-    
+
     Parameters:
     * subcon - the subcon to adapt
     * width - the size of the subcon, in bits
-    * swapped - whether to swap byte order (little endian/big endian). 
+    * swapped - whether to swap byte order (little endian/big endian).
       default is False (big endian)
     * signed - whether the value is signed (two's complement). the default
       is False (unsigned)
     * bytesize - number of bits per byte, used for byte-swapping (if swapped).
       default is 8.
     """
-    __slots__ = ["width", "swapped", "signed", "bytesize"]
-    def __init__(self, subcon, width, swapped = False, signed = False, 
-                 bytesize = 8):
+    __slots__ = ["width", "swapped", "signed", "bytesize", "_kw"]
+    def __init__(self, subcon, width, swapped = False, signed = False,
+                 bytesize = 8, **kw):
         Adapter.__init__(self, subcon)
         self.width = width
         self.swapped = swapped
         self.signed = signed
         self.bytesize = bytesize
+        self._kw = kw
+
     def _encode(self, obj, context):
         if obj < 0 and not self.signed:
             raise BitIntegerError("object is negative, but field is not signed",
                 obj)
-        obj2 = int_to_bin(obj, width = self.width)
+        obj2 = int_to_bin(obj, width = self.width, **self._kw)
         if self.swapped:
             obj2 = swap_bytes(obj2, bytesize = self.bytesize)
         return obj2
     def _decode(self, obj, context):
         if self.swapped:
             obj = swap_bytes(obj, bytesize = self.bytesize)
-        return bin_to_int(obj, signed = self.signed)
+        return bin_to_int(obj, signed = self.signed, **self._kw)
+
+class LBitIntegerAdapter(BitIntegerAdapter):
+    def __init__(self, subcon, width, swapped = False, signed = False,
+                 bytesize = 8):
+        BitIntegerAdapter.__init__(self, subcon, width, swapped, signed,
+            bytesize, endian="little")
 
 class MappingAdapter(Adapter):
     """
     Adapter that maps objects to other objects.
     See SymmetricMapping and Enum.
-    
+
     Parameters:
     * subcon - the subcon to map
     * decoding - the decoding (parsing) mapping (a dict)
@@ -74,7 +82,7 @@ class MappingAdapter(Adapter):
       if `Pass` is used, the unmapped object will be passed as-is
     """
     __slots__ = ["encoding", "decoding", "encdefault", "decdefault"]
-    def __init__(self, subcon, decoding, encoding, 
+    def __init__(self, subcon, decoding, encoding,
                  decdefault = NotImplemented, encdefault = NotImplemented):
         Adapter.__init__(self, subcon)
         self.decoding = decoding
@@ -107,7 +115,7 @@ class FlagsAdapter(Adapter):
     Adapter for flag fields. Each flag is extracted from the number, resulting
     in a FlagsContainer object. Not intended for direct usage.
     See FlagsEnum.
-    
+
     Parameters
     * subcon - the subcon to extract
     * flags - a dictionary mapping flag-names to their value
@@ -130,13 +138,13 @@ class FlagsAdapter(Adapter):
 
 class StringAdapter(Adapter):
     """
-    Adapter for strings. Converts a sequence of characters into a python 
+    Adapter for strings. Converts a sequence of characters into a python
     string, and optionally handles character encoding.
     See String.
-    
+
     Parameters:
     * subcon - the subcon to convert
-    * encoding - the character encoding name (e.g., "utf8"), or None to 
+    * encoding - the character encoding name (e.g., "utf8"), or None to
       return raw bytes (usually 8-bit ASCII).
     """
     __slots__ = ["encoding"]
@@ -156,21 +164,21 @@ class PaddedStringAdapter(Adapter):
     r"""
     Adapter for padded strings.
     See String.
-    
+
     Parameters:
     * subcon - the subcon to adapt
     * padchar - the padding character. default is "\x00".
-    * paddir - the direction where padding is placed ("right", "left", or 
-      "center"). the default is "right". 
-    * trimdir - the direction where trimming will take place ("right" or 
+    * paddir - the direction where padding is placed ("right", "left", or
+      "center"). the default is "right".
+    * trimdir - the direction where trimming will take place ("right" or
       "left"). the default is "right". trimming is only meaningful for
-      building, when the given string is too long. 
+      building, when the given string is too long.
     """
     __slots__ = ["padchar", "paddir", "trimdir"]
-    def __init__(self, subcon, padchar = "\x00", paddir = "right", 
+    def __init__(self, subcon, padchar = "\x00", paddir = "right",
                  trimdir = "right"):
         if paddir not in ("right", "left", "center"):
-            raise ValueError("paddir must be 'right', 'left' or 'center'", 
+            raise ValueError("paddir must be 'right', 'left' or 'center'",
                 paddir)
         if trimdir not in ("right", "left"):
             raise ValueError("trimdir must be 'right' or 'left'", trimdir)
@@ -203,10 +211,10 @@ class PaddedStringAdapter(Adapter):
 
 class LengthValueAdapter(Adapter):
     """
-    Adapter for length-value pairs. It extracts only the value from the 
+    Adapter for length-value pairs. It extracts only the value from the
     pair, and calculates the length based on the value.
     See PrefixedArray and PascalString.
-    
+
     Parameters:
     * subcon - the subcon returning a length-value pair
     """
@@ -219,12 +227,12 @@ class LengthValueAdapter(Adapter):
 class CStringAdapter(StringAdapter):
     r"""
     Adapter for C-style strings (strings terminated by a terminator char).
-    
+
     Parameters:
     * subcon - the subcon to convert
     * terminators - a sequence of terminator chars. default is "\x00".
     * encoding - the character encoding to use (e.g., "utf8"), or None to
-      return raw-bytes. the terminator characters are not affected by the 
+      return raw-bytes. the terminator characters are not affected by the
       encoding.
     """
     __slots__ = ["terminators"]
@@ -244,11 +252,11 @@ class TunnelAdapter(Adapter):
     to parse that data (bottom-up). For building it works in a top-down manner;
     first the upper layer builds the data, then the lower layer takes it and
     writes it to the stream.
-    
+
     Parameters:
     * subcon - the lower layer subcon
     * inner_subcon - the upper layer (tunneled/nested) subcon
-    
+
     Example:
     # a pascal string containing compressed data (zlib encoding), so first
     # the string is read, decompressed, and finally re-parsed as an array
@@ -272,18 +280,18 @@ class TunnelAdapter(Adapter):
 class ExprAdapter(Adapter):
     """
     A generic adapter that accepts 'encoder' and 'decoder' as parameters. You
-    can use ExprAdapter instead of writing a full-blown class when only a 
+    can use ExprAdapter instead of writing a full-blown class when only a
     simple expression is needed.
-    
+
     Parameters:
     * subcon - the subcon to adapt
-    * encoder - a function that takes (obj, context) and returns an encoded 
+    * encoder - a function that takes (obj, context) and returns an encoded
       version of obj
-    * decoder - a function that takes (obj, context) and returns an decoded 
+    * decoder - a function that takes (obj, context) and returns an decoded
       version of obj
-    
+
     Example:
-    ExprAdapter(UBInt8("foo"), 
+    ExprAdapter(UBInt8("foo"),
         encoder = lambda obj, ctx: obj / 4,
         decoder = lambda obj, ctx: obj * 4,
     )
@@ -311,11 +319,11 @@ class ConstAdapter(Adapter):
     """
     Adapter for enforcing a constant value ("magic numbers"). When decoding,
     the return value is checked; when building, the value is substituted in.
-    
+
     Parameters:
     * subcon - the subcon to validate
     * value - the expected value
-    
+
     Example:
     Const(Field("signature", 2), "MZ")
     """
@@ -336,7 +344,7 @@ class ConstAdapter(Adapter):
 class SlicingAdapter(Adapter):
     """
     Adapter for slicing a list (getting a slice from that list)
-    
+
     Parameters:
     * subcon - the subcon to slice
     * start - start index
@@ -358,7 +366,7 @@ class SlicingAdapter(Adapter):
 class IndexingAdapter(Adapter):
     """
     Adapter for indexing a list (getting a single item from that list)
-    
+
     Parameters:
     * subcon - the subcon to index
     * index - the index of the list to get
@@ -377,11 +385,11 @@ class IndexingAdapter(Adapter):
 class PaddingAdapter(Adapter):
     r"""
     Adapter for padding.
-    
+
     Parameters:
     * subcon - the subcon to pad
     * pattern - the padding pattern (character). default is "\x00"
-    * strict - whether or not to verify, during parsing, that the given 
+    * strict - whether or not to verify, during parsing, that the given
       padding matches the padding pattern. default is False (unstrict)
     """
     __slots__ = ["pattern", "strict"]
@@ -404,9 +412,9 @@ class PaddingAdapter(Adapter):
 #===============================================================================
 class Validator(Adapter):
     """
-    Abstract class: validates a condition on the encoded/decoded object. 
+    Abstract class: validates a condition on the encoded/decoded object.
     Override _validate(obj, context) in deriving classes.
-    
+
     Parameters:
     * subcon - the subcon to validate
     """
