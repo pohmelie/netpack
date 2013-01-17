@@ -212,53 +212,53 @@ class Connection():
         recalculatechecksums(ip)
         return deepcopy(_eth)
 
-_eth = Container(**{
-        'header': Container(**{
-            'source': '00-00-00-00-00-00',
-            'destination': '00-00-00-00-00-00',
-            'type': 'IPv4'}),
-        'next': Container(**{
-            'header': Container(**{
-                'header_length': 20,
-                'protocol': 'TCP',
-                'payload_length': 20,
-                'tos': Container(**{
-                    'minimize_cost': False,
-                    'high_throuput': False,
-                    'minimize_delay': False,
-                    'precedence': 0,
-                    'high_reliability': False}),
-                'frame_offset': 0,
-                'flags': Container(**{
-                    'dont_fragment': True,
-                    'more_fragments': False}),
-                'source': '0.0.0.0',
-                'destination': '0.0.0.0',
-                'version': 4,
-                'identification': 32768,
-                'ttl': 128,
-                'total_length': 40,
-                'checksum': 0,
-                'options': b''}),
-                'next': Container(**{
-                    'header': Container(**{
-                        'header_length': 20,
-                        'seq': 0,
-                        'urgent': 0,
-                        'ack': 0,
-                        'checksum': 0,
-                        'destination': 0,
-                        'source': 0,
-                        'window': 32768,
-                        'flags': Container(**{
-                            'ece': False,
-                            'urg': False,
-                            'ack': True,
-                            'cwr': False,
-                            'psh': True,
-                            'syn': False,
-                            'rst': False,
-                            'ns': False,
-                            'fin': False}),
-                        'options': b''}),
-                        'next': b''})})})
+_eth = Container(
+        header = Container(
+            source = '00-00-00-00-00-00',
+            destination = '00-00-00-00-00-00',
+            type = 'IPv4'),
+        next = Container(
+            header = Container(
+                header_length = 20,
+                protocol = 'TCP',
+                payload_length = 20,
+                tos = Container(
+                    minimize_cost = False,
+                    high_throuput = False,
+                    minimize_delay = False,
+                    precedence = 0,
+                    high_reliability = False),
+                frame_offset = 0,
+                flags = Container(
+                    dont_fragment = True,
+                    more_fragments = False),
+                source = '0.0.0.0',
+                destination = '0.0.0.0',
+                version = 4,
+                identification = 32768,
+                ttl = 128,
+                total_length = 40,
+                checksum = 0,
+                options = b''),
+                next = Container(
+                    header = Container(
+                        header_length = 20,
+                        seq = 0,
+                        urgent = 0,
+                        ack = 0,
+                        checksum = 0,
+                        destination = 0,
+                        source = 0,
+                        window = 32768,
+                        flags = Container(
+                            ece = False,
+                            urg = False,
+                            ack = True,
+                            cwr = False,
+                            psh = True,
+                            syn = False,
+                            rst = False,
+                            ns = False,
+                            fin = False),
+                        options = b''),
+                        next = b'')))
